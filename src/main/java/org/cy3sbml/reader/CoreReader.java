@@ -474,13 +474,18 @@ final class CoreReader implements PackageReader {
 
                 // edge to variable
                 if (ea.isSetVariable()) {
+                    AttributeUtil.set(network, eaNode, SBML.LABEL, ea.getVariable(), String.class);
+                    AttributeUtil.set(network, eaNode, SBML.ATTR_VARIABLE, ea.getVariable(), String.class);
                     Variable variable = ea.getVariableInstance();
-                    CyNode variableNode =
-                            context.nodeByMetaId(variable.getMetaId()).orElse(null);
-                    AttributeUtil.set(network, eaNode, SBML.LABEL, variable.getId(), String.class);
-                    AttributeUtil.set(network, eaNode, SBML.ATTR_VARIABLE, variable.getId(), String.class);
+                    CyNode variableNode = variable == null
+                            ? null
+                            : context.nodeByMetaId(variable.getMetaId()).orElse(null);
 
-                    if (variableNode != null) {
+                    if (variable == null) {
+                        logger.error(String.format(
+                                "Variable does not exist for EventAssignment: %s for %s",
+                                ea.getVariable(), event.getId()));
+                    } else if (variableNode != null) {
                         context.createEdge(variableNode, eaNode, SBML.INTERACTION_VARIABLE_EVENT_ASSIGNMENT);
                     } else {
                         //  An assignment rule can refer to the identifier of a Species, SpeciesReference,

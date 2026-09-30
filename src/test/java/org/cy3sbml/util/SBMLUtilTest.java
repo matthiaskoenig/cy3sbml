@@ -4,13 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.SBML;
 import org.cy3sbml.gui.SBaseHTMLFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.ext.comp.Port;
 import org.sbml.jsbml.ext.fbc.FBCConstants;
@@ -73,6 +80,53 @@ class SBMLUtilTest {
         law.setMath(new ASTNode(1.0));
         LocalParameter lp = law.createLocalParameter("k1");
         lp.setValue(1.0);
+    }
+
+    private static final String MINIMAL_SBML = """
+            <sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+              <model id="m"/>
+            </sbml>
+            """;
+
+    private static boolean isSBML(String content, Charset charset) throws XMLStreamException {
+        return SBMLUtil.isSBML(new ByteArrayInputStream(content.getBytes(charset)));
+    }
+
+    @Test
+    void isSBMLAfterALongHeader() throws XMLStreamException {
+        String sbml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n" + "license header line\n".repeat(1000)
+                + "-->\n" + MINIMAL_SBML;
+        assertTrue(isSBML(sbml, StandardCharsets.UTF_8));
+    }
+
+    @Test
+    void isSBMLInUtf16() throws XMLStreamException {
+        String sbml = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n" + MINIMAL_SBML;
+        assertTrue(isSBML(sbml, StandardCharsets.UTF_16));
+    }
+
+    @Test
+    void isSBMLOfSbmlLevel1() throws XMLStreamException {
+        assertTrue(isSBML(
+                "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" level=\"1\" version=\"2\"/>", StandardCharsets.UTF_8));
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+            strings = {
+                "<!DOCTYPE html>\n<html><body>a login page, http://www.sbml.org/sbml/level3</body></html>",
+                "<sbml level=\"3\" version=\"1\"/>",
+                "<model xmlns=\"http://www.sbml.org/sbml/level3/version1/core\"/>",
+                "<!DOCTYPE sbml SYSTEM \"http://example.org/sbml.dtd\"><other/>",
+            })
+    void isNoSBML(String content) throws XMLStreamException {
+        assertFalse(isSBML(content, StandardCharsets.UTF_8));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"not xml", "", "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level"})
+    void isSBMLFailsWithoutRootElement(String content) {
+        assertThrows(XMLStreamException.class, () -> isSBML(content, StandardCharsets.UTF_8));
     }
 
     @Test

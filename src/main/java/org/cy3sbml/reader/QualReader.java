@@ -9,6 +9,7 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.ext.qual.FunctionTerm;
 import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
@@ -47,8 +48,15 @@ final class QualReader implements PackageReader {
                 AttributeUtil.set(network, n, SBML.ATTR_COMPARTMENT, qSpecies.getCompartment(), String.class);
                 // edge to compartment
                 Compartment comp = qSpecies.getCompartmentInstance();
-                CyNode compNode = context.nodeByMetaId(comp.getMetaId()).orElse(null);
-                context.createEdge(n, compNode, SBML.INTERACTION_SPECIES_COMPARTMENT);
+                if (comp != null) {
+                    CyNode compNode = context.nodeByMetaId(comp.getMetaId()).orElse(null);
+                    context.createEdge(n, compNode, SBML.INTERACTION_SPECIES_COMPARTMENT);
+                } else {
+                    logger.error(
+                            "Compartment does not exist for QualitativeSpecies: {} for {}",
+                            qSpecies.getCompartment(),
+                            qSpecies.getId());
+                }
             }
             if (qSpecies.isSetConstant()) {
                 AttributeUtil.set(network, n, SBML.ATTR_CONSTANT, qSpecies.getConstant(), Boolean.class);
@@ -67,25 +75,23 @@ final class QualReader implements PackageReader {
 
             // Inputs
             for (Input input : transition.getListOfInputs()) {
-                String qSpeciesId = input.getQualitativeSpecies();
-                QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesId);
-
-                CyNode inNode = context.nodeByMetaId(qSpecies.getMetaId()).orElse(null);
+                CyNode inNode = qualitativeSpeciesNode(context, qualModel, input.getQualitativeSpecies(), input);
+                if (inNode == null) {
+                    continue;
+                }
                 CyEdge e = context.createEdge(n, inNode, SBML.INTERACTION_QUAL_TRANSITION_INPUT);
 
-                // required (no checking of required -> NullPointerException risk)
+                // required
                 AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_TRANSITION_EFFECT,
-                        input.getTransitionEffect().toString(),
-                        String.class);
-                AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
-                        input.getQualitativeSpecies().toString(),
-                        String.class);
+                        network, e, SBML.ATTR_QUAL_QUALITATIVE_SPECIES, input.getQualitativeSpecies(), String.class);
+                if (input.isSetTransitionEffect()) {
+                    AttributeUtil.set(
+                            network,
+                            e,
+                            SBML.ATTR_QUAL_TRANSITION_EFFECT,
+                            input.getTransitionEffect().toString(),
+                            String.class);
+                }
                 // optional
                 if (input.isSetId()) {
                     AttributeUtil.set(network, e, SBML.ATTR_ID, input.getId(), String.class);
@@ -111,24 +117,23 @@ final class QualReader implements PackageReader {
 
             // Outputs
             for (Output output : transition.getListOfOutputs()) {
-                String qSpeciesString = output.getQualitativeSpecies();
-                QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesString);
-                CyNode outNode = context.nodeByMetaId(qSpecies.getMetaId()).orElse(null);
+                CyNode outNode = qualitativeSpeciesNode(context, qualModel, output.getQualitativeSpecies(), output);
+                if (outNode == null) {
+                    continue;
+                }
                 CyEdge e = context.createEdge(n, outNode, SBML.INTERACTION_QUAL_TRANSITION_OUTPUT);
 
                 // required
                 AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
-                        output.getQualitativeSpecies().toString(),
-                        String.class);
-                AttributeUtil.set(
-                        network,
-                        e,
-                        SBML.ATTR_QUAL_TRANSITION_EFFECT,
-                        output.getTransitionEffect().toString(),
-                        String.class);
+                        network, e, SBML.ATTR_QUAL_QUALITATIVE_SPECIES, output.getQualitativeSpecies(), String.class);
+                if (output.isSetTransitionEffect()) {
+                    AttributeUtil.set(
+                            network,
+                            e,
+                            SBML.ATTR_QUAL_TRANSITION_EFFECT,
+                            output.getTransitionEffect().toString(),
+                            String.class);
+                }
                 // optional
                 if (output.isSetId()) {
                     AttributeUtil.set(network, e, SBML.ATTR_ID, output.getId(), String.class);
@@ -156,5 +161,21 @@ final class QualReader implements PackageReader {
                 AttributeUtil.setList(network, n, SBML.ATTR_QUAL_RESULT_LEVELS, resultLevels, Integer.class);
             }
         }
+    }
+
+    /**
+     * Returns the node of the qualitative species with the given id that an input or output
+     * of a transition references, or {@code null} (logged) if it does not exist.
+     */
+    private static CyNode qualitativeSpeciesNode(
+            ConversionContext context, QualModelPlugin qualModel, String qSpeciesId, SBase element) {
+        QualitativeSpecies qSpecies = qualModel.getQualitativeSpecies(qSpeciesId);
+        CyNode node = qSpecies == null
+                ? null
+                : context.nodeByMetaId(qSpecies.getMetaId()).orElse(null);
+        if (node == null) {
+            logger.error("QualitativeSpecies does not exist for {}: {}", element.getElementName(), qSpeciesId);
+        }
+        return node;
     }
 }

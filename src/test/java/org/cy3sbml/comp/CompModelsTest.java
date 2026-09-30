@@ -5,12 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import java.io.File;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import org.cy3sbml.comp.ModelResolution.Failed;
 import org.cy3sbml.comp.ModelResolution.Resolved;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.ext.comp.CompConstants;
@@ -18,6 +24,7 @@ import org.sbml.jsbml.ext.comp.CompModelPlugin;
 import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
 import org.sbml.jsbml.ext.comp.ExternalModelDefinition;
 import org.sbml.jsbml.ext.comp.Submodel;
+import org.slf4j.LoggerFactory;
 
 class CompModelsTest {
 
@@ -162,6 +169,57 @@ class CompModelsTest {
         assertEquals("ext_main", resolved.model().getId());
     }
 
+    /** The md5 warnings that the action logs on the calling thread (test classes run in parallel). */
+    private static List<String> md5Warnings(Executable action) throws Throwable {
+        Logger logger = (Logger) LoggerFactory.getLogger(CompModels.class);
+        ListAppender<ILoggingEvent> appender = new ListAppender<>();
+        appender.start();
+        logger.addAppender(appender);
+        String thread = Thread.currentThread().getName();
+        try {
+            action.execute();
+        } finally {
+            logger.detachAppender(appender);
+        }
+        return appender.list.stream()
+                .filter(e -> e.getThreadName().equals(thread) && e.getLevel().isGreaterOrEqual(Level.WARN))
+                .map(ILoggingEvent::getFormattedMessage)
+                .filter(message -> message.contains("md5"))
+                .toList();
+    }
+
+    /** The md5 is checked once per external model definition, not for every reference. */
+    @Test
+    void logsDifferentMd5Once() throws Throwable {
+        SBMLDocument document = read("/models/comp/unit/top.xml");
+        CompModels models = new CompModels(document);
+
+        List<String> warnings = md5Warnings(() -> {
+            resolved(models.resolve(document, "md5"));
+            resolved(models.resolve(document, "md5"));
+        });
+
+        assertEquals(1, warnings.size(), warnings::toString);
+    }
+
+    /**
+     * A source that is an open document (of a restored session) was not read from its file,
+     * so there is no checksum to compare with the md5 of the definition.
+     */
+    @Test
+    void doesNotCheckMd5OfOpenDocument() throws Throwable {
+        SBMLDocument document = read("/models/comp/unit/top.xml");
+        SBMLDocument ext = read("/models/comp/unit/ext.xml");
+        CompModels models = new CompModels(document, Map.of(new URI(ext.getLocationURI()), ext));
+
+        List<String> warnings = md5Warnings(() -> {
+            Resolved resolved = resolved(models.resolve(document, "md5"));
+            assertSame(ext, resolved.document());
+        });
+
+        assertEquals(List.of(), warnings);
+    }
+
     @Test
     void listsEveryExternalModelDefinitionOnce() throws Exception {
         SBMLDocument document = read("/models/comp/unit/top.xml");
@@ -183,6 +241,19 @@ class CompModelsTest {
                 .getExternalModelDefinition("inner");
 
         assertEquals(URI.create("https://example.org/models/sub/ext2.xml"), CompModels.sourceUri(definition));
+    }
+
+    /** An external file with a long comment before the root element is SBML. */
+    @Test
+    void resolvesSourceWithLongHeader() throws Exception {
+        SBMLDocument document = read("/models/comp/unit/top.xml");
+        CompSBMLDocumentPlugin plugin = (CompSBMLDocumentPlugin) document.getExtension(CompConstants.shortLabel);
+        ExternalModelDefinition definition = plugin.createExternalModelDefinition("long_header");
+        definition.setSource("ext_long_header.xml");
+
+        Resolved resolved = resolved(new CompModels(document).resolve(document, "long_header"));
+
+        assertEquals("ext_main", resolved.model().getId());
     }
 
     /** An external file that is no SBML, e.g. the HTML page of a proxy, is a failure with a reason. */

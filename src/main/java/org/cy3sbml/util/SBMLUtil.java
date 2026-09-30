@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import org.cy3sbml.SBML;
 import org.cy3sbml.comp.CompTargets;
 import org.cy3sbml.comp.ModelResolution;
@@ -54,6 +57,40 @@ import org.w3c.dom.NodeList;
  */
 public class SBMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(SBMLUtil.class);
+
+    /** The start of the namespace of SBML core, followed by the level and version. */
+    private static final String SBML_NAMESPACE_PREFIX = "http://www.sbml.org/sbml/level";
+
+    /**
+     * Checks if the stream is an SBML file: XML whose root element is an {@code sbml} element
+     * in an SBML core namespace. Reads the stream up to the root element only, in the
+     * encoding of the XML declaration, and skips comments, processing instructions and a
+     * document type declaration before it (without loading the DTD). The stream belongs
+     * to the caller and is not closed.
+     *
+     * @throws XMLStreamException if the stream is no XML up to the root element, e.g. it
+     *     ends before the root element is complete
+     */
+    public static boolean isSBML(InputStream stream) throws XMLStreamException {
+        XMLInputFactory factory = XMLInputFactory.newDefaultFactory();
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+        factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        // does not close the stream
+        XMLStreamReader reader = factory.createXMLStreamReader(stream);
+        try {
+            while (reader.hasNext()) {
+                if (reader.next() == XMLStreamConstants.START_ELEMENT) {
+                    String namespace = reader.getNamespaceURI();
+                    return "sbml".equals(reader.getLocalName())
+                            && namespace != null
+                            && namespace.startsWith(SBML_NAMESPACE_PREFIX);
+                }
+            }
+            return false;
+        } finally {
+            reader.close();
+        }
+    }
 
     /**
      * Reads the SBMLDocument of a classpath resource.

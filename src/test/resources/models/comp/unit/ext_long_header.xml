@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  An external model with a license header longer than 4 KB before the root element.
+  License header line 000: the file is used in the tests of cy3sbml.
+  License header line 001: the file is used in the tests of cy3sbml.
+  License header line 002: the file is used in the tests of cy3sbml.
+  License header line 003: the file is used in the tests of cy3sbml.
+  License header line 004: the file is used in the tests of cy3sbml.
+  License header line 005: the file is used in the tests of cy3sbml.
+  License header line 006: the file is used in the tests of cy3sbml.
+  License header line 007: the file is used in the tests of cy3sbml.
+  License header line 008: the file is used in the tests of cy3sbml.
+  License header line 009: the file is used in the tests of cy3sbml.
+  License header line 010: the file is used in the tests of cy3sbml.
+  License header line 011: the file is used in the tests of cy3sbml.
+  License header line 012: the file is used in the tests of cy3sbml.
+  License header line 013: the file is used in the tests of cy3sbml.
+  License header line 014: the file is used in the tests of cy3sbml.
+  License header line 015: the file is used in the tests of cy3sbml.
+  License header line 016: the file is used in the tests of cy3sbml.
+  License header line 017: the file is used in the tests of cy3sbml.
+  License header line 018: the file is used in the tests of cy3sbml.
+  License header line 019: the file is used in the tests of cy3sbml.
+  License header line 020: the file is used in the tests of cy3sbml.
+  License header line 021: the file is used in the tests of cy3sbml.
+  License header line 022: the file is used in the tests of cy3sbml.
+  License header line 023: the file is used in the tests of cy3sbml.
+  License header line 024: the file is used in the tests of cy3sbml.
+  License header line 025: the file is used in the tests of cy3sbml.
+  License header line 026: the file is used in the tests of cy3sbml.
+  License header line 027: the file is used in the tests of cy3sbml.
+  License header line 028: the file is used in the tests of cy3sbml.
+  License header line 029: the file is used in the tests of cy3sbml.
+  License header line 030: the file is used in the tests of cy3sbml.
+  License header line 031: the file is used in the tests of cy3sbml.
+  License header line 032: the file is used in the tests of cy3sbml.
+  License header line 033: the file is used in the tests of cy3sbml.
+  License header line 034: the file is used in the tests of cy3sbml.
+  License header line 035: the file is used in the tests of cy3sbml.
+  License header line 036: the file is used in the tests of cy3sbml.
+  License header line 037: the file is used in the tests of cy3sbml.
+  License header line 038: the file is used in the tests of cy3sbml.
+  License header line 039: the file is used in the tests of cy3sbml.
+  License header line 040: the file is used in the tests of cy3sbml.
+  License header line 041: the file is used in the tests of cy3sbml.
+  License header line 042: the file is used in the tests of cy3sbml.
+  License header line 043: the file is used in the tests of cy3sbml.
+  License header line 044: the file is used in the tests of cy3sbml.
+  License header line 045: the file is used in the tests of cy3sbml.
+  License header line 046: the file is used in the tests of cy3sbml.
+  License header line 047: the file is used in the tests of cy3sbml.
+  License header line 048: the file is used in the tests of cy3sbml.
+  License header line 049: the file is used in the tests of cy3sbml.
+  License header line 050: the file is used in the tests of cy3sbml.
+  License header line 051: the file is used in the tests of cy3sbml.
+  License header line 052: the file is used in the tests of cy3sbml.
+  License header line 053: the file is used in the tests of cy3sbml.
+  License header line 054: the file is used in the tests of cy3sbml.
+  License header line 055: the file is used in the tests of cy3sbml.
+  License header line 056: the file is used in the tests of cy3sbml.
+  License header line 057: the file is used in the tests of cy3sbml.
+  License header line 058: the file is used in the tests of cy3sbml.
+  License header line 059: the file is used in the tests of cy3sbml.
+  License header line 060: the file is used in the tests of cy3sbml.
+  License header line 061: the file is used in the tests of cy3sbml.
+  License header line 062: the file is used in the tests of cy3sbml.
+  License header line 063: the file is used in the tests of cy3sbml.
+  License header line 064: the file is used in the tests of cy3sbml.
+  License header line 065: the file is used in the tests of cy3sbml.
+  License header line 066: the file is used in the tests of cy3sbml.
+  License header line 067: the file is used in the tests of cy3sbml.
+  License header line 068: the file is used in the tests of cy3sbml.
+  License header line 069: the file is used in the tests of cy3sbml.
+  License header line 070: the file is used in the tests of cy3sbml.
+  License header line 071: the file is used in the tests of cy3sbml.
+  License header line 072: the file is used in the tests of cy3sbml.
+  License header line 073: the file is used in the tests of cy3sbml.
+  License header line 074: the file is used in the tests of cy3sbml.
+  License header line 075: the file is used in the tests of cy3sbml.
+  License header line 076: the file is used in the tests of cy3sbml.
+  License header line 077: the file is used in the tests of cy3sbml.
+  License header line 078: the file is used in the tests of cy3sbml.
+  License header line 079: the file is used in the tests of cy3sbml.
+-->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="ext_main">
+    <listOfParameters>
+      <parameter id="p_ext" value="1" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>

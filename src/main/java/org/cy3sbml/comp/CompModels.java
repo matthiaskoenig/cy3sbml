@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -23,6 +22,7 @@ import javax.xml.stream.XMLStreamException;
 import org.cy3sbml.comp.ModelResolution.Failed;
 import org.cy3sbml.comp.ModelResolution.Resolved;
 import org.cy3sbml.util.HttpJson;
+import org.cy3sbml.util.SBMLUtil;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
@@ -50,15 +50,14 @@ public final class CompModels {
     /** Base of the sources of a document without location, to detect relative sources. */
     private static final URI UNKNOWN_LOCATION = URI.create("unknown-location:/");
 
-    /** Start of the namespaces of all SBML levels and versions. */
-    private static final String SBML_NAMESPACE = "http://www.sbml.org/sbml/";
-
     private final SBMLDocument document;
     // documents read from the sources, and the reasons of the sources that could not be read
     private final Map<URI, SBMLDocument> documents = new HashMap<>();
     private final Map<URI, String> failures = new HashMap<>();
     // md5 checksums of the sources
     private final Map<URI, String> md5s = new HashMap<>();
+    // the external model definitions whose md5 was checked, by identity
+    private final Set<ExternalModelDefinition> md5Checked = Collections.newSetFromMap(new IdentityHashMap<>());
     // the reason of the last failed read that is not remembered
     private String lastFailure;
     // the document and the documents read, by identity (JSBML's equals compares the content)
@@ -249,9 +248,8 @@ public final class CompModels {
         boolean permanent = true;
         try {
             byte[] content = read(source);
-            if (!new String(content, 0, Math.min(content.length, 4096), StandardCharsets.UTF_8)
-                    .contains(SBML_NAMESPACE)) {
-                throw new XMLStreamException("the file has no SBML namespace");
+            if (!SBMLUtil.isSBML(new ByteArrayInputStream(content))) {
+                throw new XMLStreamException("the root element is no sbml element");
             }
             md5s.put(source, md5(content));
             SBMLDocument loaded = new SBMLReader().readSBMLFromStream(new ByteArrayInputStream(content));
@@ -298,10 +296,19 @@ public final class CompModels {
         }
     }
 
-    /** Logs if the md5 checksum of the source differs from the one in the definition. */
+    /**
+     * Logs once per definition if the md5 checksum of the source differs from the one in
+     * the definition. A source that was not read from its file (this document or an open
+     * document) has no checksum and is not checked.
+     */
     private void checkMd5(ExternalModelDefinition definition, URI source) {
+        if (!md5Checked.add(definition)) {
+            return;
+        }
         String md5 = md5s.get(source);
-        if (!definition.getMd5().equalsIgnoreCase(md5)) {
+        if (md5 == null) {
+            logger.debug("No md5 checksum of {} to check, it was not read from its file.", source);
+        } else if (!definition.getMd5().equalsIgnoreCase(md5)) {
             logger.warn(
                     "The md5 checksum of {} is {}, not {} as the external model definition '{}' says. "
                             + "The file may have changed.",
