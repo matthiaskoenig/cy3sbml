@@ -31,6 +31,23 @@ public class SearchContentTest {
         assertEquals(List.of("König", "Bölling", "glucose", "liver"), content.getNames());
     }
 
+    /**
+     * The characters of the search syntax separate terms, so a search for "glycolysis ("
+     * finds the models of glycolysis instead of nothing; wildcards stay in the terms.
+     */
+    @Test
+    public void searchSyntaxSeparatesTheTerms() {
+        SearchContent content = new SearchContent(Map.of(
+                SearchContent.CONTENT_NAME,
+                "glycolysis ( insulin \"liver\" [x] {y} a^b~c!d\\e/f+g gluc* h?x",
+                SearchContent.CONTENT_MODE,
+                SearchContent.CONNECT_AND));
+
+        assertEquals(
+                List.of("glycolysis", "insulin", "liver", "x", "y", "a", "b", "c", "d", "e", "f", "g", "gluc*", "h?x"),
+                content.getNames());
+    }
+
     @Test
     public void hasNoNamesForParsedIds() {
         SearchContent content = new SearchContent(Map.of(SearchContent.CONTENT_MODE, SearchContent.PARSED_IDS));
