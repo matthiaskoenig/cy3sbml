@@ -12,7 +12,12 @@ import org.sbml.jsbml.SBase;
 public class AnnotationUtil {
 
     /**
-     * Parses the CV-terms into properties.
+     * The identifiers of the resources of the CV terms by the namespace of their data
+     * collection, e.g. {@code chebi -> CHEBI:17234}; of several resources of a collection
+     * the last one.
+     *
+     * @param sbase the SBase
+     * @return the identifiers by namespace, empty without annotation
      */
     public static Properties parseCVTerms(SBase sbase) {
         Properties props = new Properties();

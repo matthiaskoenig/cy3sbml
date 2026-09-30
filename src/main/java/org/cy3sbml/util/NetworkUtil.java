@@ -16,39 +16,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Utils for working with networks.
+ * Helpers for the networks of a collection: the root network, the subnetworks, and the
+ * selection of nodes.
  */
 public class NetworkUtil {
     private static final Logger logger = LoggerFactory.getLogger(NetworkUtil.class);
 
     /**
-     * Get SUID of root network.
-     * Returns null if the network is null.
+     * The SUID of the root network of the network.
+     *
+     * @param network a subnetwork, may be null
+     * @return the root network SUID, null if the network is null
      */
     public static Long getRootNetworkSUID(CyNetwork network) {
-        Long suid = null;
-        if (network != null) {
-            CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-            suid = rootNetwork.getSUID();
-        }
-        return suid;
+        return network == null
+                ? null
+                : ((CySubNetwork) network).getRootNetwork().getSUID();
     }
 
     /**
-     * Get rootNetwork for given network.
+     * The root network of the network.
+     *
+     * @param network a subnetwork, may be null
+     * @return the root network, null if the network is null
      */
     public static CyNetwork getRootNetwork(CyNetwork network) {
-        CyNetwork rootNetwork = null;
-        if (network != null) {
-            rootNetwork = ((CySubNetwork) network).getRootNetwork();
-        }
-        return rootNetwork;
+        return network == null ? null : ((CySubNetwork) network).getRootNetwork();
     }
 
     /**
-     * Check if network is an SBMLNetwork.
-     * This uses a attribute in the network table to check the type of the network.
-     * It does not require that the network is in the mapping.
+     * Whether the network was created by cy3sbml: its network table has the SBML network
+     * type column. It does not require that the network is in the mapping.
+     *
+     * @param cyNetwork the network
+     * @return true for an SBML network
      */
     public static boolean isSBMLNetwork(CyNetwork cyNetwork) {
         // true if the attribute column exists
@@ -122,27 +123,34 @@ public class NetworkUtil {
     // ------------------------------------------------------------
 
     /**
-     * Select node by metaId.
+     * Selects the node with the cyId (metaId), unselecting all other nodes.
+     *
+     * @param network the network
+     * @param metaId the cyId of the node
      */
     public static void selectByMetaId(CyNetwork network, String metaId) {
-        logger.info(String.format("Select node for metaId: %s", metaId));
-
+        logger.debug("Select node for metaId: {}", metaId);
         CyNode node = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_CYID, metaId);
         selectNodeInNetwork(network, node);
     }
 
     /**
-     * Select node by id.
+     * Selects the node with the SBML id, unselecting all other nodes.
+     *
+     * @param network the network
+     * @param id the SBML id of the node
      */
     public static void selectById(CyNetwork network, String id) {
-        logger.info(String.format("Select node for id: %s", id));
+        logger.debug("Select node for id: {}", id);
         CyNode node = AttributeUtil.getNodeByAttribute(network, SBML.ATTR_ID, id);
         selectNodeInNetwork(network, node);
     }
 
     /**
-     * Selects given node in network.
-     * Unselects all other nodes.
+     * Selects the node in the network, unselecting all other nodes. Does nothing for null.
+     *
+     * @param network the network
+     * @param node the node, may be null
      */
     public static void selectNodeInNetwork(CyNetwork network, CyNode node) {
         if (node != null) {
@@ -151,8 +159,6 @@ public class NetworkUtil {
             for (CyNode n : nodes) {
                 AttributeUtil.set(network, n, CyNetwork.SELECTED, false, Boolean.class);
             }
-            // select node
-            logger.info("selected node");
             AttributeUtil.set(network, node, CyNetwork.SELECTED, true, Boolean.class);
         }
     }
