@@ -25,36 +25,49 @@ import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.api.io.TempDir;
 
 class BrowserHyperlinkListenerTest {
 
-    private static final File APP_DIRECTORY = new File("/opt/cy3sbml/app");
+    @TempDir
+    static File appDirectory;
+
+    /** The location of a file relative to the app directory, as {@link File#toURI()} gives it ({@code file:/}). */
+    private static String fileUri(String path) {
+        return new File(appDirectory, path).toURI().toString();
+    }
+
+    /** The location in the form WebKit reports ({@code file:///}). */
+    private static String webKitUri(String path) {
+        return fileUri(path).replaceFirst("^file:/+", "file:///");
+    }
 
     /** The panel shows its HTML text and the bundled pages in the app directory. */
-    @ParameterizedTest
-    @ValueSource(
-            strings = {"", "about:blank", "file:///opt/cy3sbml/app/gui/help.html", "file:/opt/cy3sbml/app/gui/x.html"})
-    void panelLocations(String location) {
-        assertTrue(BrowserHyperlinkListener.isPanelLocation(location, APP_DIRECTORY), location);
+    @Test
+    void panelLocations() {
+        for (String location : List.of(
+                "", "about:blank", fileUri("gui/help.html"), webKitUri("gui/help.html"), webKitUri("gui/x.html"))) {
+            assertTrue(BrowserHyperlinkListener.isPanelLocation(location, appDirectory), location);
+        }
     }
 
     /** Any other page, e.g. of a meta refresh in the notes of a model, is not shown. */
-    @ParameterizedTest
-    @ValueSource(
-            strings = {
+    @Test
+    void otherLocations() {
+        String sibling = new File(appDirectory.getParentFile(), appDirectory.getName() + "-other/x.html")
+                .toURI()
+                .toString();
+        for (String location : List.of(
                 "https://cy3sbml-help/",
                 "https://example.org/",
                 "data:text/html,x",
-                "file:///etc/passwd",
-                "file:///opt/cy3sbml/app/../../../etc/passwd",
-                "file:///opt/cy3sbml/application/x.html",
+                webKitUri("../outside.html"),
+                webKitUri("gui/../../outside.html"),
+                sibling,
                 "file://server/share/x.html",
-                "not a uri"
-            })
-    void otherLocations(String location) {
-        assertFalse(BrowserHyperlinkListener.isPanelLocation(location, APP_DIRECTORY), location);
+                "not a uri")) {
+            assertFalse(BrowserHyperlinkListener.isPanelLocation(location, appDirectory), location);
+        }
     }
 
     @Test
