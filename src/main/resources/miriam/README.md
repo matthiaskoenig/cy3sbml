@@ -1,6 +1,12 @@
 # MIRIAM registry
-Offline file version of the MIRIAM registry available as XML export from
-https://www.ebi.ac.uk/miriam/main/export/
+Offline copy of the MIRIAM registry of identifiers.org, the JSON of the resolution API
+https://registry.api.identifiers.org/resolutionApi/getResolverDataset
 
-The online version of this file is available at
-https://www.ebi.ac.uk/miriam/main/export/xml/
+`MiriamRegistry` starts with this copy and replaces it with the current registry from that
+URL in the background once the download succeeds. To update the copy, download the URL into
+`MiriamRegistry.json`:
+
+```bash
+curl -sSf -o src/main/resources/miriam/MiriamRegistry.json \
+  https://registry.api.identifiers.org/resolutionApi/getResolverDataset
+```
