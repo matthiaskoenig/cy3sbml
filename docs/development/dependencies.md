@@ -11,8 +11,9 @@ dependency is updated.
 | OSGi API (`org.osgi:*`) | Maven Central, `provided` scope | Minor and patch versions by Dependabot. Major versions by hand, they must match the OSGi framework of Cytoscape (R7 in Cytoscape 3.10) |
 | JSBML and its package modules | Built from source into `lib/cy3sbml-dep` | [Update JSBML](#update-jsbml) |
 | jtidy (`cy3sbml-dep:jtidy:r938`) | `lib/cy3sbml-dep`, the HTML Tidy library used by `jsbml-tidy` | By hand, the version JSBML builds with |
-| GitHub Actions | GitHub | Dependabot pull requests, weekly |
-| Python helpers (`tools/`) | PyPI, locked in `tools/uv.lock` | Dependabot pull requests, weekly |
+| GitHub Actions | GitHub, pinned to commit SHAs | Dependabot pull requests, weekly |
+| Python helpers (`tools/`) and examples (`examples/python`) | PyPI, locked in `tools/uv.lock` and `examples/python/uv.lock` | Dependabot pull requests, weekly |
+| Documentation build (zensical) | PyPI, pinned in `docs/requirements.txt` | Dependabot pull requests, weekly |
 
 The repositories are Maven Central, the two NRNB repositories and `lib/cy3sbml-dep`.
 The build fails for SNAPSHOT dependencies, duplicate classes, a Java older than 17 and a
@@ -34,10 +35,10 @@ The jars are built from one JSBML commit instead:
   `jsbml-distrib` and `jsbml-tidy`. Each holds the jar, a POM without dependencies, and
   their SHA-1 checksums.
 - The property `jsbml.version` in `pom.xml` pins the commit, as
-  `<JSBML version>-<commit date>-<short sha>`. For example `1.7-20260929-565932ac` is
-  commit [`565932ac`](https://github.com/matthiaskoenig/jsbml/commit/565932ac) of
+  `<JSBML version>-<commit date>-<short sha>`. For example `1.7-20260929-7b28ca71` is
+  commit [`7b28ca71`](https://github.com/matthiaskoenig/jsbml/commit/7b28ca71) of
   2026-09-29. The property `jsbml.osgi.version` holds the same version as an OSGi
-  version (`1.7.0.20260929-565932ac`). The app exports the `org.sbml.jsbml.*` packages
+  version (`1.7.0.20260929-7b28ca71`). The app exports the `org.sbml.jsbml.*` packages
   with this version, because JSBML types are part of the `SBMLManager` service API.
 - The jars contain no test classes. JSBML's Ant build puts its JUnit test classes and
   test data into the jars, next to the production classes, and the update script
@@ -50,9 +51,9 @@ The jars are built from one JSBML commit instead:
 
 ### Current pin: JSBML fork
 
-The pinned commit `565932ac` is on the branch
+The pinned commit `7b28ca71` is on the branch
 [`cy3sbml`](https://github.com/matthiaskoenig/jsbml/tree/cy3sbml) of the fork
-`matthiaskoenig/jsbml`: the changes of four branches on top of JSBML `master` (`8192a8a7`):
+`matthiaskoenig/jsbml`: the changes of six branches on top of JSBML `master` (`8192a8a7`):
 
 - the branch [`comp-fixes`](https://github.com/matthiaskoenig/jsbml/tree/comp-fixes)
   (`f9d33e50`) rewrites the flattening of hierarchical models (`CompFlatteningConverter`)
@@ -79,6 +80,15 @@ The pinned commit `565932ac` is on the branch
   (on top of `comp-fixes` and `distrib-fixes`) renames the references of the distrib
   package (`var`, `varLower`, `varUpper`, `units`) in the flattening of hierarchical models,
   proposed to JSBML in [sbmlteam/jsbml#327](https://github.com/sbmlteam/jsbml/pull/327)
+- the branch [`fbc-v3`](https://github.com/matthiaskoenig/jsbml/tree/fbc-v3) supports
+  fbc version 3 (user defined constraints, variable types, key-value pairs, the double
+  charge), which cy3sbml needs for fbc version 3 models
+  ([#461](https://github.com/matthiaskoenig/cy3sbml/issues/461)), proposed to JSBML in
+  [sbmlteam/jsbml#328](https://github.com/sbmlteam/jsbml/pull/328)
+- the branch [`comp-fbc-v3-flattening`](https://github.com/matthiaskoenig/jsbml/tree/comp-fbc-v3-flattening)
+  (on top of `comp-distrib-flattening`) renames the references of fbc version 3 in the
+  flattening of hierarchical models, proposed to JSBML in
+  [sbmlteam/jsbml#329](https://github.com/sbmlteam/jsbml/pull/329)
 
 When all are merged into JSBML, update to JSBML `master` again.
 
@@ -101,7 +111,9 @@ changes nothing.
     ```
 
 2. The workflow runs the script and opens the pull request "Update JSBML to
-   `<version>`". The description lists the JSBML commits the update adds. The
+   `<version>`". The description lists the JSBML commits the update adds. The build of
+   JSBML runs code of the JSBML repository, so it runs in a job with read access only,
+   which hands the update as a patch to the job that opens the pull request. The
    workflow starts the CI and documentation checks for the pull request itself, since
    a pull request opened by a workflow starts no workflows.
 3. Review the pull request, see [Check the update](#check-the-update).

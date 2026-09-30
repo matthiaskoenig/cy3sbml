@@ -38,8 +38,8 @@ existing issue first. If there is none, open a new issue with:
 7. Open a pull request against `develop`. Describe the change and how you tested it.
    The pull request template has a checklist of these steps.
 
-The pull request needs the checks `tests`, `format`, `lint` and `docs` to pass (the CI
-also runs `python`), and is merged with squash or rebase, so `develop` has a linear
+The pull request needs the checks `tests`, `format`, `lint`, `python` and `docs` to pass,
+and is merged with squash or rebase, so `develop` has a linear
 history. See [Release process](release.md#branches).
 
 For changes of the documentation only, an issue is not needed.
