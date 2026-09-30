@@ -19,6 +19,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * Reading and writing XML with parsers hardened against XML external entity (XXE) attacks,
+ * and formatting XML as indented text or HTML.
+ */
 public class XMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(XMLUtil.class);
     public static final Integer INDENT_AMOUNT = 4;
@@ -27,7 +31,11 @@ public class XMLUtil {
     public static final String HTML_INDENT = new String(new char[INDENT_AMOUNT]).replace("\0", "&nbsp;");
 
     /**
-     * Convert XML String to html string.
+     * The XML as HTML text: indented if it is well-formed, escaped, with the line breaks and
+     * the indentation kept.
+     *
+     * @param xml the XML
+     * @return the HTML
      */
     public static String xml2Html(String xml) {
         Document doc = XMLUtil.readXMLString(xml);
@@ -40,22 +48,9 @@ public class XMLUtil {
         // escape the rest, i.e. things like < and >
         String html = HtmlUtil.escape(xml);
 
-        // keep formating in html
-        // Not working due to escaping of the respective tags
+        // keep the line breaks and indentation in HTML
         html = html.replaceAll("\n", "<br />").replaceAll(XML_INDENT, HTML_INDENT);
 
-        return html;
-    }
-
-    /**
-     * Create tidy xml string from xml string.
-     */
-    public static String xml2xml(String xml) {
-        String html = null;
-        Document doc = XMLUtil.readXMLString(xml);
-        if (doc != null) {
-            html = XMLUtil.writeNodeToTidyString(doc);
-        }
         return html;
     }
 
@@ -109,7 +104,10 @@ public class XMLUtil {
     }
 
     /**
-     * Read XML Document from String.
+     * Parses the XML with the hardened {@link #documentBuilder()}.
+     *
+     * @param xml the XML
+     * @return the document, null if the XML is not well-formed
      */
     public static Document readXMLString(String xml) {
         InputStream xmlStream = IOUtil.string2InputStream(xml);
@@ -124,7 +122,10 @@ public class XMLUtil {
     }
 
     /**
-     * Write XML Document to file.
+     * Writes the node as indented XML to the file; the error is logged.
+     *
+     * @param node the node, its whitespace-only text nodes are removed
+     * @param file the file
      */
     public static void writeNodeToTidyFile(Node node, File file) {
         XMLUtil.cleanEmptyTextNodes(node);
@@ -142,8 +143,10 @@ public class XMLUtil {
     }
 
     /**
-     * Write XML Document to string.
-     * See: http://stackoverflow.com/questions/5456680/xml-document-to-string
+     * The node as indented XML, without XML declaration.
+     *
+     * @param node the node, its whitespace-only text nodes are removed
+     * @return the XML, null if it cannot be written
      */
     public static String writeNodeToTidyString(Node node) {
         XMLUtil.cleanEmptyTextNodes(node);
