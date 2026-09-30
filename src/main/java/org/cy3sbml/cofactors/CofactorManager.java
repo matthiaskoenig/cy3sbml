@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import org.cy3sbml.SBML;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.util.AttributeUtil;
@@ -157,7 +158,7 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
         network.getRow(node).set(CyNetwork.SELECTED, false);
         network.removeEdges(edges);
         network.removeNodes(List.of(node));
-        rootNetwork(network).removeEdges(replacedCloneEdges);
+        rootNetwork(network).removeEdges(notInOtherNetworks(network, replacedCloneEdges, CyNetwork::containsEdge));
         return clones;
     }
 
@@ -199,6 +200,11 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
             if (cofactor == null) {
                 logger.warn("Split cofactor node {} no longer exists, its clones stay", cofactorSUID);
                 mapper.removeCofactor(network.getSUID(), cofactorSUID);
+                continue;
+            }
+            if (clones(network, cofactorSUID).isEmpty()) {
+                // the user deleted all clones, so the cofactor node stays deleted
+                forgetDeletedClones(network, cofactorSUID);
                 continue;
             }
             double[] position = mapper.getPosition(network.getSUID(), cofactorSUID);
@@ -255,15 +261,55 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
                 }
             }
         }
+        // the clones and their edges are removed completely, unless another network of the
+        // collection (e.g. created from a selection) has them
+        List<CyNode> unused = notInOtherNetworks(network, clones, CyNetwork::containsNode);
         for (CyNode clone : clones) {
-            sbmlManager.removeNodeMapping(network, clone);
             removedNodes.add(clone.getSUID());
         }
-        // the clones and their edges are removed completely
+        for (CyNode clone : unused) {
+            sbmlManager.removeNodeMapping(network, clone);
+        }
         network.removeNodes(clones);
-        rootNetwork(network).removeNodes(clones);
+        rootNetwork(network).removeNodes(unused);
         mapper.removeCofactor(networkSUID, cofactor.getSUID());
         network.getRow(cofactor).set(CyNetwork.SELECTED, true);
+    }
+
+    /**
+     * Forgets the split of the cofactor node whose clones were all deleted from the
+     * network: the clones and their edges are removed from the root network too, unless
+     * another network of the collection has them.
+     */
+    private void forgetDeletedClones(CyNetwork network, Long cofactorSUID) {
+        CyRootNetwork root = rootNetwork(network);
+        List<CyNode> clones = mapper.getClones(network.getSUID(), cofactorSUID).stream()
+                .map(root::getNode)
+                .filter(Objects::nonNull)
+                .toList();
+        for (CyNode clone : clones) {
+            for (CyEdge edge : root.getAdjacentEdgeList(clone, CyEdge.Type.ANY)) {
+                mapper.removeCloneEdge(network.getSUID(), edge.getSUID());
+            }
+        }
+        List<CyNode> unused = notInOtherNetworks(network, clones, CyNetwork::containsNode);
+        for (CyNode clone : unused) {
+            sbmlManager.removeNodeMapping(network, clone);
+        }
+        root.removeNodes(unused);
+        mapper.removeCofactor(network.getSUID(), cofactorSUID);
+        logger.info("The clones of cofactor node {} were deleted, it is not merged", cofactorSUID);
+    }
+
+    /** The nodes or edges that no other network of the collection of the network contains. */
+    private static <T> List<T> notInOtherNetworks(
+            CyNetwork network, Collection<T> elements, BiPredicate<CyNetwork, T> contains) {
+        List<CySubNetwork> others = rootNetwork(network).getSubNetworkList().stream()
+                .filter(other -> !other.equals(network))
+                .toList();
+        return elements.stream()
+                .filter(element -> others.stream().noneMatch(other -> contains.test(other, element)))
+                .toList();
     }
 
     /**
