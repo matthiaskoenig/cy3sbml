@@ -13,6 +13,7 @@ dependency is updated.
 | jtidy (`cy3sbml-dep:jtidy:r938`) | `lib/cy3sbml-dep`, the HTML Tidy library used by `jsbml-tidy` | By hand, the version JSBML builds with |
 | GitHub Actions | GitHub, pinned to commit SHAs | Dependabot pull requests, weekly |
 | Python helpers (`tools/`) and examples (`examples/python`) | PyPI, locked in `tools/uv.lock` and `examples/python/uv.lock` | Dependabot pull requests, weekly |
+| Documentation build (zensical) | PyPI, pinned in `docs/requirements.txt` | Dependabot pull requests, weekly |
 
 The repositories are Maven Central, the two NRNB repositories and `lib/cy3sbml-dep`.
 The build fails for SNAPSHOT dependencies, duplicate classes, a Java older than 17 and a

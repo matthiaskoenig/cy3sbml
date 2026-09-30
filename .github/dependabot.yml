@@ -30,6 +30,14 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
+  - package-ecosystem: "pip"
+    # zensical, the documentation build, see docs/requirements.txt
+    directory: "/docs"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "docs"
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
