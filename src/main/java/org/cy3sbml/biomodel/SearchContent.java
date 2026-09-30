@@ -1,80 +1,87 @@
 package org.cy3sbml.biomodel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import org.cy3sbml.util.HtmlUtil;
 
 /**
- * Parsing of the form fields into usable SearchContent instance.
+ * The search of the BioModels dialog: the search terms of the name field and the search
+ * mode, which combines them ({@link #CONNECT_AND}, {@link #CONNECT_OR}) or marks ids parsed
+ * from text ({@link #PARSED_IDS}).
  */
 public final class SearchContent {
 
+    /** The key of the search text in the form fields. */
     public static final String CONTENT_NAME = "NAME";
 
+    /** The key of the search mode in the form fields. */
     public static final String CONTENT_MODE = "MODE";
+
+    /** The search mode in which all terms must match. */
     public static final String CONNECT_AND = "AND";
+
+    /** The search mode in which any term must match. */
     public static final String CONNECT_OR = "OR";
+
+    /** The mode of model ids parsed from text, not searched. */
     public static final String PARSED_IDS = "PARSED IDS";
 
-    private List<String> names = new ArrayList<String>();
+    /** The separators of the search terms. */
+    private static final Pattern TERM_SEPARATOR = Pattern.compile("[\\s.,;:]+");
 
-    private String searchMode;
+    private final List<String> names;
+    private final String searchMode;
 
-    public SearchContent(Map<String, String> map) {
-        if (map.containsKey(CONTENT_NAME)) {
-            names = getTokensFromSearchText(map.get(CONTENT_NAME));
-        }
-        if (map.containsKey(CONTENT_MODE)) {
-            searchMode = map.get(CONTENT_MODE);
-        }
+    /**
+     * Creates the search from the form fields.
+     *
+     * @param fields the search text ({@link #CONTENT_NAME}), split into terms at whitespace
+     *     and {@code .,;:}, and the search mode ({@link #CONTENT_MODE}); both are optional
+     */
+    public SearchContent(Map<String, String> fields) {
+        String text = fields.get(CONTENT_NAME);
+        names = text != null ? tokens(text) : List.of();
+        searchMode = fields.get(CONTENT_MODE);
     }
 
+    /** The search terms, in the order of the search text. */
     public List<String> getNames() {
         return names;
     }
 
+    /** The search terms joined by the separator. */
     public String namesToString(String separator) {
-        return getListToString(names, separator);
+        return String.join(separator, names);
     }
 
+    /** Whether the search has a search term. */
     public boolean hasNames() {
-        return (names.size() > 0);
+        return !names.isEmpty();
     }
 
-    // Search Mode
+    /** The search mode, null if not set. */
     public String getSearchMode() {
         return searchMode;
     }
 
-    // Parsing form fields
-    public List<String> getTokensFromSearchText(String text) {
-        String separator = " ";
-        String pattern = "([\\s\\.,;:])+";
-        text = text.replaceAll(pattern, separator);
-        List<String> tokens = new ArrayList<String>();
-        String[] tokenArray = text.split(separator);
-        if (tokenArray != null) {
-            for (String token : tokenArray) {
-                token = token.replaceAll("[\\s]", "");
-                if (token.length() > 0) {
-                    tokens.add(token);
-                }
-            }
-        }
-        return tokens;
+    /** The search terms of the text, split at whitespace and {@code .,;:}. */
+    private static List<String> tokens(String text) {
+        return TERM_SEPARATOR
+                .splitAsStream(text)
+                .filter(token -> !token.isEmpty())
+                .toList();
     }
 
-    // Printing
+    /** The search terms and the search mode as an HTML table. */
     public String toHTML() {
-        return String.format(
-                "<table bgcolor=\"#C0C0C0\">" + createHTMLTableRow("Name") + createHTMLTableRow("Search Mode")
-                        + "</table>",
-                namesToString(" "),
-                searchMode);
+        return "<table bgcolor=\"#C0C0C0\">" + row("Name", namesToString(" ")) + row("Search Mode", searchMode)
+                + "</table>";
     }
 
-    private static String createHTMLTableRow(String att) {
-        return "<tr><td><font size=\"-1\"><b>" + att + "</b></font></td><td><font size=\"-1\">%s</font></td></tr>";
+    private static String row(String attribute, String value) {
+        return "<tr><td><font size=\"-1\"><b>" + attribute + "</b></font></td><td><font size=\"-1\">"
+                + HtmlUtil.escape(String.valueOf(value)) + "</font></td></tr>";
     }
 
     @Override
@@ -83,9 +90,5 @@ public final class SearchContent {
                 Name : %s
                 Mode : %s
                 """, namesToString(" "), searchMode);
-    }
-
-    private static String getListToString(List<String> tokens, String separator) {
-        return String.join(separator, tokens);
     }
 }

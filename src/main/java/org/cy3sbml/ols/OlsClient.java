@@ -153,12 +153,7 @@ public final class OlsClient {
             ontologyName = query.ontology();
         }
         return FetchResult.found(new OlsTerm(
-                iri,
-                label,
-                ontologyName,
-                term.path("obo_id").asText(null),
-                toStringList(term.path("synonyms")),
-                toStringList(term.path("description"))));
+                iri, label, ontologyName, toStringList(term.path("synonyms")), toStringList(term.path("description"))));
     }
 
     private static List<String> toStringList(JsonNode arrayNode) {
@@ -172,9 +167,7 @@ public final class OlsClient {
         return List.copyOf(values);
     }
 
-    /**
-     * Is a given resource physically located at OLS, i.e. an ontology in OLS.
-     */
+    /** Whether the given resource of a data collection is an ontology in OLS. */
     public static boolean isOlsResource(Resource resource) {
         return resource.getResourceHomeUrl().contains(IdentifiersConstants.OLS_BASE_URL);
     }

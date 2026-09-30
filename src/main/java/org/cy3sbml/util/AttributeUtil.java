@@ -12,10 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Helper class for getting and setting attribute.
- * <p>
- * Use these function to get and set attributes in the network, node and
- * edge tables.
+ * Getting and setting the attributes (columns) of the nodes, edges and networks in the
+ * default tables of a network.
  */
 public class AttributeUtil {
     private static final Logger logger = LoggerFactory.getLogger(AttributeUtil.class);
@@ -24,14 +22,28 @@ public class AttributeUtil {
     // Set Attributes
     // ------------------------------------------------------------
     /**
-     * Set attribute for CyIdentifiable.
+     * Sets the attribute of the node, edge or network, creating the column if needed.
+     * A null value is not set.
+     *
+     * @param network the network
+     * @param entry the node, edge or network
+     * @param name the column name
+     * @param value the value, may be null
+     * @param type the column type
      */
     public static void set(CyNetwork network, CyIdentifiable entry, String name, Object value, Class<?> type) {
         set(network, entry, CyNetwork.DEFAULT_ATTRS, name, value, type);
     }
 
     /**
-     * Set attribute list for CyIdentifiable.
+     * Sets the list attribute of the node, edge or network, creating the list column if
+     * needed. A null value is not set.
+     *
+     * @param network the network
+     * @param entry the node, edge or network
+     * @param name the column name
+     * @param value the list, may be null
+     * @param type the type of the list elements
      */
     public static void setList(CyNetwork network, CyIdentifiable entry, String name, Object value, Class<?> type) {
         setList(network, entry, CyNetwork.DEFAULT_ATTRS, name, value, type);
@@ -39,10 +51,6 @@ public class AttributeUtil {
 
     private static void set(
             CyNetwork network, CyIdentifiable entry, String tableName, String name, Object value, Class<?> type) {
-
-        // user vs. DefaultNodeTable
-        // network.getDefaultNodeTable() ? What is the difference between defaultNodeTable and USER
-
         CyRow row = network.getRow(entry, tableName);
         CyTable table = row.getTable();
         CyColumn column = table.getColumn(name);
@@ -71,7 +79,14 @@ public class AttributeUtil {
     // Get Attributes
     // ------------------------------------------------------------
     /**
-     * Get attribute for CyIdentifiable.
+     * The attribute of the node, edge or network.
+     *
+     * @param network the network
+     * @param entry the node, edge or network
+     * @param name the column name
+     * @param type the column type
+     * @param <T> the value type
+     * @return the value, null if not set
      */
     public static <T> T get(CyNetwork network, CyIdentifiable entry, String name, Class<? extends T> type) {
         return get(network, entry, CyNetwork.DEFAULT_ATTRS, name, type);
@@ -88,10 +103,12 @@ public class AttributeUtil {
     // ------------------------------------------------------------
 
     /**
-     * Copy node attributes.
-     * <p>
-     * Gets all node attributes from the DefaultNodeTable and copies from
-     * source to target node, except the SUID.
+     * Copies the attributes of the default node table from the source to the target node,
+     * except the SUID.
+     *
+     * @param network the network of the nodes
+     * @param source the source node
+     * @param target the target node
      */
     public static void copyNodeAttributes(CyNetwork network, CyNode source, CyNode target) {
         CyTable table = network.getDefaultNodeTable();
@@ -112,10 +129,12 @@ public class AttributeUtil {
     }
 
     /**
-     * Copy edge attributes.
-     * <p>
-     * Gets all edge attributes from DefaultEdgeTable and copies from source
-     * to target edge, except the SUID.
+     * Copies the attributes of the default edge table from the source to the target edge,
+     * except the SUID.
+     *
+     * @param network the network of the edges
+     * @param source the source edge
+     * @param target the target edge
      */
     public static void copyEdgeAttributes(CyNetwork network, CyEdge source, CyEdge target) {
         CyTable table = network.getDefaultEdgeTable();
@@ -140,22 +159,22 @@ public class AttributeUtil {
     // ------------------------------------------------------------
 
     /**
-     * Returns the first matching node.
-     * Returns first node with attribute==identifier in DefaultNodeTable.
+     * The first node with the value of the attribute in the default node table.
      *
      * @param network    network in which the node is searched
      * @param attribute  attribute column to search
      * @param identifier identifier to search
+     * @return the node, null if no node has the value
      */
     public static CyNode getNodeByAttribute(CyNetwork network, String attribute, String identifier) {
         Collection<CyRow> rows = network.getDefaultNodeTable().getMatchingRows(attribute, identifier);
         CyNode node = null;
-        if (rows != null && rows.size() > 0) {
+        if (rows != null && !rows.isEmpty()) {
             // return first matching one
             CyRow row = rows.iterator().next();
             node = network.getNode(row.get(CyTable.SUID, Long.class));
         } else {
-            logger.info(String.format("node not in current network: %s:%s", attribute, identifier));
+            logger.debug("node not in network: {}:{}", attribute, identifier);
         }
         return node;
     }

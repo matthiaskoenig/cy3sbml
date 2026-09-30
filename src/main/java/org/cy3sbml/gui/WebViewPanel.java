@@ -1,7 +1,6 @@
 package org.cy3sbml.gui;
 
 import java.awt.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 import javafx.application.Platform;
@@ -27,11 +26,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * WebView panel based on javafx.
+ * The cy3sbml panel in the Cytoscape results panel (east): a JavaFX {@link Browser} that
+ * shows the SBML information of the current network and the selected node, or the help
+ * and examples pages.
  * <p>
- * The panel is registered as Cytoscape Results Panel.
- * This panel is the main area for displaying SBML information for the
- * network.
+ * The HTML is rendered on the {@link LatestTaskExecutor} (it may wait for web services)
+ * and published to the browser through the {@link PageLoader}.
  */
 public final class WebViewPanel extends JFXPanel
         implements CytoPanelComponent2,
@@ -56,7 +56,7 @@ public final class WebViewPanel extends JFXPanel
     private volatile String html;
 
     /**
-     * Constructor
+     * Creates the panel, which shows the help page until the first render.
      */
     public WebViewPanel(
             ServiceAdapter adapter,
@@ -97,6 +97,7 @@ public final class WebViewPanel extends JFXPanel
         return browser;
     }
 
+    /** The HTML text shown last, or null if no rendered text has been shown yet. */
     public String getHtml() {
         return html;
     }
@@ -126,28 +127,33 @@ public final class WebViewPanel extends JFXPanel
         return "cy3sbml";
     }
 
+    /** Whether the results panel is shown, so the information is updated. */
     public boolean isActive() {
         return (cytoPanelEast.getState() != CytoPanelState.HIDE);
     }
 
     // //////////////// ACTIVATION HANDLING
 
+    /**
+     * Shows the results panel with this panel selected, and the information of the current
+     * selection, which was not updated while the panel was hidden.
+     */
     public void activate() {
-        // If the state of the cytoPanelWest is HIDE, show it
         if (cytoPanelEast.getState() == CytoPanelState.HIDE) {
             cytoPanelEast.setState(CytoPanelState.DOCK);
         }
-        // Select panel
         select();
+        updateInformation();
     }
 
+    /** Hides the results panel, unless it has other components. */
     public void deactivate() {
-        // Test if still other Components in Panel, otherwise hide the complete panel
         if (cytoPanelEast.getCytoPanelComponentCount() == 1) {
             cytoPanelEast.setState(CytoPanelState.HIDE);
         }
     }
 
+    /** Hides the panel if it is shown, else shows it. */
     public void changeState() {
         if (isActive()) {
             deactivate();
@@ -156,6 +162,7 @@ public final class WebViewPanel extends JFXPanel
         }
     }
 
+    /** Selects this panel in the results panel. */
     public void select() {
         int index = cytoPanelEast.indexOfComponent(this);
         if (index == -1) {
@@ -221,13 +228,11 @@ public final class WebViewPanel extends JFXPanel
     }
 
     /**
-     * Create information string for SBML Node and display.
+     * Shows the information of the SBase, see {@link #showSBaseInfo(Set)}.
      */
     @Override
     public void showSBaseInfo(Object obj) {
-        Set<Object> objSet = new HashSet<>();
-        objSet.add(obj);
-        showSBaseInfo(objSet);
+        showSBaseInfo(Set.of(obj));
     }
 
     /**
@@ -248,28 +253,14 @@ public final class WebViewPanel extends JFXPanel
         new SBaseHTMLThread(objSet, this, htmlFactory).run();
     }
 
-    @Override
+    // //////////////// EVENT HANDLING
 
-    // EVENT HANDLING
-
-    /*
-     * Handle node selection events in the table/network.
-     * <p>
-     * The RowsSet event is quit broad (happens a lot in network generation and layout, so
-     * make sure to minimize the unnecessary action here.
-     * I.e. only act on the Event if everything in the right state.
-     * <p>
-     * RowSetEvent:
-     * An Event object generated when an event occurs to a RowSet object. A RowSetEvent object is
-     * generated when a single row in a rowset is changed, the whole rowset is changed, or the
-     * rowset cursor moves.
-     * When an event occurs on a RowSet object, one of the RowSetListener methods will be sent
-     * to all registered listeners to notify them of the event. An Event object is supplied to the
-     * RowSetListener method so that the listener can use it to find out which RowSet object is
-     * the source of the event.
-     * <p>
-     * http://chianti.ucsd.edu/cytoscape-3.2.1/API/org/cytoscape/model/package-summary.html
+    /**
+     * Shows the information of the selected node when the selection in the node table of the
+     * current network changes. Rows are set very often, e.g. while a network is created or
+     * laid out, so all other row changes are ignored right away.
      */
+    @Override
     public void handleEvent(RowsSetEvent event) {
         CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
         if ((network != null && !event.getSource().equals(network.getDefaultNodeTable()))
@@ -280,16 +271,8 @@ public final class WebViewPanel extends JFXPanel
     }
 
     /**
-     * Listening to changes in Networks and NetworkViews.
-     * When must the SBMLDocument store be updated.
-     * - NetworkViewAddedEvent
-     * - NetworkViewDestroyedEvent
-     * <p>
-     * An event indicating that a network view has been set to current.
-     * SetCurrentNetworkViewEvent
-     * <p>
-     * An event signaling that the a network has been set to current.
-     * SetCurrentNetworkEvent
+     * Makes the SBML document of the new current network the current document and shows its
+     * information.
      */
     @Override
     public void handleEvent(SetCurrentNetworkEvent event) {
@@ -299,18 +282,20 @@ public final class WebViewPanel extends JFXPanel
         updateInformation();
     }
 
+    /** Shows the information of the current network once it has a view. */
     @Override
     public void handleEvent(NetworkViewAddedEvent event) {
         updateInformation();
     }
 
+    /** Shows the help page when a network view is closed. */
     @Override
     public void handleEvent(NetworkViewAboutToBeDestroyedEvent event) {
         setHelp();
     }
 
     /**
-     * Updates panel information within a separate thread.
+     * Updates the panel information on the render executor.
      * <p>
      * Resolves the render target (see {@link PanelUpdater#resolveTarget}) and submits it
      * as the render executor's key: several Cytoscape events fired while loading one

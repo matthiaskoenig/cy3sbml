@@ -1,45 +1,53 @@
 package org.cy3sbml;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HtmlTemplateParser {
+/**
+ * Reads the HTML fragments of the info panel from the bundled template
+ * {@code gui/linktemplate.html}, in which every fragment is enclosed in a pair of comments
+ * {@code <!-- NAME -->} and {@code <!-- /NAME -->}.
+ */
+public final class HtmlTemplateParser {
+    private static final String TEMPLATE = "gui/linktemplate.html";
+    private static final Pattern SECTION = Pattern.compile("<!--\\s*(\\w+)\\s*-->([\\s\\S]*?)<!--\\s*/\\1\\s*-->");
 
+    private HtmlTemplateParser() {}
+
+    /**
+     * Reads the bundled template.
+     *
+     * @throws UncheckedIOException if the template cannot be read
+     */
     public static String load() {
-        try {
-            return new String(
-                    HtmlTemplateParser.class
-                            .getClassLoader()
-                            .getResourceAsStream("gui/" + "linktemplate.html")
-                            .readAllBytes(),
-                    StandardCharsets.UTF_8);
+        try (InputStream stream = HtmlTemplateParser.class.getClassLoader().getResourceAsStream(TEMPLATE)) {
+            if (stream == null) {
+                throw new IOException("Resource not found");
+            }
+            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load template: " + "linktemplate.html", e);
+            throw new UncheckedIOException("Failed to load template: " + TEMPLATE, e);
         }
     }
 
     /**
-     * Extracts template sections from HTML into a map preserving insertion order
+     * Extracts the template sections of the HTML, in the order of the template.
      *
-     * @param htmlTemplate read from the .html file
-     * @return Map of template sections (key = section name, value = template content)
+     * @param htmlTemplate the template
+     * @return the trimmed content of every section by section name
      */
     public static Map<String, String> parseTemplateSections(String htmlTemplate) {
-
         Map<String, String> sections = new LinkedHashMap<>();
-        Pattern pattern = Pattern.compile("<!--\\s*(\\w+)\\s*-->([\\s\\S]*?)<!--\\s*/\\1\\s*-->");
-        Matcher matcher = pattern.matcher(htmlTemplate);
-
+        Matcher matcher = SECTION.matcher(htmlTemplate);
         while (matcher.find()) {
-            String sectionName = matcher.group(1);
-            String templateContent = matcher.group(2).trim();
-            sections.put(sectionName, templateContent);
+            sections.put(matcher.group(1), matcher.group(2).trim());
         }
-
         return sections;
     }
 }

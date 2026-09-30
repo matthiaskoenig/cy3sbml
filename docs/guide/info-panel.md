@@ -52,7 +52,10 @@ For the selected object, the panel shows in this order:
 7. Annotations that are not RDF, for example SABIO-RK data, as formatted XML.
 8. The notes.
 
-Links to external web pages open in the web browser of the system.
+Links to external web pages (`http`, `https`, `ftp` and `mailto`) open in the web browser
+of the system; other links, for example to local files, are not opened. The info panel
+runs no JavaScript, and the texts of the model and of the web services are shown as text,
+so a model cannot add scripts or markup to the info panel.
 
 ![The info panel for the reaction React0 of BIOMD0000000001, with an SBO term and a Gene Ontology term](../images/screenshots/info-panel-ols-term.png){ width="400" }
 

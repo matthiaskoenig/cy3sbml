@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Base64;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.cy3sbml.cache.MutableClock;
 import org.cy3sbml.util.FetchResult;
@@ -117,7 +119,7 @@ class ChebiAccessTest {
         String first = access.html("CHEBI:15422");
         assertTrue(first.contains("Formula"));
         assertTrue(first.contains("C10H16N5O13P3"));
-        assertTrue(first.contains("<svg>structure</svg>"));
+        assertTrue(first.contains(svgImage("<svg>structure</svg>")), first);
 
         String second = access.html("CHEBI:15422");
         assertEquals(first, second);
@@ -141,7 +143,7 @@ class ChebiAccessTest {
         String full = access.html("CHEBI:15422");
         assertTrue(full.contains("Formula"));
         assertTrue(full.contains("C10H16N5O13P3"));
-        assertTrue(full.contains("<svg>structure</svg>"));
+        assertTrue(full.contains(svgImage("<svg>structure</svg>")), full);
         assertEquals(2, flaky.getCalls.get());
         assertEquals(2, flaky.textCalls.get());
     }
@@ -189,6 +191,66 @@ class ChebiAccessTest {
         clock.advance(Duration.ofMinutes(11));
         assertTrue(access.compound("CHEBI:99999").isEmpty());
         assertEquals(2, calls.get());
+    }
+
+    private static String svgImage(String svg) {
+        return "<img src=\"data:image/svg+xml;base64,"
+                + Base64.getEncoder().encodeToString(svg.getBytes(StandardCharsets.UTF_8)) + "\"";
+    }
+
+    /** An id that is not a ChEBI id is not looked up, nor put into a URL or the HTML. */
+    @Test
+    void htmlOfAnInvalidIdMakesNoRequest() {
+        CountingFixture counting = new CountingFixture();
+        ChebiAccess access = new ChebiAccess(counting);
+
+        for (String id : new String[] {"CHEBI:15422/../../x", "CHEBI:1\"><script>alert(1)</script>", "CHEBI:", "ATP"}) {
+            assertEquals("", access.html(id), id);
+            assertTrue(access.compound(id).isEmpty(), id);
+        }
+        assertEquals(0, counting.getCalls.get());
+        assertEquals(0, counting.textCalls.get());
+        // the prefix is optional and case-insensitive
+        assertTrue(access.compound("15422").isPresent());
+        assertTrue(access.compound("chebi:15422").isPresent());
+    }
+
+    /** The structure is shown as an image, so a script in it does not run in the info panel. */
+    @Test
+    void htmlShowsTheStructureAsAnImage() {
+        String svg = "<?xml version=\"1.0\"?>\n<svg onload=\"alert(1)\"><script>alert(2)</script></svg>";
+        HttpJson http = new CountingFixture() {
+            @Override
+            public FetchResult<String> fetchText(URI uri) {
+                return FetchResult.found(svg);
+            }
+        };
+
+        String html = new ChebiAccess(http).html("CHEBI:15422");
+
+        assertTrue(html.contains(svgImage(svg)), html);
+        assertFalse(html.contains("<script>"), html);
+        assertFalse(html.contains("onload"), html);
+    }
+
+    /** A body that is no SVG image (e.g. a maintenance page) is a transient error, not shown. */
+    @Test
+    void htmlDoesNotShowAStructureThatIsNoSvg() {
+        CountingFixture http = new CountingFixture() {
+            @Override
+            public FetchResult<String> fetchText(URI uri) {
+                textCalls.incrementAndGet();
+                return FetchResult.found("<html><body>Service unavailable</body></html>");
+            }
+        };
+        ChebiAccess access = new ChebiAccess(http);
+
+        String html = access.html("CHEBI:15422");
+        access.html("CHEBI:15422");
+
+        assertFalse(html.contains("Service unavailable"), html);
+        assertFalse(html.contains("<img"), html);
+        assertEquals(2, http.textCalls.get());
     }
 
     @Test

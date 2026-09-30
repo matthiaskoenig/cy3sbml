@@ -32,6 +32,7 @@ final class NetworksCommand extends AbstractTaskFactory {
         return new TaskIterator(new NetworksTask(services));
     }
 
+    /** Returns the SBML models with their networks, SBML level and version and packages. */
     public static final class NetworksTask extends JsonTask {
         private final CommandServices services;
 

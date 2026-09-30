@@ -30,31 +30,13 @@ class BrowserHyperlinkListenerTest {
     void linkActionsRunOnTheDispatchExecutorNotOnTheCallingThread() throws Exception {
         CyApplicationManager applicationManager = mock(CyApplicationManager.class);
         ServiceAdapter adapter = new ServiceAdapter(
-                null,
-                applicationManager,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+                null, applicationManager, null, null, null, null, null, null, null, null, null, null, null, null, null);
         List<Runnable> dispatched = new ArrayList<>();
         BrowserHyperlinkListener listener =
-                new BrowserHyperlinkListener(adapter, null, null, null, null, dispatched::add);
+                new BrowserHyperlinkListener(adapter, null, null, null, null, dispatched::add, url -> {});
 
-        // the WebView does not load the link itself
-        assertTrue(listener.linkActivated(
-                URI.create(BrowserHyperlinkListener.URL_SELECT_ID + "glc").toURL()));
+        listener.linkActivated(
+                URI.create(BrowserHyperlinkListener.URL_SELECT_ID + "glc").toURL());
         // the selection (a Cytoscape model edit) waits for the dispatch executor
         verifyNoInteractions(applicationManager);
         assertEquals(1, dispatched.size());
@@ -79,8 +61,39 @@ class BrowserHyperlinkListenerTest {
                         .toString());
     }
 
+    /**
+     * Web and mailto links open in the system browser; links with other schemes, e.g. a
+     * file link in the notes of a model, which could open or run a local file, do not.
+     */
     @Test
-    void linkWithoutUrlIsLoadedByTheWebView() {
+    void onlyWebAndMailtoLinksOpenInTheSystemBrowser() throws Exception {
+        List<String> opened = new ArrayList<>();
+        BrowserHyperlinkListener listener =
+                new BrowserHyperlinkListener(null, null, null, null, null, Runnable::run, opened::add);
+        for (String link : List.of(
+                "https://identifiers.org/chebi/CHEBI:17234",
+                "http://bigg.ucsd.edu/",
+                "HTTPS://example.org/",
+                "ftp://ftp.ebi.ac.uk/",
+                "mailto:someone@example.org",
+                "file:///usr/bin/xterm",
+                "file:/C:/Windows/System32/calc.exe",
+                "jar:file:/tmp/model.jar!/x.html")) {
+            listener.linkActivated(URI.create(link).toURL());
+        }
+
+        assertEquals(
+                List.of(
+                        "https://identifiers.org/chebi/CHEBI:17234",
+                        "http://bigg.ucsd.edu/",
+                        "https://example.org/",
+                        "ftp://ftp.ebi.ac.uk/",
+                        "mailto:someone@example.org"),
+                opened);
+    }
+
+    @Test
+    void linkWithoutUrlIsNotResolved() {
         // a relative link without a base URI, an unknown scheme,
         // an invalid href
         assertNull(BrowserHyperlinkListener.resolve(null, "relative"));
@@ -119,12 +132,9 @@ class BrowserHyperlinkListenerTest {
                 null,
                 null,
                 null,
-                null,
-                null,
-                null,
                 null);
         BrowserHyperlinkListener listener =
-                new BrowserHyperlinkListener(adapter, null, null, null, null, Runnable::run);
+                new BrowserHyperlinkListener(adapter, null, null, null, null, Runnable::run, url -> {});
 
         listener.linkActivated(URI.create(
                         BrowserHyperlinkListener.URL_SELECT_TARGET + NetworkUtil.getRootNetworkSUID(fba) + "/" + cyId)

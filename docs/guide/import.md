@@ -109,6 +109,9 @@ drag and drop, or CyREST.
   description and creators from its metadata, and its files with their format; the
   imported file is bold. The root network has the column `archive` with the name of the
   archive. Both are kept in saved sessions.
+- **Limits:** an archive is imported only if it has at most 100000 entries and at most
+  4 GiB unpacked, and only if all its entries and manifest locations are inside the
+  archive; this protects against damaged or malicious archives.
 
 ![The info panel of the SBML document of BIOMD0000000012.omex: the archive with its description and its files, the imported SBML file in bold](../images/screenshots/info-panel-archive.png){ width="400" }
 

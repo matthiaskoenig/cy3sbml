@@ -12,18 +12,18 @@ import org.cy3sbml.archive.CombineArchiveFileFilter;
 import org.cy3sbml.gui.GUIConstants;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.util.swing.FileChooserFilter;
-import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Importing SBML networks..
+ * Imports SBML files and COMBINE archives chosen in a file dialog.
  */
 public final class ImportAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(ImportAction.class);
     private static final long serialVersionUID = 1L;
-    private ServiceAdapter adapter;
+    private final ServiceAdapter adapter;
 
+    /** Creates the toolbar action. */
     public ImportAction(ServiceAdapter adapter) {
         super(ImportAction.class.getSimpleName());
         this.adapter = adapter;
@@ -55,12 +55,12 @@ public final class ImportAction extends AbstractCyAction {
                 FileDialog.LOAD,
                 fileFilters());
 
-        if ((files != null) && (files.length != 0)) {
-            for (int i = 0; i < files.length; i++) {
-                logger.info("Load: {}", files[i].getName());
-                TaskIterator iterator = adapter.loadNetworkFileTaskFactory.createTaskIterator(files[i]);
-                adapter.dialogTaskManager.execute(iterator);
-            }
+        if (files == null) {
+            return;
+        }
+        for (File file : files) {
+            logger.info("Load: {}", file.getName());
+            adapter.dialogTaskManager.execute(adapter.loadNetworkFileTaskFactory.createTaskIterator(file));
         }
     }
 }

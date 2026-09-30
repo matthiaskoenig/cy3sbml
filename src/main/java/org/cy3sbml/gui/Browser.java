@@ -17,9 +17,12 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventTarget;
 
 /**
- * Browser for displaying HTML within a JavaFX Webview.
- * This can be embedded in Swing using a JFXPanel.
- * A HyperlinkListener processes the hyperlinks.
+ * Browser of the cy3sbml panel: a JavaFX {@link WebView} showing the rendered HTML and the
+ * bundled pages, embedded in Swing with a JFXPanel.
+ * <p>
+ * The pages show text from the imported models (names, notes, annotations), so JavaScript
+ * is disabled: no script of a model can run in the panel. The browser never follows a
+ * clicked link itself; the {@link BrowserHyperlinkListener} handles every link click.
  */
 public final class Browser extends Region implements PageLoader.Target {
     private static final Logger logger = LoggerFactory.getLogger(Browser.class);
@@ -34,6 +37,7 @@ public final class Browser extends Region implements PageLoader.Target {
         this.hyperlinkListener = hyperlinkListener;
         webView = new WebView();
         webEngine = webView.getEngine();
+        webEngine.setJavaScriptEnabled(false);
         logger.debug("WebView version: {}", webEngine.getUserAgent());
 
         // add WebView to scene
@@ -49,8 +53,8 @@ public final class Browser extends Region implements PageLoader.Target {
     }
 
     /**
-     * Passes a click on a link to the hyperlink listener, and keeps the WebView from loading
-     * the link if the listener handles it.
+     * Passes a click on a link to the hyperlink listener and keeps the WebView from loading
+     * the link, so the panel never navigates away from its page.
      */
     private void onClick(Event event) {
         Node node = (Node) event.getTarget();
@@ -61,10 +65,14 @@ public final class Browser extends Region implements PageLoader.Target {
             return;
         }
         // the base URI honors the <base href> of the cy3sbml pages
-        URL url = BrowserHyperlinkListener.resolve(node.getBaseURI(), ((Element) node).getAttribute("href"));
-        if (url != null && hyperlinkListener.linkActivated(url)) {
-            event.preventDefault();
+        event.preventDefault();
+        String href = ((Element) node).getAttribute("href");
+        URL url = BrowserHyperlinkListener.resolve(node.getBaseURI(), href);
+        if (url == null) {
+            logger.warn("Link without a valid URL ignored: {}", href);
+            return;
         }
+        hyperlinkListener.linkActivated(url);
     }
 
     private static boolean isLink(Node node) {
@@ -74,7 +82,7 @@ public final class Browser extends Region implements PageLoader.Target {
     }
 
     /**
-     * Load local resource;
+     * Loads a page extracted from the bundle into the app directory, e.g. {@code /gui/help.html}.
      */
     @Override
     public void loadPageFromResource(String resource) {
@@ -85,14 +93,14 @@ public final class Browser extends Region implements PageLoader.Target {
     }
 
     /**
-     * Load page in webView;
+     * Loads the page of the URL.
      */
-    public void loadPage(String url) {
+    private void loadPage(String url) {
         Platform.runLater(() -> webEngine.load(url));
     }
 
     /**
-     * Load HTML text in the webEngine.
+     * Shows the HTML text.
      */
     @Override
     public void loadText(String text) {

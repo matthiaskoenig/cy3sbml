@@ -23,11 +23,9 @@ public final class SaveLayoutAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(SaveLayoutAction.class);
     private static final long serialVersionUID = 1L;
 
-    private ServiceAdapter adapter;
+    private final ServiceAdapter adapter;
 
-    /**
-     * Constructor.
-     */
+    /** Creates the toolbar action. */
     public SaveLayoutAction(ServiceAdapter adapter) {
         super(SaveLayoutAction.class.getSimpleName());
         this.adapter = adapter;

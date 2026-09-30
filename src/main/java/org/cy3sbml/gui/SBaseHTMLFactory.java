@@ -2,8 +2,8 @@ package org.cy3sbml.gui;
 
 import static org.cy3sbml.gui.GUIConstants.*;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import javax.xml.stream.XMLStreamException;
@@ -28,7 +27,6 @@ import org.cy3sbml.ols.OlsClient;
 import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.cy3sbml.util.HtmlUtil;
-import org.cy3sbml.util.IOUtil;
 import org.cy3sbml.util.SBMLUtil;
 import org.cy3sbml.util.XMLUtil;
 import org.sbml.jsbml.*;
@@ -43,7 +41,6 @@ import org.sbml.jsbml.ext.qual.Input;
 import org.sbml.jsbml.ext.qual.Output;
 import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
-import org.sbml.jsbml.util.StringTools;
 import org.sbml.jsbml.xml.XMLNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,12 +55,10 @@ import org.slf4j.LoggerFactory;
  * on selection of SBML objects in the graph.
  */
 public class SBaseHTMLFactory {
-    public static final String SBO = "SBO";
-    public static final String CY3SBML = "cy3sbml";
     private static final Logger logger = LoggerFactory.getLogger(SBaseHTMLFactory.class);
-    public static final transient String IDENTIFIERS_BASE = "https://identifiers.org/";
-    public static final String FILENAME_NAMESPACE = "identifiersOrgNamespace.txt";
-    public static final String delim = "/";
+    private static final String CY3SBML = "cy3sbml";
+    /** The identifiers.org URI of an SBO term without the term id. */
+    private static final String SBO_URI_PREFIX = "https://identifiers.org/biomodels.sbo/";
 
     private final String baseDir;
     // the archive a document was imported from, null if not known
@@ -159,7 +154,7 @@ public class SBaseHTMLFactory {
      * Creates the HTML information for the given SBase.
      */
     public String createInfo(SBase sbase) throws IOException {
-        String title = getTitle(sbase);
+        String title = escape(getTitle(sbase));
         String html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
         html += createInfoForSBase(sbase);
@@ -234,7 +229,8 @@ public class SBaseHTMLFactory {
                 exportHTML = "";
             }
             NamedSBase nsb = (NamedSBase) sbase;
-            header = MessageFormat.format("<h2>{0}{1} <small>{2}</small></h2>\n", exportHTML, className, nsb.getId());
+            header = MessageFormat.format(
+                    "<h2>{0}{1} <small>{2}</small></h2>\n", exportHTML, className, escape(nsb.getId()));
         }
         return header;
     }
@@ -258,17 +254,17 @@ public class SBaseHTMLFactory {
         for (Creator c : h.getListOfCreators()) {
             List<String> parts = new ArrayList<>();
             if (c.isSetGivenName()) {
-                parts.add(HtmlUtil.escape(c.getGivenName()));
+                parts.add(escape(c.getGivenName()));
             }
             if (c.isSetFamilyName()) {
-                parts.add(HtmlUtil.escape(c.getFamilyName()));
+                parts.add(escape(c.getFamilyName()));
             }
             if (c.isSetEmail()) {
-                parts.add(EMAIL_LINK.strip().replace("{email}", HtmlUtil.escape(c.getEmail())));
+                parts.add(EMAIL_LINK.strip().replace("{email}", escape(c.getEmail())));
             }
             String creator = String.join(" ", parts);
             if (c.isSetOrganisation()) {
-                String organisation = HtmlUtil.escape(c.getOrganisation());
+                String organisation = escape(c.getOrganisation());
                 creator = creator.isEmpty() ? organisation : creator + ", " + organisation;
             }
             html += creator + "<br />\n";
@@ -298,14 +294,18 @@ public class SBaseHTMLFactory {
      * Creates the HTML table from map.
      */
     private static String createTableFromMap(Map<String, String> map) {
-        if (map == null || map.size() == 0) {
+        if (map == null || map.isEmpty()) {
             return "";
         }
-        String html = TABLE_START;
-        for (String key : map.keySet()) {
-            html += TS + key + TM + map.get(key) + TE;
+        StringBuilder html = new StringBuilder(TABLE_START);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            html.append(TS)
+                    .append(entry.getKey())
+                    .append(TM)
+                    .append(entry.getValue())
+                    .append(TE);
         }
-        return html + TABLE_END;
+        return html.append(TABLE_END).toString();
     }
 
     /**
@@ -422,10 +422,7 @@ public class SBaseHTMLFactory {
             boolean termExists =
                     cvterms.stream().flatMap(t -> t.getResources().stream()).anyMatch(uri -> uri.endsWith(sboTermId));
             if (!termExists) {
-                String nameSpace = getPrefixValue(SBO);
-                terms.add(new CVTerm(
-                        CVTerm.Qualifier.BQB_IS,
-                        String.valueOf(StringTools.concat(IDENTIFIERS_BASE, nameSpace, delim, sboTermId))));
+                terms.add(new CVTerm(CVTerm.Qualifier.BQB_IS, SBO_URI_PREFIX + sboTermId));
             }
         }
         terms.addAll(cvterms);
@@ -473,8 +470,9 @@ public class SBaseHTMLFactory {
                         primaryResource == null ? resourceURI : createURL(dataType, primaryResource, identifier);
 
                 // identifier
-                String identifierHTML =
-                        IDENTIFIER_LINK.replace("{resourceLink}", resourceLink).replace("{identifier}", identifier);
+                String identifierHTML = IDENTIFIER_LINK
+                        .replace("{resourceLink}", escape(resourceLink))
+                        .replace("{identifier}", escape(identifier));
 
                 // not possible to resolve dataType from MIRIAM registry
                 if (dataType == null) {
@@ -484,20 +482,20 @@ public class SBaseHTMLFactory {
                             .replace("{qualifierHTML}", qualifierHTML)
                             .replace("{identifierHTML}", identifierHTML)
                             .replace("{ICON_WARNING}", ICON_WARNING)
-                            .replace("{dataCollectionURL}", dataCollection)
-                            .replace("{dataCollectionID}", dataCollection);
+                            .replace("{dataCollectionURL}", escape(dataCollection))
+                            .replace("{dataCollectionID}", escape(dataCollection));
 
                     text += INVISIBLE_RESOURCE_LINK
                             .replace("{ICON_INVISIBLE}", ICON_INVISIBLE)
-                            .replace("{resourceURI}", resourceURI);
+                            .replace("{resourceURI}", escape(resourceURI));
                 }
                 // dataType found
                 if (dataType != null) {
                     String dataTypeURL = primaryResource == null ? resourceURI : primaryResource.getResourceHomeUrl();
                     text += qualifierHTML
                             + MIRIAM_COLLECTION_LINK
-                                    .replace("{dataTypeURL}", dataTypeURL)
-                                    .replace("{dataTypeName}", dataType.getName())
+                                    .replace("{dataTypeURL}", escape(dataTypeURL))
+                                    .replace("{dataTypeName}", escape(dataType.getName()))
                                     .replace("{identifierHTML}", identifierHTML);
 
                     // check that identifier is correct for given datatype
@@ -508,8 +506,8 @@ public class SBaseHTMLFactory {
                                 identifier, pattern, dataType.getId()));
                         text += IDENTIFIER_PATTERN_MISMATCH
                                 .replace("{ICON_WARNING}", ICON_WARNING)
-                                .replace("{identifier}", identifier)
-                                .replace("{pattern}", pattern);
+                                .replace("{identifier}", escape(identifier))
+                                .replace("{pattern}", escape(pattern));
                     }
 
                     // Create OLS resource for location
@@ -571,9 +569,9 @@ public class SBaseHTMLFactory {
      */
     private static String createNonOLSLocation(Namespace namespace, Resource resource, String identifier) {
 
-        String info = resource.getDescription();
-
-        return String.format("\t<a href=\"%s\"> %s</a><br />\n", createURL(namespace, resource, identifier), info);
+        return String.format(
+                "\t<a href=\"%s\"> %s</a><br />\n",
+                escape(createURL(namespace, resource, identifier)), escape(resource.getDescription()));
     }
 
     /**
@@ -589,11 +587,16 @@ public class SBaseHTMLFactory {
 
             String purlURL = term.iri();
             html += ONTOLOGY_TERM_LINK
-                    .replace("{ontologyURL}", olsURL)
-                    .replace("{ontologyName}", term.ontologyName().toUpperCase(Locale.ROOT))
+                    .replace("{ontologyURL}", escape(olsURL))
+                    .replace(
+                            "{ontologyName}",
+                            escape(
+                                    term.ontologyName() == null
+                                            ? null
+                                            : term.ontologyName().toUpperCase(Locale.ROOT)))
                     .replace("{termLabel}", ontologyTextHTML(term.label()))
-                    .replace("{purlURL}", purlURL)
-                    .replace("{purlDisplay}", purlURL);
+                    .replace("{purlURL}", escape(purlURL))
+                    .replace("{purlDisplay}", escape(purlURL));
 
             List<String> synonyms = term.synonyms();
             if (synonyms != null && !synonyms.isEmpty()) {
@@ -612,8 +615,8 @@ public class SBaseHTMLFactory {
         } else {
             html += OLS_TERM_ERROR
                     .replace("{ICON_WARNING}", ICON_WARNING)
-                    .replace("{TERM_ID}", identifier)
-                    .replace("{OLS_URL}", olsURL);
+                    .replace("{TERM_ID}", escape(identifier))
+                    .replace("{OLS_URL}", escape(olsURL));
             html += createNonOLSLocation(namespace, resource, identifier);
         }
         return html;
@@ -636,7 +639,7 @@ public class SBaseHTMLFactory {
      * are kept; unbalanced or crossing tags stay escaped.
      */
     static String ontologyTextHTML(String text) {
-        String html = HtmlUtil.escape(text);
+        String html = escape(text);
         while (true) {
             String restored = ESCAPED_INLINE_PAIR.matcher(html).replaceAll("<$1>$2</$1>");
             if (restored.equals(html)) {
@@ -731,25 +734,17 @@ public class SBaseHTMLFactory {
     }
 
     /**
+     * The HTML of a text of a model or a web service, empty for null (e.g. a registry
+     * field that is not set).
+     */
+    private static String escape(String text) {
+        return text == null ? "" : HtmlUtil.escape(text);
+    }
+
+    /**
      * Creates true or false HTML depending on boolean.
      */
     public static String booleanHTML(boolean b) {
         return b ? ICON_TRUE : ICON_FALSE;
-    }
-
-    public static String getPrefixValue(String keyToFind) {
-        InputStream inputStream = IOUtil.readResource("/gui/" + FILENAME_NAMESPACE);
-        if (inputStream == null) {
-            logger.error("Could not find the namespace resource: {}", FILENAME_NAMESPACE);
-            return null;
-        }
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-            Properties namespaces = new Properties();
-            namespaces.load(reader);
-            return namespaces.getProperty(keyToFind);
-        } catch (IOException e) {
-            logger.error("Could not read the prefix value: {}", keyToFind, e);
-        }
-        return null;
     }
 }

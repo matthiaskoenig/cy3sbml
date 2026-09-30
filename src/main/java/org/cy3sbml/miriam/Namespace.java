@@ -1,90 +1,93 @@
 package org.cy3sbml.miriam;
 
-import static org.cy3sbml.miriam.Fields.*;
-
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-public class Namespace {
+/**
+ * A data collection (namespace) of the MIRIAM registry, e.g. ChEBI with the prefix
+ * {@code chebi}: its identifier pattern and the resources that show its entries.
+ */
+public final class Namespace {
+    private final int id;
+    private final String prefix;
+    private final String name;
+    private final String pattern;
+    private final Boolean namespaceEmbeddedInLui;
+    private final List<Resource> resources;
 
-    private int id;
-    private String prefix;
-    private String name;
-    private String pattern;
-    private Boolean namespaceEmbeddedInLui;
-    private String description;
-    private String mirId;
-    private List<Resource> resources;
-    private String created;
-    private String modified;
-    private String sampleId;
-    private Boolean deprecated = false;
-    private String deprecationDate;
-
-    public Namespace(Map<Object, Object> value) {
-        this.id = (int) value.get(ID);
-        this.prefix = (String) value.get(PREFIX);
-        this.name = (String) value.get(NAME);
-        this.pattern = (String) value.get(PATTERN);
-        this.namespaceEmbeddedInLui = (Boolean) value.get(NAMESPACE_EMBEDDED_IN_LUI);
-        this.description = (String) value.get(DESCRIPTION);
-        this.mirId = (String) value.get(MIR_ID);
-        this.created = (String) value.get(CREATED);
-        this.modified = (String) value.get(MODIFIED);
-        this.sampleId = (String) value.get(SAMPLE_ID);
-        this.deprecated = (Boolean) value.get(DEPRECATED);
-        this.deprecationDate = (String) value.get(DEPRECATION_DATE);
-        if (this.name == null) {
-            throw new IllegalArgumentException("Namespace name cannot be null");
-        }
-        Object resourcesRaw = value.get(RESOURCES);
-        if (resourcesRaw instanceof List) {
-            this.resources = new ArrayList<>();
-            for (Object item : (List<?>) resourcesRaw) {
-
-                this.resources.add(Resource.fromMap((Map<?, ?>) item));
-            }
-        } else {
-            this.resources = Collections.emptyList();
-        }
+    Namespace(
+            int id,
+            String prefix,
+            String name,
+            String pattern,
+            Boolean namespaceEmbeddedInLui,
+            List<Resource> resources) {
+        this.id = id;
+        this.prefix = prefix;
+        this.name = name;
+        this.pattern = pattern;
+        this.namespaceEmbeddedInLui = namespaceEmbeddedInLui;
+        this.resources = List.copyOf(resources);
     }
 
-    public Namespace(List<Resource> resources) {
-        this.resources = resources;
+    /**
+     * The data collection of the given element of the {@code namespaces} array of the
+     * registry JSON.
+     *
+     * @throws IllegalArgumentException if the data collection has no prefix or name, or one
+     *     of its resources has no URL pattern
+     */
+    static Namespace fromJson(JsonNode json) {
+        String prefix = json.path("prefix").asText(null);
+        String name = json.path("name").asText(null);
+        if (prefix == null || prefix.isEmpty() || name == null) {
+            throw new IllegalArgumentException("Namespace without prefix or name: " + json.path("id"));
+        }
+        List<Resource> resources = new ArrayList<>();
+        for (JsonNode resource : json.path("resources")) {
+            resources.add(Resource.fromJson(resource));
+        }
+        JsonNode embedded = json.path("namespaceEmbeddedInLui");
+        return new Namespace(
+                json.path("id").asInt(),
+                prefix,
+                name,
+                json.path("pattern").asText(null),
+                embedded.isBoolean() ? embedded.booleanValue() : null,
+                resources);
     }
 
+    /** The id of the data collection in the registry. */
     public int getId() {
         return id;
     }
 
+    /** The prefix of the data collection, e.g. {@code chebi}. */
     public String getPrefix() {
         return prefix;
     }
 
+    /** The name of the data collection, e.g. {@code ChEBI}. */
     public String getName() {
         return name;
     }
 
+    /** The regular expression of the identifiers of the data collection, or null. */
     public String getPattern() {
         return pattern;
     }
 
+    /**
+     * Whether the identifiers of the data collection start with its prefix, e.g.
+     * {@code CHEBI:36927}; null if the registry does not say.
+     */
     public Boolean getNamespaceEmbeddedInLui() {
         return namespaceEmbeddedInLui;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getMirId() {
-        return mirId;
-    }
-
+    /** The resources of the data collection, unmodifiable. */
     public List<Resource> getResources() {
-
         return resources;
     }
 
@@ -110,25 +113,5 @@ public class Namespace {
             return fallback;
         }
         return resources.isEmpty() ? null : resources.get(0);
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public String getModified() {
-        return modified;
-    }
-
-    public String getSampleId() {
-        return sampleId;
-    }
-
-    public Boolean getDeprecated() {
-        return deprecated;
-    }
-
-    public String getDeprecationDate() {
-        return deprecationDate;
     }
 }

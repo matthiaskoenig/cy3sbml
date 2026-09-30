@@ -38,4 +38,14 @@ public class SearchContentTest {
         assertFalse(content.hasNames());
         assertTrue(content.toHTML().contains(SearchContent.PARSED_IDS));
     }
+
+    @Test
+    public void escapesTheSearchTermsInTheHtml() {
+        SearchContent content = new SearchContent(Map.of(
+                SearchContent.CONTENT_NAME, "<img src=x> a&b", SearchContent.CONTENT_MODE, SearchContent.CONNECT_AND));
+
+        String html = content.toHTML();
+        assertFalse(html.contains("<img"), html);
+        assertTrue(html.contains("&lt;img src=x&gt; a&amp;b"), html);
+    }
 }

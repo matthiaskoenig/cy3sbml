@@ -3,14 +3,18 @@ package org.cy3sbml.gui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
+import org.cy3sbml.ols.OlsTerm;
 import org.cy3sbml.uniprot.UniprotAccess;
 import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.CVTerm;
@@ -159,6 +163,60 @@ class SBaseHTMLFactoryTest {
         assertFalse(html.toString().contains("does not match pattern"), html.toString());
         assertFalse(html.toString().contains("Unknown data collection"), html.toString());
         assertTrue(html.toString().contains("https://doi.org/10.1016/j.jtbi.2004.04.039"), html.toString());
+    }
+
+    /**
+     * The annotation URIs of a model and the texts of the web services are escaped, so they
+     * cannot add markup (e.g. links or images) to the info panel.
+     */
+    @Test
+    void annotationUrisAndTermsAreEscaped() throws Exception {
+        OlsClient olsClient = mock(OlsClient.class);
+        when(olsClient.termForPage(anyString()))
+                .thenReturn(Optional.of(new OlsTerm(
+                        "http://purl.obolibrary.org/obo/SBO_0000247\"><img id=\"iri\" src=\"x\">",
+                        "label",
+                        "sbo<img id=\"ontology\">",
+                        List.of(),
+                        List.of())));
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                olsClient,
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s1", 3, 1);
+        species.setMetaId("meta_s1");
+        species.addCVTerm(new CVTerm(
+                CVTerm.Qualifier.BQB_IS,
+                "https://identifiers.org/unknown\"><img id=\"collection\" src=\"x\">/1",
+                "https://identifiers.org/sbo/SBO:0000247\"><img id=\"identifier\" src=\"x\">"));
+
+        String html = htmlFactory.createInfo(species);
+
+        assertFalse(html.contains("<img id="), html);
+        assertTrue(html.contains("&lt;img id=&quot;collection&quot;"), html);
+        assertTrue(html.contains("&lt;img id=&quot;identifier&quot;"), html);
+        assertTrue(html.contains("&lt;img id=&quot;iri&quot;"), html);
+    }
+
+    /** An OLS term without IRI and ontology name is shown with its label. */
+    @Test
+    void termWithoutIriIsShown() throws Exception {
+        OlsClient olsClient = mock(OlsClient.class);
+        when(olsClient.termForPage(anyString())).thenReturn(Optional.of(new OlsTerm(null, "label", null, null, null)));
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                olsClient,
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        Species species = new Species("s1", 3, 1);
+        species.setSBOTerm(247);
+
+        String html = htmlFactory.createInfo(species);
+
+        assertTrue(html.contains("<b>label</b>"), html);
     }
 
     @Test

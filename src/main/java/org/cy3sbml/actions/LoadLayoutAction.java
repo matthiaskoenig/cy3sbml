@@ -22,11 +22,9 @@ public final class LoadLayoutAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(LoadLayoutAction.class);
     private static final long serialVersionUID = 1L;
 
-    private ServiceAdapter adapter;
+    private final ServiceAdapter adapter;
 
-    /**
-     * Constructor.
-     */
+    /** Creates the toolbar action. */
     public LoadLayoutAction(ServiceAdapter adapter) {
         super(LoadLayoutAction.class.getSimpleName());
         this.adapter = adapter;

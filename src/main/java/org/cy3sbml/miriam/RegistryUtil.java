@@ -1,14 +1,14 @@
 package org.cy3sbml.miriam;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,36 +16,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Tools for working with Miriam registry.
- * Here the MIRIAM xml file is loaded or updated.
- * http://www.ebi.ac.uk/miriam/main/export/
+ * Reading the MIRIAM registry of identifiers.org (the JSON of its resolution API) and
+ * parsing identifiers.org resource URIs ({@code http(s)://identifiers.org/...} and
+ * {@code urn:miriam:...}) without a registry lookup.
  */
-public class RegistryUtil {
-    public static final String PAYLOAD = "payload";
-    public static final String NAMESPACES = "namespaces";
-    public static final String PREFIX = "prefix";
+public final class RegistryUtil {
+    private static final Logger logger = LoggerFactory.getLogger(RegistryUtil.class);
+
+    /** The registry JSON of the identifiers.org resolution API. */
     public static final String URL_MIRIAM_JSON =
             "https://registry.api.identifiers.org/resolutionApi/getResolverDataset";
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     /** Classpath location of the bundled offline copy of the registry. */
     static final String BUNDLED_REGISTRY = "/miriam/MiriamRegistry.json";
 
-    /**
-     * Load the registry from a MIRIAM json file.
-     *
-     * @param file MIRIAM json file
-     */
-    public static Map<String, Namespace> loadRegistry(File file) throws IOException {
-        return parseRegistry(Files.readAllBytes(file.toPath()));
-    }
+    /** Maximum size of a downloaded registry (the registry has about 3 MB). */
+    static final int MAX_REGISTRY_BYTES = 50 * 1024 * 1024;
+
+    /** The compiled identifier patterns of the data collections, empty for an invalid one. */
+    private static final Map<String, Optional<Pattern>> PATTERNS = new ConcurrentHashMap<>();
+
+    private RegistryUtil() {}
 
     /**
      * Load the offline copy of the registry bundled with the app.
+     *
+     * @return the data collections by prefix
      */
     public static Map<String, Namespace> loadBundledRegistry() throws IOException {
         try (InputStream in = RegistryUtil.class.getResourceAsStream(BUNDLED_REGISTRY)) {
@@ -56,25 +62,34 @@ public class RegistryUtil {
         }
     }
 
+    /**
+     * Parses the registry JSON into the data collections by prefix. A malformed data
+     * collection is skipped.
+     *
+     * @throws IOException if the JSON is malformed or has no data collection
+     */
     static Map<String, Namespace> parseRegistry(byte[] jsonBytes) throws IOException {
-        JsonNode root = MAPPER.readTree(jsonBytes);
-        JsonNode payload = root.path(PAYLOAD);
-        if (payload.isMissingNode()) {
-            throw new IOException("Missing 'payload' object");
-        }
-        JsonNode namespaces = payload.path(NAMESPACES);
+        JsonNode namespaces = MAPPER.readTree(jsonBytes).path("payload").path("namespaces");
         if (!namespaces.isArray()) {
-            throw new IOException("Missing 'namespaces' array");
+            throw new IOException("Missing 'payload.namespaces' array");
         }
         Map<String, Namespace> result = new HashMap<>();
-        for (JsonNode nsNode : namespaces) {
-            String prefix = nsNode.path(PREFIX).asText(null);
-            if (prefix == null || prefix.isEmpty()) continue;
-            Map<Object, Object> nsData = MAPPER.convertValue(nsNode, new TypeReference<Map<Object, Object>>() {});
-
-            result.put(prefix, new Namespace(nsData));
+        int skipped = 0;
+        for (JsonNode json : namespaces) {
+            try {
+                Namespace namespace = Namespace.fromJson(json);
+                result.put(namespace.getPrefix(), namespace);
+            } catch (IllegalArgumentException e) {
+                logger.debug("Skipping malformed data collection: {}", e.getMessage());
+                skipped++;
+            }
         }
-
+        if (skipped > 0) {
+            logger.warn("Skipped {} malformed data collections of the MIRIAM registry", skipped);
+        }
+        if (result.isEmpty()) {
+            throw new IOException("The registry has no data collections");
+        }
         return result;
     }
 
@@ -83,7 +98,9 @@ public class RegistryUtil {
      *
      * @param source registry URL, usually {@link #URL_MIRIAM_JSON}
      * @param timeout connect timeout and timeout of every read, so a stalled server fails
-     * @throws IOException if the registry cannot be downloaded or parsed
+     * @return the data collections by prefix
+     * @throws IOException if the registry cannot be downloaded or parsed, or is larger than
+     *     {@value #MAX_REGISTRY_BYTES} bytes
      */
     public static Map<String, Namespace> download(URI source, Duration timeout) throws IOException {
         int timeoutMillis = Math.toIntExact(timeout.toMillis());
@@ -97,36 +114,74 @@ public class RegistryUtil {
             if (status < 200 || status >= 300) {
                 throw new IOException("HTTP status " + status);
             }
+            if (connection.getContentLengthLong() > MAX_REGISTRY_BYTES) {
+                throw new IOException("The registry is larger than " + MAX_REGISTRY_BYTES + " bytes");
+            }
             try (InputStream in = connection.getInputStream()) {
-                return parseRegistry(in.readAllBytes());
+                byte[] body = in.readNBytes(MAX_REGISTRY_BYTES + 1);
+                if (body.length > MAX_REGISTRY_BYTES) {
+                    throw new IOException("The registry is larger than " + MAX_REGISTRY_BYTES + " bytes");
+                }
+                return parseRegistry(body);
             }
         } finally {
             connection.disconnect();
         }
     }
 
-    // ------------------------------------------------------------
-    // Small helpers for identifiers.org resource URIs (http(s)://identifiers.org/... and
-    // urn:miriam:... URNs), replacing the org.identifiers.registry:registry-lib dependency
-    // (org.identifiers.registry.RegistryUtilities) previously used from AnnotationUtil and
-    // SBaseHTMLFactory.
-    // ------------------------------------------------------------
-
     /**
-     * Whether the given resource URI is an identifiers.org URI or a urn:miriam URN, the forms
+     * Whether the given resource URI is an identifiers.org URI (http or https, host
+     * {@code identifiers.org} or {@code www.identifiers.org}) or a urn:miriam URN, the forms
      * that {@link MiriamRegistry#resolve(String)} resolves against the registry.
      */
     public static boolean isIdentifiersURI(String uri) {
-        return uri != null && (uri.contains("identifiers.org") || uri.startsWith("urn:miriam:"));
+        if (uri == null) {
+            return false;
+        }
+        if (uri.startsWith("urn:miriam:")) {
+            return true;
+        }
+        String host = httpHost(uri);
+        return "identifiers.org".equals(host) || "www.identifiers.org".equals(host);
+    }
+
+    /**
+     * The lowercase host of an http or https URI, null for another URI. Parsed by hand since
+     * annotation URIs often contain characters that {@link URI} rejects.
+     */
+    private static String httpHost(String uri) {
+        int schemeEnd = uri.indexOf("://");
+        if (schemeEnd < 0) {
+            return null;
+        }
+        String scheme = uri.substring(0, schemeEnd);
+        if (!scheme.equalsIgnoreCase("http") && !scheme.equalsIgnoreCase("https")) {
+            return null;
+        }
+        int start = schemeEnd + 3;
+        int end = start;
+        while (end < uri.length() && "/?#".indexOf(uri.charAt(end)) < 0) {
+            end++;
+        }
+        String authority = uri.substring(start, end);
+        String hostAndPort = authority.substring(authority.lastIndexOf('@') + 1);
+        int portStart = hostAndPort.indexOf(':');
+        String host = portStart < 0 ? hostAndPort : hostAndPort.substring(0, portStart);
+        return host.toLowerCase(Locale.ROOT);
     }
 
     private static boolean isUrn(String uri) {
         return uri != null && uri.startsWith("urn:");
     }
 
-    private static String urlDecode(String s) {
+    /**
+     * Decodes the percent-encoded characters of a URI part. Unlike in a form, a plus sign is
+     * a plus sign (e.g. the charge in "CA+2"), not a space. The part is kept as it is if it
+     * has a malformed percent encoding.
+     */
+    private static String percentDecode(String s) {
         try {
-            return URLDecoder.decode(s, StandardCharsets.UTF_8);
+            return URLDecoder.decode(s.replace("+", "%2B"), StandardCharsets.UTF_8);
         } catch (IllegalArgumentException e) {
             return s;
         }
@@ -181,7 +236,8 @@ public class RegistryUtil {
                 return null;
             }
             String namespace = parts[2];
-            String identifier = urlDecode(String.join(":", Arrays.asList(parts).subList(3, parts.length)));
+            String identifier =
+                    percentDecode(String.join(":", Arrays.asList(parts).subList(3, parts.length)));
             String dataCollectionPart = String.join(":", Arrays.asList(parts).subList(0, 3));
             return new ParsedResourceUri(namespace, identifier, dataCollectionPart, null);
         }
@@ -220,16 +276,16 @@ public class RegistryUtil {
         int colonPos = first.indexOf(':');
         if (colonPos == -1) {
             if (segments.size() == 1) {
-                return new ParsedResourceUri(null, urlDecode(first), origin + "/", null);
+                return new ParsedResourceUri(null, percentDecode(first), origin + "/", null);
             }
             // legacy form: <namespace>/<accession>, the accession is the rest of the path
-            String identifier = urlDecode(String.join("/", segments.subList(1, segments.size())));
+            String identifier = percentDecode(String.join("/", segments.subList(1, segments.size())));
             return new ParsedResourceUri(first, identifier, origin + "/" + first + "/", null);
         }
 
         // compact form: <prefix>:<accession>, the accession is the rest of the path
         String prefix = first.substring(0, colonPos);
-        String accession = urlDecode(String.join("/", segments).substring(colonPos + 1));
+        String accession = percentDecode(String.join("/", segments).substring(colonPos + 1));
         String identifier = looksLikeNamespacePrefix(prefix) ? accession : prefix + ":" + accession;
         return new ParsedResourceUri(prefix, identifier, origin + "/" + prefix + "/", accession);
     }
@@ -270,15 +326,23 @@ public class RegistryUtil {
     /**
      * Returns true if the identifier matches the given regular expression pattern.
      * False if either argument is null, empty, or the pattern is not a valid regex.
+     * The patterns (of the data collections in the registry) are compiled once.
      */
     public static boolean checkRegexp(String identifier, String pattern) {
         if (identifier == null || identifier.isEmpty() || pattern == null || pattern.isEmpty()) {
             return false;
         }
+        return PATTERNS.computeIfAbsent(pattern, RegistryUtil::compile)
+                .map(compiled -> compiled.matcher(identifier).matches())
+                .orElse(false);
+    }
+
+    private static Optional<Pattern> compile(String pattern) {
         try {
-            return Pattern.matches(pattern, identifier);
+            return Optional.of(Pattern.compile(pattern));
         } catch (PatternSyntaxException e) {
-            return false;
+            logger.debug("Invalid identifier pattern <{}>: {}", pattern, e.getMessage());
+            return Optional.empty();
         }
     }
 }

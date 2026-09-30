@@ -99,6 +99,7 @@ docstring of every script:
 | `biomodels_download.py` | the curated BioModels of `BioModelsTest` in `src/test/corpora/models/biomodels` |
 | `comp_flat_reference.py` | the libSBML flattening of the comp models, see [Flattening of comp models](#flattening-of-comp-models) |
 | `distrib_models.py` | the distrib models in `models/distrib`, written and validated with libSBML |
+| `fbc_v3_models.py` | the fbc version 3 test model in `models/fbc`, written and validated with libSBML |
 | `omex_models.py` | the COMBINE archives in `models/omex`, written with pymetadata |
 | `graph_to_sbml.py` | `models/styles/graph.xml`, the test model of the visual styles, from Antimony |
 
@@ -127,7 +128,8 @@ because `target/classes` still has all files.
 The workflow `.github/workflows/ci.yml` runs on pull requests and on pushes to `develop`
 and `main`:
 
-- `test`: `./mvnw verify` on Ubuntu and Windows with Temurin 17. It publishes the test
+- `test`: `./mvnw -Pjavadoc verify` (also builds the javadoc jar and checks it with
+  doclint) on Ubuntu and Windows with Temurin 17. It publishes the test
   report and, on Ubuntu, the JaCoCo coverage report. The check `tests` sums up the
   result of both systems.
 - `format`, `lint` and `python`, see [Code quality](quality.md).

@@ -144,6 +144,35 @@ class SBMLUtilTest {
         assertTrue(text.contains("<p>"));
     }
 
+    /** JSBML reads invalid SId references; the info panel shows them as text, not as markup. */
+    @Test
+    void referencesOfAnInvalidModelAreEscaped() throws Exception {
+        String sbml = "<?xml version='1.0' encoding='UTF-8'?>"
+                + "<sbml xmlns='http://www.sbml.org/sbml/level3/version1/core' level='3' version='1'"
+                + " xmlns:groups='http://www.sbml.org/sbml/level3/version1/groups/version1' groups:required='false'>"
+                + "<model id='m'><listOfCompartments><compartment id='c&lt;b&gt;' constant='true'/></listOfCompartments>"
+                + "<listOfSpecies><species id='s&lt;i&gt;' compartment='c&lt;b&gt;' hasOnlySubstanceUnits='false'"
+                + " boundaryCondition='false' constant='false'/></listOfSpecies>"
+                + "<groups:listOfGroups><groups:group groups:id='g' groups:kind='collection'><groups:listOfMembers>"
+                + "<groups:member groups:idRef='x&lt;img&gt;'/></groups:listOfMembers></groups:group></groups:listOfGroups>"
+                + "</model></sbml>";
+        SBMLDocument doc = new SBMLReader().readSBMLFromString(sbml);
+        Species s = doc.getModel().getSpecies(0);
+        Group g = ((GroupsModelPlugin) doc.getModel().getPlugin("groups")).getGroup(0);
+
+        String compartment = SBMLUtil.createSpeciesMap(s).get("compartment");
+        assertFalse(compartment.contains("<b>"), compartment);
+        assertTrue(compartment.startsWith("c&lt;b&gt; <a href=\"http://select-id/c&lt;b&gt;\">"), compartment);
+        String members = SBMLUtil.createGroupMap(g).get("members");
+        assertFalse(members.contains("<img>"), members);
+        assertTrue(members.contains("x&lt;img&gt;"), members);
+    }
+
+    @Test
+    void parseNotesOfSBaseWithoutNotesIsNull() {
+        assertNull(SBMLUtil.parseNotes(compartment));
+    }
+
     @Test
     void createSBaseMapUsesMetaId() {
         compartment.setMetaId("meta1");

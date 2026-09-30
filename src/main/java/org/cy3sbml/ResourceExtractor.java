@@ -3,7 +3,6 @@ package org.cy3sbml;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -17,17 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class extracts bundled resources to a local directory.
- * This provides access to the local resources via
- * file:// uris.
- * Required to allow JavaFX access to bundle resources.
- * JavaFX does currently not support the access via bundle: uris.
+ * Extracts the bundled GUI resources into the app directory, so the JavaFX WebView can
+ * load them via file URIs (it cannot load bundle: URIs).
  * <p>
  * The extracted directories are owned by the extractor: each extraction replaces
  * them completely, so resources removed or renamed in a newer version do not
  * accumulate in the app directory (#404).
  */
-public class ResourceExtractor {
+public final class ResourceExtractor {
     private static final Logger logger = LoggerFactory.getLogger(ResourceExtractor.class);
 
     public static final String GUI_RESOURCES = "/gui/";
@@ -42,52 +38,12 @@ public class ResourceExtractor {
     private final File appDirectory;
 
     /**
-     * Constructor.
+     * @param bc the context of the bundle with the resources
+     * @param appDirectory the directory the resources are extracted into
      */
     public ResourceExtractor(final BundleContext bc, final File appDirectory) {
         this.bc = bc;
         this.appDirectory = appDirectory;
-    }
-
-    /**
-     * Returns the file URI in the application folder for given resource string.
-     * Example "/gui/query.html"
-     * Replacement of
-     * getClass().getResource("/gui/info.html");
-     * which does not work for bundle resources in JavaFX.
-     *
-     * @param resource resource String
-     * @return fileURI of resource, or null if not existing
-     */
-    public String getResource(String resource) {
-        URI fileURI = fileURIforResource(resource);
-        if (fileURI == null) {
-            return null;
-        } else {
-            return fileURI.toString();
-        }
-    }
-
-    /**
-     * Returns the file URI in the application folder for given resource string.
-     * Example "/gui/query.html"
-     *
-     * @param resource resource path
-     * @return String representation of fileURI or null
-     */
-    public URI fileURIforResource(String resource) {
-        if (appDirectory == null) {
-            logger.error("appDirectory is not set in ResourceExtractor");
-            return null;
-        }
-        // resource file
-        File file = new File(appDirectory + resource);
-        if (!file.exists()) {
-            logger.error(String.format("Resource <%s> does not exist in <%s>.", resource, appDirectory));
-            return null;
-        }
-        URI fileURI = file.toURI();
-        return fileURI;
     }
 
     /**

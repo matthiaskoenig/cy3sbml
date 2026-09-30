@@ -37,6 +37,7 @@ final class ElementCommand extends AbstractTaskFactory {
         return new TaskIterator(new ElementTask(services));
     }
 
+    /** Returns the SBML elements of the given nodes, SBML id or metaid. */
     public static final class ElementTask extends JsonTask {
         @Tunable(
                 description = "Network",

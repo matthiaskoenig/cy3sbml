@@ -17,9 +17,7 @@ public final class BiomodelsAction extends AbstractCyAction {
 
     private final BiomodelsDialog biomodelsDialog;
 
-    /**
-     * Constructor.
-     */
+    /** Creates the toolbar action. */
     public BiomodelsAction(BiomodelsDialog biomodelsDialog) {
         super(BiomodelsAction.class.getSimpleName());
         this.biomodelsDialog = biomodelsDialog;

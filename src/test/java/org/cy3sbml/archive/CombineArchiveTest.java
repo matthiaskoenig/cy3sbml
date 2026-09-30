@@ -185,4 +185,69 @@ class CombineArchiveTest {
                 () -> CombineArchive.extract(stream, "a.omex", directory.resolve("archive")));
         assertEquals("The archive a.omex has the entry '../outside.xml' outside the archive.", e.getMessage());
     }
+
+    @Test
+    void malformedXhtmlDescriptionIsReducedToItsText() {
+        assertEquals("A model of glycolysis", CombineArchive.description("<p>A <b>model</p> of glycolysis"));
+    }
+
+    @Test
+    void malformedManifestIsAnError() throws Exception {
+        InputStream stream = zip(Map.of("manifest.xml", "<omexManifest><content"));
+
+        CombineArchiveException e =
+                assertThrows(CombineArchiveException.class, () -> CombineArchive.extract(stream, "a.omex", directory));
+        assertTrue(e.getMessage().startsWith("The manifest of the archive a.omex cannot be read"), e.getMessage());
+    }
+
+    @Test
+    void absoluteEntryIsRejected() throws Exception {
+        Map<String, String> entries = new LinkedHashMap<>();
+        entries.put("manifest.xml", manifest());
+        entries.put(directory.resolve("evil.xml").toAbsolutePath().toString(), "<sbml/>");
+
+        CombineArchiveException e = assertThrows(
+                CombineArchiveException.class,
+                () -> CombineArchive.extract(zip(entries), "a.omex", directory.resolve("archive")));
+        assertTrue(e.getMessage().endsWith("outside the archive."), e.getMessage());
+        assertFalse(Files.exists(directory.resolve("evil.xml")));
+    }
+
+    @Test
+    void entryWithAnInvalidNameIsAnError() throws Exception {
+        Map<String, String> entries = new LinkedHashMap<>();
+        entries.put("manifest.xml", manifest());
+        entries.put("model\u0000.xml", "<sbml/>");
+
+        CombineArchiveException e = assertThrows(
+                CombineArchiveException.class, () -> CombineArchive.extract(zip(entries), "a.omex", directory));
+        assertTrue(e.getMessage().startsWith("The archive a.omex has the invalid entry"), e.getMessage());
+    }
+
+    @Test
+    void archiveLargerThanTheLimitIsRejected() throws Exception {
+        Map<String, String> entries = new LinkedHashMap<>();
+        entries.put("manifest.xml", manifest());
+        entries.put("model.xml", "x".repeat(2000));
+        Path extraction = directory.resolve("archive");
+
+        CombineArchiveException e = assertThrows(
+                CombineArchiveException.class,
+                () -> CombineArchive.extract(zip(entries), "a.omex", extraction, new CombineArchive.Limits(1000, 100)));
+        assertEquals("The archive a.omex is too large to unpack: its files have more than 1000 bytes.", e.getMessage());
+    }
+
+    @Test
+    void archiveWithMoreEntriesThanTheLimitIsRejected() throws Exception {
+        Map<String, String> entries = new LinkedHashMap<>();
+        entries.put("manifest.xml", manifest());
+        for (int i = 0; i < 5; i++) {
+            entries.put("file" + i + ".txt", "");
+        }
+
+        CombineArchiveException e = assertThrows(
+                CombineArchiveException.class,
+                () -> CombineArchive.extract(zip(entries), "a.omex", directory, new CombineArchive.Limits(1000, 3)));
+        assertEquals("The archive a.omex is too large to unpack: it has more than 3 entries.", e.getMessage());
+    }
 }

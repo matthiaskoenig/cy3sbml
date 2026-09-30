@@ -27,9 +27,12 @@ public class MappingUtil {
     public static final String PREFIX_EVENT_ASSIGNMENT = "event" + SEPARATOR;
 
     /**
-     * Set the unique metaId for the given sbase.
+     * Sets a metaId, unique in the document, on the SBase if it has none: the cyId of its
+     * node. It is derived from the id, or for elements without id from the parent and the
+     * element type.
      *
-     * @param doc   SBMLDocument for the sbase
+     * @param doc the document of the SBase
+     * @param sbase the SBase
      */
     public static void setSBaseMetaId(SBMLDocument doc, SBase sbase) {
         if (sbase.isSetMetaId()) {
@@ -91,9 +94,11 @@ public class MappingUtil {
     }
 
     /**
-     * Creates unique metaId in the model.
+     * The metaId, with a number appended if the document has it already.
      *
-     * @return metaId not in the SBMLDocument.
+     * @param doc the document
+     * @param metaId the metaId
+     * @return a metaId that is not in the document
      */
     public static String createUniqueMetaId(SBMLDocument doc, String metaId) {
         String unique = metaId;
@@ -118,11 +123,13 @@ public class MappingUtil {
         return sbase.getElementName();
     }
 
-    // ------------------------------------------------------------
-    // METAID FACTORIES
-
-    // ------------------------------------------------------------
-
+    /**
+     * The id of the node of a local parameter, unique in the model:
+     * {@code <reaction id>_<parameter id>}.
+     *
+     * @param lp the local parameter of a kinetic law
+     * @return the id
+     */
     public static String localParameterId(LocalParameter lp) {
         KineticLaw law = (KineticLaw) lp.getParent().getParent();
         Reaction reaction = law.getParent();

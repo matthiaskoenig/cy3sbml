@@ -56,7 +56,10 @@ public class SBMLUtil {
     private static final Logger logger = LoggerFactory.getLogger(SBMLUtil.class);
 
     /**
-     * Read the SBMLDocument from given SBML file resource.
+     * Reads the SBMLDocument of a classpath resource.
+     *
+     * @param resource the resource path
+     * @return the document, null if it cannot be read
      */
     public static SBMLDocument readSBMLDocument(String resource) {
         InputStream instream = SBMLUtil.class.getResourceAsStream(resource);
@@ -70,16 +73,21 @@ public class SBMLUtil {
     }
 
     /**
-     * Parses the notes xml from the {@code <notes>} element.
-     * Removes enclosing {@code <body>} elements if existing.
-     * Returns null if error occurred.
+     * The XHTML content of the {@code <notes>} of the SBase, without an enclosing
+     * {@code <body>} element, one top level element per line.
+     *
+     * @param sbase the SBase
+     * @return the notes, null if the SBase has no notes or they cannot be read
      */
     public static String parseNotes(SBase sbase) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         if (sbase.isSetNotes()) {
             try {
                 String notes = sbase.getNotesString();
                 Document doc = XMLUtil.readXMLString(notes);
+                if (doc == null) {
+                    return null;
+                }
                 XMLUtil.cleanEmptyTextNodes(doc);
 
                 // part of nodes which are of interest
@@ -91,26 +99,25 @@ public class SBMLUtil {
 
                 // filter for body
                 for (int k = 0; k < nodeList.getLength(); k++) {
-                    Element e = (Element) nodeList.item(k);
-                    if (e.getTagName().equals("body")) {
+                    Node node = nodeList.item(k);
+                    if (node instanceof Element e && e.getTagName().equals("body")) {
                         NodeList children = e.getChildNodes();
                         for (int i = 0; i < children.getLength(); i++) {
                             nodes.add(children.item(i));
                         }
                     } else {
-                        nodes.add(e);
+                        nodes.add(node);
                     }
                 }
 
                 // create xml string
                 for (Node n : nodes) {
                     String nText = XMLUtil.writeNodeToTidyString(n);
-                    nText = nText.trim();
-                    if (nText != null && !nText.equals("")) {
-                        text += String.format("%s\n", nText);
+                    if (nText != null && !nText.isBlank()) {
+                        text.append(nText.trim()).append('\n');
                     }
                 }
-                return text;
+                return text.toString();
             } catch (XMLStreamException e) {
                 logger.error("Error parsing notes xml.", e);
             }
@@ -119,12 +126,12 @@ public class SBMLUtil {
     }
 
     /**
-     * Get the variable from AssignmentRule and RateRule.
-     * Returns the variable string if set, returns null if not set or
-     * if the rule is an AlgebraicRule.
+     * The variable of an AssignmentRule or RateRule.
+     *
+     * @param rule the rule
+     * @return the variable, null if it is not set or the rule is an AlgebraicRule
      */
     public static Variable getVariableFromRule(Rule rule) {
-        Variable variable = null;
         if (rule.isAssignment()) {
             AssignmentRule r = (AssignmentRule) rule;
             if (r.isSetVariable()) {
@@ -136,11 +143,15 @@ public class SBMLUtil {
                 return r.getVariableInstance();
             }
         }
-        return variable;
+        return null;
     }
 
     /**
-     * Returns unqualified class name of a given object.
+     * The class name of the object without the package, with {@code .} for the {@code $} of
+     * a nested class, e.g. {@code ListOf.Type}.
+     *
+     * @param obj the object
+     * @return the unqualified class name
      */
     public static String getUnqualifiedClassName(Object obj) {
         String name = obj.getClass().getName();
@@ -155,8 +166,7 @@ public class SBMLUtil {
     // ------------------------------------------------------------
     // Attribute maps
     // ------------------------------------------------------------
-    // necessary to overwrite the SBML constants as long
-    //  as not fixed in BaseReader
+    // the math labels of rules without a variable (algebraic) and with one (assignment, rate)
     public static final String TEMPLATE_ALGEBRAIC_RULE = "<~>";
     public static final String TEMPLATE_ASSIGNMENT_RULE = "<%s>";
     public static final String TEMPLATE_RATE_RULE = "<d/dt %s>";
@@ -178,6 +188,16 @@ public class SBMLUtil {
     private static final String LINK_METAID_TEMPLATE = " <a href=\"" + BrowserHyperlinkListener.URL_SELECT_METAID
             + "%s\">" + GUIConstants.ICON_LINK.replace("{title}", "Link to node.") + "</a>";
 
+    /** The link to the node of the SId, the SId escaped. */
+    private static String idLink(String sid) {
+        return String.format(LINK_ID_TEMPLATE, HtmlUtil.escape(sid));
+    }
+
+    /** The link to the node of the metaId, the metaId escaped. */
+    private static String metaIdLink(String metaId) {
+        return String.format(LINK_METAID_TEMPLATE, HtmlUtil.escape(metaId));
+    }
+
     /** HTML of an attribute that is not set: an empty cell. */
     private static final String UNSET = "";
 
@@ -185,11 +205,15 @@ public class SBMLUtil {
      * Unit HTML, or {@link #UNSET} if there are no units.
      */
     private static String unitHtml(String units) {
-        return units == null || units.isEmpty() ? UNSET : String.format("<span class=\"unit\">%s</span>", units);
+        return units == null || units.isEmpty()
+                ? UNSET
+                : String.format("<span class=\"unit\">%s</span>", HtmlUtil.escape(units));
     }
 
     /**
      * Math HTML, or {@link #UNSET} if there is no math.
+     *
+     * @param math the math as HTML, i.e. the formula escaped
      */
     private static String mathHtml(String math) {
         return math == null || math.isEmpty() ? UNSET : String.format("<span class=\"math\">%s</span>", math);
@@ -200,7 +224,7 @@ public class SBMLUtil {
      */
     public static Map<String, String> createSBaseMap(SBase sbase) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put(SBML.ATTR_METAID, sbase.isSetMetaId() ? sbase.getMetaId() : UNSET);
+        map.put(SBML.ATTR_METAID, sbase.isSetMetaId() ? HtmlUtil.escape(sbase.getMetaId()) : UNSET);
         return map;
     }
 
@@ -257,11 +281,12 @@ public class SBMLUtil {
     public static Map<String, String> createAbstractMathContainerNodeMap(
             AbstractMathContainer container, Variable variable) {
         Map<String, String> map = createSBaseMap(container);
-        String math = container.isSetMath() ? ASTNodeUtil.toFormula(container.getMath()) : UNSET;
+        String math = container.isSetMath() ? HtmlUtil.escape(ASTNodeUtil.toFormula(container.getMath())) : UNSET;
         String units = getDerivedUnitHtml(container);
         if (variable != null) {
-            map.put(SBML.ATTR_VARIABLE, variable.getId() + String.format(LINK_METAID_TEMPLATE, variable.getMetaId()));
-            math = String.format("%s = %s", variable.getId(), math);
+            String variableId = HtmlUtil.escape(variable.getId());
+            map.put(SBML.ATTR_VARIABLE, variableId + metaIdLink(variable.getMetaId()));
+            math = String.format("%s = %s", variableId, math);
         }
         map.put(SBML.ATTR_MATH, mathHtml(math));
         map.put(SBML.ATTR_UNITS, unitHtml(units));
@@ -323,7 +348,7 @@ public class SBMLUtil {
             map.put(SBML.ATTR_EXTENT_UNITS, unitHtml(model.getExtentUnits()));
         }
         if (model.isSetConversionFactor()) {
-            map.put(SBML.ATTR_CONVERSION_FACTOR, model.getConversionFactor());
+            map.put(SBML.ATTR_CONVERSION_FACTOR, HtmlUtil.escape(model.getConversionFactor()));
         }
         return map;
     }
@@ -367,7 +392,7 @@ public class SBMLUtil {
 
         String compartment = UNSET;
         if (s.isSetCompartment()) {
-            compartment = s.getCompartment() + String.format(LINK_ID_TEMPLATE, s.getCompartment());
+            compartment = HtmlUtil.escape(s.getCompartment()) + idLink(s.getCompartment());
         }
         map.put(ATTR_COMPARTMENT, compartment);
         String boundaryCondition =
@@ -394,10 +419,10 @@ public class SBMLUtil {
             map.put(ATTR_CHARGE, Integer.toString(charge));
         }
         if (s.isSetConversionFactor()) {
-            map.put(SBML.ATTR_CONVERSION_FACTOR, s.getConversionFactor());
+            map.put(SBML.ATTR_CONVERSION_FACTOR, HtmlUtil.escape(s.getConversionFactor()));
         }
         if (s.isSetSubstanceUnits()) {
-            map.put(SBML.ATTR_SUBSTANCE_UNITS, s.getSubstanceUnits());
+            map.put(SBML.ATTR_SUBSTANCE_UNITS, HtmlUtil.escape(s.getSubstanceUnits()));
         }
 
         // fbc
@@ -412,7 +437,7 @@ public class SBMLUtil {
 
             String chemicalFormula = UNSET;
             if (fbcSpecies.isSetChemicalFormula()) {
-                chemicalFormula = fbcSpecies.getChemicalFormula();
+                chemicalFormula = HtmlUtil.escape(fbcSpecies.getChemicalFormula());
             }
             map.put(SBML.ATTR_FBC_CHEMICAL_FORMULA, chemicalFormula);
         }
@@ -426,7 +451,7 @@ public class SBMLUtil {
         Map<String, String> map = createNamedSBaseMap(r);
 
         String compartment =
-                r.isSetCompartment() ? r.getCompartment() + String.format(LINK_ID_TEMPLATE, r.getCompartment()) : UNSET;
+                r.isSetCompartment() ? HtmlUtil.escape(r.getCompartment()) + idLink(r.getCompartment()) : UNSET;
         String reversible = r.isSetReversible() ? SBaseHTMLFactory.booleanHTML(r.getReversible()) : UNSET;
         // reason: fast is deprecated in SBML L3V2, but still read from older SBML versions
         @SuppressWarnings("deprecation")
@@ -435,8 +460,7 @@ public class SBMLUtil {
         if (r.isSetKineticLaw()) {
             KineticLaw law = r.getKineticLaw();
             if (law.isSetMath()) {
-                kineticLaw =
-                        ASTNodeUtil.toFormula(law.getMath()) + String.format(LINK_METAID_TEMPLATE, law.getMetaId());
+                kineticLaw = HtmlUtil.escape(ASTNodeUtil.toFormula(law.getMath())) + metaIdLink(law.getMetaId());
             }
         }
         String units = getDerivedUnitHtml(r);
@@ -476,7 +500,7 @@ public class SBMLUtil {
         if (r.isSetListOfModifiers() && r.getModifierCount() > 0) {
             List<String> modifiers = new ArrayList<>();
             for (ModifierSpeciesReference msr : r.getListOfModifiers()) {
-                modifiers.add(msr.getSpecies());
+                modifiers.add(HtmlUtil.escape(msr.getSpecies()));
             }
             equation += "; " + String.join(" ", modifiers);
         }
@@ -490,7 +514,8 @@ public class SBMLUtil {
         List<String> terms = new ArrayList<>();
         for (SpeciesReference sr : speciesReferences) {
             String stoichiometry = stoichiometryHtml(sr);
-            terms.add(stoichiometry.isEmpty() ? sr.getSpecies() : stoichiometry + " " + sr.getSpecies());
+            String species = HtmlUtil.escape(sr.getSpecies());
+            terms.add(stoichiometry.isEmpty() ? species : stoichiometry + " " + species);
         }
         return String.join(" + ", terms);
     }
@@ -512,7 +537,7 @@ public class SBMLUtil {
             double value = sr.getStoichiometry();
             return value == 1.0 ? "" : numberString(value);
         }
-        return sr.getLevel() >= 3 && sr.isSetId() ? sr.getId() : "";
+        return sr.getLevel() >= 3 && sr.isSetId() ? HtmlUtil.escape(sr.getId()) : "";
     }
 
     /** A number without a fractional part of zero, e.g. {@code 2} for 2.0. */
@@ -573,7 +598,7 @@ public class SBMLUtil {
         // Add units
         String units = "";
         for (Unit u : ud.getListOfUnits()) {
-            units += u.printUnit() + "<br />";
+            units += HtmlUtil.escape(u.printUnit()) + "<br />";
         }
         map.put("units", units);
         return map;
@@ -625,7 +650,7 @@ public class SBMLUtil {
         if (event.isSetTrigger()) {
             Trigger trigger = event.getTrigger();
             if (trigger.isSetMath()) {
-                triggerStr = mathHtml(ASTNodeUtil.toFormula(trigger.getMath()));
+                triggerStr = mathHtml(HtmlUtil.escape(ASTNodeUtil.toFormula(trigger.getMath())));
             }
             if (trigger.isSetInitialValue()) {
                 initialValue = SBaseHTMLFactory.booleanHTML(trigger.getInitialValue());
@@ -642,7 +667,7 @@ public class SBMLUtil {
         if (event.isSetPriority()) {
             Priority priority = event.getPriority();
             if (priority.isSetMath()) {
-                priorityStr = mathHtml(ASTNodeUtil.toFormula(priority.getMath()));
+                priorityStr = mathHtml(HtmlUtil.escape(ASTNodeUtil.toFormula(priority.getMath())));
             }
         }
         map.put("priority", priorityStr);
@@ -650,7 +675,7 @@ public class SBMLUtil {
         if (event.isSetDelay()) {
             Delay delay = event.getDelay();
             if (delay.isSetMath()) {
-                delayStr = mathHtml(ASTNodeUtil.toFormula(delay.getMath()));
+                delayStr = mathHtml(HtmlUtil.escape(ASTNodeUtil.toFormula(delay.getMath())));
             }
         }
         map.put("delay", delayStr);
@@ -683,7 +708,7 @@ public class SBMLUtil {
         KineticLaw law = (KineticLaw) lp.getParent().getParent();
         Reaction reaction = law.getParent();
         String reactionId = reaction.getId();
-        map.put("reaction", reactionId + String.format(LINK_ID_TEMPLATE, reactionId));
+        map.put("reaction", HtmlUtil.escape(reactionId) + idLink(reactionId));
         map.putAll(createQuantityWithUnitNodeMap(lp));
         return map;
     }
@@ -695,7 +720,7 @@ public class SBMLUtil {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         Reaction reaction = law.getParent();
         String reactionId = reaction.getId();
-        map.put("reaction", reactionId + String.format(LINK_ID_TEMPLATE, reactionId));
+        map.put("reaction", HtmlUtil.escape(reactionId) + idLink(reactionId));
         map.putAll(createAbstractMathContainerNodeMap(law));
         return map;
     }
@@ -708,7 +733,7 @@ public class SBMLUtil {
     public static Map<String, String> createQualitativeSpeciesMap(QualitativeSpecies qs) {
         Map<String, String> map = createNamedSBaseMap(qs);
 
-        String compartment = qs.isSetCompartment() ? qs.getCompartment().toString() : UNSET;
+        String compartment = qs.isSetCompartment() ? HtmlUtil.escape(qs.getCompartment()) : UNSET;
         String initialLevel = qs.isSetInitialLevel() ? ((Integer) qs.getInitialLevel()).toString() : UNSET;
         String maxLevel = qs.isSetMaxLevel() ? ((Integer) qs.getMaxLevel()).toString() : UNSET;
         String constant = qs.isSetConstant() ? SBaseHTMLFactory.booleanHTML(qs.getConstant()) : UNSET;
@@ -734,7 +759,7 @@ public class SBMLUtil {
         Map<String, String> map = createNamedSBaseMap(input);
         map.put(
                 SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
-                input.isSetQualitativeSpecies() ? input.getQualitativeSpecies() : UNSET);
+                input.isSetQualitativeSpecies() ? HtmlUtil.escape(input.getQualitativeSpecies()) : UNSET);
         map.put(
                 SBML.ATTR_QUAL_TRANSITION_EFFECT,
                 input.isSetTransitionEffect() ? input.getTransitionEffect().toString() : UNSET);
@@ -752,7 +777,7 @@ public class SBMLUtil {
         Map<String, String> map = createNamedSBaseMap(output);
         map.put(
                 SBML.ATTR_QUAL_QUALITATIVE_SPECIES,
-                output.isSetQualitativeSpecies() ? output.getQualitativeSpecies() : UNSET);
+                output.isSetQualitativeSpecies() ? HtmlUtil.escape(output.getQualitativeSpecies()) : UNSET);
         map.put(
                 SBML.ATTR_QUAL_TRANSITION_EFFECT,
                 output.isSetTransitionEffect() ? output.getTransitionEffect().toString() : UNSET);
@@ -837,17 +862,17 @@ public class SBMLUtil {
     private static String variableLinks(UserDefinedConstraintComponent component) {
         String links = "";
         if (component.isSetVariable()) {
-            links += String.format(LINK_ID_TEMPLATE, component.getVariable());
+            links += idLink(component.getVariable());
         }
         if (component.isSetVariable2()) {
-            links += String.format(LINK_ID_TEMPLATE, component.getVariable2());
+            links += idLink(component.getVariable2());
         }
         return links;
     }
 
     /** The SId with a link to its node, {@link #UNSET} for null. */
     private static String sidHtml(String sid) {
-        return sid == null ? UNSET : HtmlUtil.escape(sid) + String.format(LINK_ID_TEMPLATE, sid);
+        return sid == null ? UNSET : HtmlUtil.escape(sid) + idLink(sid);
     }
 
     /**
@@ -860,7 +885,7 @@ public class SBMLUtil {
         }
         Parameter parameter = model != null ? model.getParameter(sid) : null;
         String value = parameter != null && parameter.isSetValue() ? " = " + numberString(parameter.getValue()) : "";
-        return HtmlUtil.escape(sid) + value + String.format(LINK_ID_TEMPLATE, sid);
+        return HtmlUtil.escape(sid) + value + idLink(sid);
     }
 
     // COMP
@@ -948,17 +973,19 @@ public class SBMLUtil {
         }
         SBaseRefResolver resolver = targets == null ? null : targets.resolver(document);
         for (ModelDefinition modelDefinition : plugin.getListOfModelDefinitions()) {
-            map.put("model definition " + modelDefinition.getId(), modelLink(modelDefinition, targets));
+            map.put(
+                    "model definition " + HtmlUtil.escape(modelDefinition.getId()),
+                    modelLink(modelDefinition, targets));
         }
         for (ExternalModelDefinition external : plugin.getListOfExternalModelDefinitions()) {
             String source = HtmlUtil.escape(external.getSource());
             if (external.isSetModelRef()) {
-                source += " (" + external.getModelRef() + ")";
+                source += " (" + HtmlUtil.escape(external.getModelRef()) + ")";
             }
             if (resolver != null) {
                 source += ": " + modelHtml(resolver.models().resolve(document, external.getId()), targets);
             }
-            map.put("external model definition " + external.getId(), source);
+            map.put("external model definition " + HtmlUtil.escape(external.getId()), source);
         }
         return map;
     }
@@ -992,7 +1019,8 @@ public class SBMLUtil {
         if (targets == null) {
             return Optional.empty();
         }
-        return targets.rootNetwork(model).map(root -> String.format(LINK_TARGET_TEMPLATE, root, metaId));
+        return targets.rootNetwork(model)
+                .map(root -> String.format(LINK_TARGET_TEMPLATE, root, HtmlUtil.escape(metaId)));
     }
 
     private static String targetHtml(SBaseRefResolution resolution, CompTargets targets) {
@@ -1001,7 +1029,7 @@ public class SBMLUtil {
             String name = target.isSetId() ? target.getId() : target.getMetaId();
             return String.format(
                     "%s <b>%s</b> in model %s%s",
-                    target.getElementName(),
+                    HtmlUtil.escape(target.getElementName()),
                     HtmlUtil.escape(name),
                     HtmlUtil.escape(modelName(resolved.model())),
                     nodeLink(resolved.model(), target.getMetaId(), targets).orElse(""));
@@ -1046,10 +1074,10 @@ public class SBMLUtil {
         String ref = member.isSetIdRef() ? member.getIdRef() : member.getMetaIdRef();
         SBase sbase = member.getSBaseInstance();
         if (sbase == null) {
-            return String.format("<span class=\"text-danger\">%s</span>", ref);
+            return String.format("<span class=\"text-danger\">%s</span>", HtmlUtil.escape(ref));
         }
-        String link = sbase.isSetMetaId() ? String.format(LINK_METAID_TEMPLATE, sbase.getMetaId()) : "";
-        return String.format("%s %s%s", sbase.getElementName(), ref, link);
+        String link = sbase.isSetMetaId() ? metaIdLink(sbase.getMetaId()) : "";
+        return String.format("%s %s%s", sbase.getElementName(), HtmlUtil.escape(ref), link);
     }
 
     /**

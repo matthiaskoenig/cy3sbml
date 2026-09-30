@@ -3,10 +3,12 @@ package org.cy3sbml.gui;
 import static org.cy3sbml.HtmlTemplateParser.load;
 import static org.cy3sbml.HtmlTemplateParser.parseTemplateSections;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
- * Constants used in GUI.
+ * Constants of the GUI: the resources, icons, toolbar positions and descriptions of the
+ * actions, and the HTML fragments of the info panel from {@code gui/linktemplate.html}.
  */
 public class GUIConstants {
     public static final String HTML_HELP_RESOURCE = "/gui/help.html";
@@ -14,7 +16,6 @@ public class GUIConstants {
     public static final String HTML_EXAMPLE_RESOURCE = "/gui/examples.html";
 
     public static final String LOGO_BIOMODELS = "/gui/images/logos/biomodels_logo.png";
-    public static final String ICON_CY3SBML = "/gui/images/logos/cy3sbml_icon.png";
 
     public static final String ICON_CHANGESTATE = "/gui/images/changestate.png";
     public static final String ICON_IMPORT = "/gui/images/import.png";
@@ -23,7 +24,6 @@ public class GUIConstants {
     public static final String ICON_COFACTOR_SPLIT = "/gui/images/cofactor-split.png";
     public static final String ICON_COFACTOR_MERGE = "/gui/images/cofactor-merge.png";
     public static final String ICON_BIOMODELS = "/gui/images/biomodels.png";
-    public static final String ICON_BIOMODELS_DEPRECATED = "/gui/images/biomodels_deprecated.png";
     public static final String ICON_HELP = "/gui/images/help.png";
     public static final String ICON_LOADLAYOUT = "/gui/images/layout-load.png";
     public static final String ICON_SAVELAYOUT = "/gui/images/layout-save.png";
@@ -50,9 +50,8 @@ public class GUIConstants {
     public static final String DESCRIPTION_LOADLAYOUT = "Load Layout";
     public static final String DESCRIPTION_SAVELAYOUT = "Save Layout";
 
-    // HTML FRAGMENTS
-    public static final String htmlTemplate = load();
-    public static final Map<String, String> htmlFragments = parseTemplateSections(htmlTemplate);
+    /** The HTML fragments of {@code gui/linktemplate.html} by section name. */
+    public static final Map<String, String> htmlFragments = Collections.unmodifiableMap(parseTemplateSections(load()));
 
     public static final String HTML_START_TEMPLATE = htmlFragments.get("HTML_START");
     public static final String HTML_STOP_TEMPLATE = htmlFragments.get("HTML_STOP");
@@ -75,7 +74,6 @@ public class GUIConstants {
     public static final String DESCRIPTION_LABEL = htmlFragments.get("DESCRIPTION_LABEL");
     public static final String SYNONYMS_LABEL = htmlFragments.get("SYNONYMS_LABEL");
     public static final String ONTOLOGY_TERM_LINK = htmlFragments.get("ONTOLOGY_TERM_LINK");
-    public static final String CONDITIONAL_LINK = htmlFragments.get("CONDITIONAL_LINK");
     public static final String IDENTIFIER_PATTERN_MISMATCH = htmlFragments.get("IDENTIFIER_PATTERN_MISMATCH");
     public static final String MIRIAM_COLLECTION_LINK = htmlFragments.get("MIRIAM_COLLECTION_LINK");
     public static final String INVISIBLE_RESOURCE_LINK = htmlFragments.get("INVISIBLE_RESOURCE_LINK");

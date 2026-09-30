@@ -4,16 +4,15 @@ import org.cytoscape.work.TaskFactory;
 import org.cytoscape.work.TaskIterator;
 
 /**
- * Use a TaskFactory to set the ready state.
+ * The enable state of an action, as a task factory without tasks: the action is enabled
+ * while the factory is ready (see {@code AbstractCyAction} with an enable task factory).
  */
 public class SBMLEnableTaskFactory implements TaskFactory {
 
-    private boolean ready;
+    // set on the thread of the Cytoscape events, read on the Swing event dispatch thread
+    private volatile boolean ready;
 
-    public SBMLEnableTaskFactory() {
-        ready = false;
-    }
-
+    /** Sets whether the action is enabled. */
     public void setReady(boolean ready) {
         this.ready = ready;
     }

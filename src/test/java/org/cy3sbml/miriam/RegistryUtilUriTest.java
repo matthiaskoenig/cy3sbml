@@ -246,4 +246,26 @@ public class RegistryUtilUriTest {
         assertFalse(RegistryUtil.isIdentifiersURI("https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:36927"));
         assertFalse(RegistryUtil.isIdentifiersURI(null));
     }
+
+    @Test
+    public void isIdentifiersURI_checksTheHost() {
+        assertTrue(RegistryUtil.isIdentifiersURI("HTTPS://Identifiers.org/chebi/CHEBI:36927"));
+        assertTrue(RegistryUtil.isIdentifiersURI("https://www.identifiers.org/chebi/CHEBI:36927"));
+        assertTrue(RegistryUtil.isIdentifiersURI("http://identifiers.org:80/chebi/CHEBI:36927"));
+        assertFalse(RegistryUtil.isIdentifiersURI("https://example.org/identifiers.org/chebi/CHEBI:36927"));
+        assertFalse(RegistryUtil.isIdentifiersURI("https://notidentifiers.org/chebi/CHEBI:36927"));
+        assertFalse(RegistryUtil.isIdentifiersURI("https://identifiers.org.example.org/chebi/CHEBI:36927"));
+        assertFalse(RegistryUtil.isIdentifiersURI("https://example.org/?see=identifiers.org"));
+        assertFalse(RegistryUtil.isIdentifiersURI("ftp://identifiers.org/chebi/CHEBI:36927"));
+    }
+
+    /** A plus sign is a literal character of the identifier, not an encoded space. */
+    @Test
+    public void getIdentifierFromURI_keepsAPlusSign() {
+        assertEquals("CA+2", RegistryUtil.getIdentifierFromURI("http://identifiers.org/biocyc/CA+2"));
+        assertEquals(
+                "InChI=1S/Na/q+1", RegistryUtil.getIdentifierFromURI("https://identifiers.org/inchi:InChI=1S/Na/q+1"));
+        assertEquals("InChI=1S/Na/q+1", RegistryUtil.getIdentifierFromURI("urn:miriam:inchi:InChI=1S/Na/q+1"));
+        assertEquals("InChI=1S/Na/q+1", RegistryUtil.getIdentifierFromURI("urn:miriam:inchi:InChI%3D1S%2FNa%2Fq%2B1"));
+    }
 }
