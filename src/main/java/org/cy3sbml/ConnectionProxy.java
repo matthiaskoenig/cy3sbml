@@ -2,33 +2,31 @@ package org.cy3sbml;
 
 import java.util.Properties;
 import org.cytoscape.property.CyProperty;
-import org.cytoscape.property.PropertyUpdatedEvent;
-import org.cytoscape.property.PropertyUpdatedListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Handling the system proxy settings required to use the web services (SOAP, REST).
- * Listens to changes in Cytoscape properties which are used for
- * updating the system proxy settings.
+ * Sets the Java system proxy properties for the web services (OLS, UniProt, ChEBI,
+ * identifiers.org, BioModels) from the proxy settings in the Cytoscape properties, when the
+ * app starts.
  * <p>
- * Proxy authentication is currently not supported.
+ * Proxy authentication is not supported.
  */
-public class ConnectionProxy implements PropertyUpdatedListener {
+public class ConnectionProxy {
     private static final Logger logger = LoggerFactory.getLogger(ConnectionProxy.class);
 
-    private CyProperty<Properties> cyProperties;
+    private final CyProperty<Properties> cyProperties;
 
     /**
-     * Constructor.
+     * Creates the proxy settings from the Cytoscape properties.
+     *
+     * @param cyProperties the Cytoscape properties ({@code cytoscape3.props})
      */
     public ConnectionProxy(CyProperty<Properties> cyProperties) {
         this.cyProperties = cyProperties;
     }
 
-    /**
-     * Sets Cytoscape proxy settings.
-     */
+    /** Sets the system proxy from the Cytoscape proxy settings. */
     public void setSystemProxyFromCyProperties() {
         String type = getProxyType();
         String host = getProxyHost();
@@ -36,18 +34,29 @@ public class ConnectionProxy implements PropertyUpdatedListener {
         setSystemProxy(type, host, port);
     }
 
+    /** The proxy type of the Cytoscape settings: {@code direct}, {@code http} or {@code socks}. */
     public String getProxyType() {
         return cyProperties.getProperties().getProperty("proxy.server.type");
     }
 
+    /** The proxy host of the Cytoscape settings. */
     public String getProxyHost() {
         return cyProperties.getProperties().getProperty("proxy.server");
     }
 
+    /** The proxy port of the Cytoscape settings. */
     public String getProxyPort() {
         return cyProperties.getProperties().getProperty("proxy.server.port");
     }
 
+    /**
+     * Sets the HTTP and HTTPS system proxy: none for {@code direct}, the host and port for
+     * {@code http}. Other types leave the system properties unchanged.
+     *
+     * @param type the proxy type
+     * @param host the proxy host
+     * @param port the proxy port
+     */
     public void setSystemProxy(String type, String host, String port) {
         logger.debug("set proxy: {} {}:{}", type, host, port);
         if ("direct".equals(type)) {
@@ -69,16 +78,5 @@ public class ConnectionProxy implements PropertyUpdatedListener {
             System.setProperty("https.proxyHost", host);
             System.setProperty("https.proxyPort", port);
         }
-    }
-
-    @Override
-    public void handleEvent(PropertyUpdatedEvent event) {
-        // Cytoscape does not fire this event reliably for proxy property changes,
-        // so the event is only logged.
-
-        @SuppressWarnings("rawtypes")
-        CyProperty property = event.getSource();
-        String name = property.getName();
-        logger.debug("PropertyUpdatedEvent: {}", name);
     }
 }

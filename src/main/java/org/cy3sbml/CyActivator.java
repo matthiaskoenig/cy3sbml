@@ -41,7 +41,6 @@ import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.events.NetworkAboutToBeDestroyedListener;
 import org.cytoscape.model.events.RowsSetListener;
 import org.cytoscape.property.CyProperty;
-import org.cytoscape.property.PropertyUpdatedListener;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.events.SessionAboutToBeSavedListener;
 import org.cytoscape.session.events.SessionLoadedListener;
@@ -60,7 +59,6 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.SynchronousTaskManager;
 import org.cytoscape.work.TaskFactory;
-import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.swing.DialogTaskManager;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -227,8 +225,6 @@ public class CyActivator extends AbstractCyActivator {
         CyLayoutAlgorithmManager cyLayoutAlgorithmManager = getService(bc, CyLayoutAlgorithmManager.class);
 
         DialogTaskManager dialogTaskManager = getService(bc, DialogTaskManager.class);
-        @SuppressWarnings("rawtypes")
-        TaskManager taskManager = getService(bc, TaskManager.class);
 
         CyNetworkFactory cyNetworkFactory = getService(bc, CyNetworkFactory.class);
         CyNetworkViewFactory cyNetworkViewFactory = getService(bc, CyNetworkViewFactory.class);
@@ -246,9 +242,7 @@ public class CyActivator extends AbstractCyActivator {
         LoadNetworkFileTaskFactory loadNetworkFileTaskFactory = getService(bc, LoadNetworkFileTaskFactory.class);
 
         // Use Cytoscape properties to set proxy for webservices
-        ConnectionProxy connectionProxy = new ConnectionProxy(cyProperties);
-        connectionProxy.setSystemProxyFromCyProperties();
-        registerService(bc, connectionProxy, PropertyUpdatedListener.class, new Properties());
+        new ConnectionProxy(cyProperties).setSystemProxyFromCyProperties();
 
         /* Create ServiceAdapter */
         ServiceAdapter adapter = new ServiceAdapter(
@@ -259,15 +253,12 @@ public class CyActivator extends AbstractCyActivator {
                 visualMappingManager,
                 cyLayoutAlgorithmManager,
                 dialogTaskManager,
-                taskManager,
                 cyNetworkFactory,
                 cyGroupFactory,
                 cyNetworkViewFactory,
                 appProperties,
                 appDirectory,
-                streamUtil,
                 openBrowser,
-                connectionProxy,
                 loadNetworkFileTaskFactory,
                 fileUtil);
 

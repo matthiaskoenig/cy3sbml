@@ -30,24 +30,7 @@ class BrowserHyperlinkListenerTest {
     void linkActionsRunOnTheDispatchExecutorNotOnTheCallingThread() throws Exception {
         CyApplicationManager applicationManager = mock(CyApplicationManager.class);
         ServiceAdapter adapter = new ServiceAdapter(
-                null,
-                applicationManager,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+                null, applicationManager, null, null, null, null, null, null, null, null, null, null, null, null, null);
         List<Runnable> dispatched = new ArrayList<>();
         BrowserHyperlinkListener listener =
                 new BrowserHyperlinkListener(adapter, null, null, null, null, dispatched::add);
@@ -109,9 +92,6 @@ class BrowserHyperlinkListenerTest {
                 applicationManager,
                 networkManager,
                 viewManager,
-                null,
-                null,
-                null,
                 null,
                 null,
                 null,
