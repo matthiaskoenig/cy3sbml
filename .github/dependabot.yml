@@ -1,6 +1,15 @@
 # Keep the GitHub Actions, the Maven and the Python dependencies up to date.
 # See https://docs.github.com/code-security/dependabot/dependabot-version-updates
 version: 2
+registries:
+  # the Cytoscape API artifacts (pom.xml repositories); public, but Dependabot only
+  # reaches the Maven repositories declared here
+  cytoscape-releases:
+    type: maven-repository
+    url: https://nrnb-nexus.ucsd.edu/repository/cytoscape_releases/
+  cytoscape-thirdparty:
+    type: maven-repository
+    url: https://nrnb-nexus.ucsd.edu/repository/cytoscape_thirdparty/
 updates:
   - package-ecosystem: "github-actions"
     # the actions are pinned to commit SHAs with the version as a comment,
@@ -40,6 +49,9 @@ updates:
       prefix: "docs"
   - package-ecosystem: "maven"
     directory: "/"
+    registries:
+      - cytoscape-releases
+      - cytoscape-thirdparty
     schedule:
       interval: "weekly"
     groups:
