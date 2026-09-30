@@ -120,6 +120,8 @@ public class CyActivator extends AbstractCyActivator {
     private WebViewPanel webViewPanel;
     // the directories the COMBINE archives are unpacked into, deleted in shutDown
     private volatile ArchiveDirectories archiveDirectories;
+    // the temporary files of the last saved session, deleted in shutDown
+    private volatile SessionData sessionData;
 
     public CyActivator() {
         super();
@@ -280,7 +282,7 @@ public class CyActivator extends AbstractCyActivator {
         registerService(bc, cofactorManager, NetworkAboutToBeDestroyedListener.class, new Properties());
 
         // Session loading & saving
-        SessionData sessionData = new SessionData(sbmlManager, cofactorManager);
+        sessionData = new SessionData(sbmlManager, cofactorManager);
         registerService(bc, sessionData, SessionAboutToBeSavedListener.class, new Properties());
         registerService(bc, sessionData, SessionLoadedListener.class, new Properties());
 
@@ -517,7 +519,8 @@ public class CyActivator extends AbstractCyActivator {
 
     /**
      * Stops the WebViewPanel's render executor (its daemon thread and any in-flight
-     * web-service call) before AbstractCyActivator unregisters the OSGi services.
+     * web-service call) and deletes the temporary directories of the COMBINE archives and
+     * of the last saved session, before AbstractCyActivator unregisters the OSGi services.
      */
     @Override
     public void shutDown() {
@@ -526,6 +529,9 @@ public class CyActivator extends AbstractCyActivator {
         }
         if (archiveDirectories != null) {
             archiveDirectories.deleteAll();
+        }
+        if (sessionData != null) {
+            sessionData.dispose();
         }
         super.shutDown();
     }

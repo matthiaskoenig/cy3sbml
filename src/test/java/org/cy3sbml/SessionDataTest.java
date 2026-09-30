@@ -2,7 +2,9 @@ package org.cy3sbml;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -53,6 +55,7 @@ import org.cytoscape.work.TaskMonitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 
@@ -313,6 +316,72 @@ class SessionDataTest {
 
         assertEquals(10, original.size());
         assertEquals(original, uncertainties(restoredManager.getSBMLDocument(rootSUID)));
+    }
+
+    /** A class outside the mappers, which records whether it was deserialized. */
+    static final class Gadget implements Serializable {
+        private static final long serialVersionUID = 1L;
+        static volatile boolean deserialized;
+
+        private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+            in.defaultReadObject();
+            deserialized = true;
+        }
+    }
+
+    @Test
+    void sessionFileWithOtherClassesIsRejected() throws Exception {
+        SBMLManager sbmlManager = new SBMLManager(mock(CyApplicationManager.class));
+        Network2SBMLMapper before = sbmlManager.getNetwork2SBMLMapper();
+        SessionData sessionData = new SessionData(sbmlManager, cofactorManager());
+
+        // a crafted session: the mapper file holds another class, nested in a map
+        sessionData.handleEvent(
+                event(serialize("Network2SBMLMapper.ser", new java.util.HashMap<>(Map.of(1L, new Gadget())))));
+
+        assertFalse(Gadget.deserialized);
+        assertSame(before, sbmlManager.getNetwork2SBMLMapper());
+    }
+
+    @Test
+    void sbmlFileNameStaysInTheDirectory() {
+        SBMLDocument document = new SBMLDocument(3, 1);
+        assertEquals("7", SessionData.sbmlFileName(7L, document));
+        document.createModel("model_1");
+        assertEquals("model_1", SessionData.sbmlFileName(7L, document));
+
+        // an invalid id, e.g. of a model read without validation
+        SBMLDocument invalid = mock(SBMLDocument.class);
+        Model model = mock(Model.class);
+        when(invalid.getModel()).thenReturn(model);
+        when(model.isSetId()).thenReturn(true);
+        when(model.getId()).thenReturn("../../evil/x");
+        assertEquals("_.._.._evil_x", SessionData.sbmlFileName(7L, invalid));
+        when(model.getId()).thenReturn("..");
+        assertEquals("_..", SessionData.sbmlFileName(7L, invalid));
+    }
+
+    @Test
+    void temporaryFilesOfTheLastSaveAreDeleted() throws Exception {
+        SBMLManager manager = new SBMLManager(mock(CyApplicationManager.class));
+        importNetwork(SBMLFbcTest.TEST_MODEL_FBC, manager);
+        SessionData sessionData = new SessionData(manager, cofactorManager());
+
+        SessionAboutToBeSavedEvent first = new SessionAboutToBeSavedEvent(mock(CySessionManager.class));
+        sessionData.saveSessionData(first);
+        List<File> firstFiles = first.getAppFileListMap().get("cy3sbml");
+        assertTrue(firstFiles.stream().allMatch(File::exists));
+
+        SessionAboutToBeSavedEvent second = new SessionAboutToBeSavedEvent(mock(CySessionManager.class));
+        sessionData.saveSessionData(second);
+        List<File> secondFiles = second.getAppFileListMap().get("cy3sbml");
+        assertTrue(firstFiles.stream().noneMatch(File::exists));
+        assertFalse(firstFiles.get(0).getParentFile().exists());
+        assertTrue(secondFiles.stream().allMatch(File::exists));
+
+        sessionData.dispose();
+        assertTrue(secondFiles.stream().noneMatch(File::exists));
+        assertFalse(secondFiles.get(0).getParentFile().exists());
     }
 
     @Test
