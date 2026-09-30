@@ -392,12 +392,6 @@
             <version>${cytoscape.api.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.cytoscape</groupId>
-            <artifactId>work-impl</artifactId>
-            <version>${cytoscape.api.version}</version>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
 
@@ -472,9 +466,6 @@
                             default package; bnd rejects a reference to the default package even
                             though that class is never loaded, so the error is downgraded -->
                         <_fixupmessages>"The default package '.' is not permitted";is:=warning</_fixupmessages>
-                        <!--
-                        <Import-Package>*;resolution:=optional</Import-Package>
-                        -->
                         <Import-Package>javax.xml.namespace, *;resolution:=optional</Import-Package>
                     </instructions>
                 </configuration>
@@ -579,10 +570,10 @@
             <!-- packaged-bundle integration tests (*IT.java), run in the integration-test/
                 verify phases against the already-packaged target/cy3sbml-<version>.jar, e.g.
                 BundleJarContentIT checks the jar itself has the resources the app needs at
-                runtime (see the task-3.12 investigation: a resource missing from the packaged
-                jar aborted CyActivator.start and handed SBML imports to Cytoscape's own,
-                broken bundled SBML app; a unit test running against target/classes cannot
-                catch that, since target/classes still has everything). -->
+                runtime (a resource missing from the packaged jar aborts CyActivator.start and
+                hands SBML imports to Cytoscape's own bundled SBML app; a unit test running
+                against target/classes cannot catch that, since target/classes still has
+                everything). -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
