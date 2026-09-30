@@ -17,31 +17,26 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Factory for creating visual styles depending on the current
- * SBML attributes and values.
- * This allows simple update of the styles with changed attributes.
+ * Generates the style files of cy3sbml from a template, which defines the default values,
+ * and the mappings of a {@link StyleInfo}.
  * <p>
- * A template engine is used to fill in the styles with the given
- * information.
- * <p>
- * Template only defines the default values.
- * The additional mappings are added.
- * <p>
- * To change the styles change the style information in the StyleInfo classes.
+ * The bundled styles {@code resources/styles/cy3sbml*.xml} are generated with
+ * {@link #createStyle}; to change a style, change its {@code StyleInfo} or template and
+ * regenerate the file ({@code StyleFactoryTest} checks that they are consistent).
  */
 public class StyleFactory {
     private static final Logger logger = LoggerFactory.getLogger(StyleFactory.class);
 
     /**
-     * Creates VisualStyle from StyleInfo
+     * Writes the style file of the style information: its template with the name and the
+     * mappings of the style.
+     *
+     * @param info the style information
+     * @param file the style file to write
      */
     public static void createStyle(StyleInfo info, File file) {
-
-        // read template
         String name = info.getName();
-
-        InputStream xmlStream = IOUtil.readResource(info.getTemplate());
-        try {
+        try (InputStream xmlStream = IOUtil.readResource(info.getTemplate())) {
             Document doc = XMLUtil.documentBuilder().parse(xmlStream);
 
             // modify template with information
@@ -94,7 +89,6 @@ public class StyleFactory {
                                     Element eEntry = doc.createElement("discreteMappingEntry");
                                     eEntry.setAttribute("attributeValue", attributeValue);
                                     eEntry.setAttribute("value", value);
-                                    nvp.appendChild(eMap);
                                     eMap.appendChild(eEntry);
                                 }
 
