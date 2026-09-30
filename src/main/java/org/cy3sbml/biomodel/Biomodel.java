@@ -5,7 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Stores information for a given biomodel.
+ * The details of a BioModels model from the model endpoint of the BioModels REST API.
+ *
+ * @param id the curated BioModels id ({@code publicationId}, e.g. {@code BIOMD0000000012}),
+ *     empty for a non-curated model
+ * @param submissionIdentifier the submission id, e.g. {@code MODEL1234}
+ * @param publicationIdentifier the accession of the publication (a PubMed id or a DOI),
+ *     empty if unknown
+ * @param name the model name, empty if unknown
+ * @param description the description of the model (HTML), empty if unknown
+ * @param authors the authors of the publication, comma separated
  */
 public record Biomodel(
         String id,
@@ -14,16 +23,18 @@ public record Biomodel(
         String name,
         String description,
         String authors) {
-    public static final String SUBMISSION_ID = "submissionId";
-    public static final String PUBLICATION = "publication";
-    public static final String PUBLICATION_ID = "publicationId";
-    public static final String NAME = "name";
-    public static final String ACCESSION = "accession";
-    public static final String DESCRIPTION = "description";
-    public static final String AUTHORS = "authors";
+    private static final String SUBMISSION_ID = "submissionId";
+    private static final String PUBLICATION = "publication";
+    private static final String PUBLICATION_ID = "publicationId";
+    private static final String NAME = "name";
+    private static final String ACCESSION = "accession";
+    private static final String DESCRIPTION = "description";
+    private static final String AUTHORS = "authors";
 
     /**
      * Creates the biomodel from the JSON of the BioModels model endpoint.
+     *
+     * @throws IllegalArgumentException if the submission id or the publication is missing
      */
     public static Biomodel fromJson(JsonNode jsonObject) {
         String submissionIdentifier = requiredText(jsonObject, SUBMISSION_ID);

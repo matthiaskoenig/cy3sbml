@@ -96,6 +96,7 @@ final class CofactorsCommand extends AbstractTaskFactory {
         abstract String resultKey();
     }
 
+    /** Splits the given nodes into clones. */
     public static final class SplitTask extends CofactorsTask {
         SplitTask(CommandServices services) {
             super(services);
@@ -115,6 +116,7 @@ final class CofactorsCommand extends AbstractTaskFactory {
         }
     }
 
+    /** Merges the given clones, or all clones of the network, back into their nodes. */
     public static final class MergeTask extends CofactorsTask {
         MergeTask(CommandServices services) {
             super(services);

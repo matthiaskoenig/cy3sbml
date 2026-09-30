@@ -50,6 +50,7 @@ public class SearchBioModel {
         }
     }
 
+    /** Creates the search with the given BioModels queries. */
     public SearchBioModel(BiomodelsQuery biomodelsQuery) {
         this.biomodelsQuery = biomodelsQuery;
     }

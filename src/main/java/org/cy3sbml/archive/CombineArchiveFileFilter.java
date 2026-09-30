@@ -25,6 +25,7 @@ public class CombineArchiveFileFilter extends BasicCyFileFilter {
 
     private static final byte[] ZIP_SIGNATURE = {'P', 'K', 0x3, 0x4};
 
+    /** Creates the filter of the COMBINE extensions and the zip media types. */
     public CombineArchiveFileFilter(StreamUtil streamUtil) {
         super(
                 EXTENSIONS.toArray(new String[0]),
