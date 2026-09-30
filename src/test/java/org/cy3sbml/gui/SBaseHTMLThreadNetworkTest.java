@@ -26,15 +26,13 @@ import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 
 /**
- * Testing the HTML information generation.
- * <p>
- * A mock for the panel is created to simplify testing.
- * http://www.vogella.com/tutorials/Mockito/article.html
+ * Creates the HTML information of every element of the test models with the OLS, UniProt
+ * and ChEBI web services; see {@link SBaseHTMLThreadTest} for the tests without them.
  */
 @Tag("network")
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class SBaseHtmlThreadTest {
+class SBaseHTMLThreadNetworkTest {
     @Mock
     InfoPanel panel;
 
@@ -128,12 +126,4 @@ public class SBaseHtmlThreadTest {
             assertNotNull(html);
         }
     }
-
-    // ------------------------------------------------------------
-
-    /*
-     * Writing HTML information to file for development.
-     * This allows faster development cycle of the information HTML than
-     * packing it in the Cytoscape app.
-     */
 }
