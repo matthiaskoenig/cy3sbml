@@ -248,7 +248,7 @@ class MiriamRegistryTest {
         Namespace good = namespaces.get("good");
         assertEquals("Good", good.getName());
         assertEquals("^\\d+$", good.getPattern());
-        assertEquals(Boolean.FALSE, good.getNamespaceEmbeddedInLui());
+        assertEquals(false, good.getNamespaceEmbeddedInLui());
         assertEquals("https://example.org/{$id}", good.getPrimaryResource().getUrlPattern());
         assertEquals("", good.getPrimaryResource().getResourceHomeUrl());
     }

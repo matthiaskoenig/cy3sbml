@@ -54,6 +54,7 @@
     <!-- web-service fixtures: error statuses, timeouts, incomplete entries -->
     <logger name="org.cy3sbml.util.HttpJson" level="ERROR" />
     <logger name="org.cy3sbml.miriam.MiriamRegistry" level="ERROR" />
+    <logger name="org.cy3sbml.miriam.RegistryUtil" level="ERROR" />
     <logger name="org.cy3sbml.ols.OlsClient" level="ERROR" />
     <logger name="org.cy3sbml.uniprot.UniprotAccess" level="ERROR" />
     <logger name="org.cy3sbml.chebi.ChebiAccess" level="ERROR" />
