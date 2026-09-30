@@ -15,7 +15,11 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +29,7 @@ class HttpJsonTest {
     private HttpServer server;
     private HttpJson httpJson;
     private static final int LIMIT = 1000;
+    private static final Duration RESPONSE_TIMEOUT = Duration.ofSeconds(1);
 
     @TempDir
     Path tempDir;
@@ -59,13 +64,31 @@ class HttpJsonTest {
                 // the client stops reading once the limit is exceeded
             }
         });
+        // the headers are sent at once, the body trickles in and never ends
+        server.createContext("/trickle", exchange -> {
+            exchange.sendResponseHeaders(200, 0);
+            try (var out = exchange.getResponseBody()) {
+                out.write('[');
+                while (true) {
+                    out.write("1,".getBytes(StandardCharsets.UTF_8));
+                    out.flush();
+                    Thread.sleep(50);
+                }
+            } catch (IOException e) {
+                // the client closed the connection
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        server.setExecutor(Executors.newCachedThreadPool());
         server.start();
-        httpJson = new HttpJson(java.net.http.HttpClient.newHttpClient(), new ObjectMapper());
+        httpJson = new HttpJson(HttpClient.newHttpClient(), new ObjectMapper(), RESPONSE_TIMEOUT, LIMIT);
     }
 
     @AfterEach
     void stopServer() {
         server.stop(0);
+        ((ExecutorService) server.getExecutor()).shutdownNow();
     }
 
     private static void respond(com.sun.net.httpserver.HttpExchange exchange, int status, String body)
@@ -82,12 +105,12 @@ class HttpJsonTest {
 
     @Test
     void returnsEmptyOnMalformedJson() {
-        assertTrue(httpJson.get(uri("/malformed")).isEmpty());
+        assertTrue(httpJson.fetch(uri("/malformed")).value().isEmpty());
     }
 
     @Test
     void returnsEmptyOnHttpError() {
-        assertTrue(httpJson.get(uri("/error")).isEmpty());
+        assertTrue(httpJson.fetch(uri("/error")).value().isEmpty());
     }
 
     @Test
@@ -109,7 +132,7 @@ class HttpJsonTest {
         // body it is treated as a transient error and not cached
         assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/empty")).status());
         assertEquals(FetchStatus.ERROR, httpJson.fetchAsync(uri("/empty")).get().status());
-        assertTrue(httpJson.get(uri("/empty")).isEmpty());
+        assertTrue(httpJson.fetch(uri("/empty")).value().isEmpty());
     }
 
     /**
@@ -166,6 +189,38 @@ class HttpJsonTest {
         assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/timeout")).status());
         assertEquals(
                 FetchStatus.ERROR, httpJson.fetchText(uri("/toomanyrequests")).status());
+    }
+
+    @Test
+    void fetchReadsABodyUpToTheLimit() {
+        assertEquals(
+                "a".repeat(LIMIT), httpJson.fetchText(uri("/small")).value().orElseThrow());
+    }
+
+    /** A response larger than the limit is not read into memory, whether its size is declared or not. */
+    @Test
+    void fetchTreatsABodyAboveTheLimitAsTransient() throws Exception {
+        assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/large")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetchText(uri("/largechunked")).status());
+        assertEquals(FetchStatus.ERROR, httpJson.fetch(uri("/largechunked")).status());
+        assertEquals(
+                FetchStatus.ERROR,
+                httpJson.fetchAsync(uri("/largechunked"))
+                        .get(10, TimeUnit.SECONDS)
+                        .status());
+    }
+
+    /** The timeout covers the whole response, not only its headers: a body that never ends fails. */
+    @Test
+    void fetchGivesUpOnABodyThatNeverEnds() throws Exception {
+        HttpJson unlimited =
+                new HttpJson(HttpClient.newHttpClient(), new ObjectMapper(), RESPONSE_TIMEOUT, Long.MAX_VALUE);
+        assertTimeoutPreemptively(Duration.ofSeconds(10), () -> {
+            assertEquals(FetchStatus.ERROR, unlimited.fetch(uri("/trickle")).status());
+            assertEquals(
+                    FetchStatus.ERROR,
+                    unlimited.fetchAsync(uri("/trickle")).get().status());
+        });
     }
 
     @Test

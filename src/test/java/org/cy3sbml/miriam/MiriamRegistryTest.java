@@ -193,6 +193,66 @@ class MiriamRegistryTest {
         assertNull(before.get("testcollection"));
     }
 
+    private URI serveBody(byte[] body) throws Exception {
+        return serve("/registry", exchange -> {
+            exchange.sendResponseHeaders(200, body.length);
+            exchange.getResponseBody().write(body);
+            exchange.close();
+        });
+    }
+
+    /** A registry without data collections would leave every annotation unresolved. */
+    @Test
+    void refreshKeepsTheRegistryIfTheDownloadHasNoDataCollections() throws Exception {
+        URI uri = serveBody("{\"payload\": {\"namespaces\": []}}".getBytes(StandardCharsets.UTF_8));
+        MiriamRegistry registry = MiriamRegistry.bundled();
+
+        assertFalse(registry.refresh(uri, Duration.ofSeconds(5)));
+        assertNotNull(registry.get("go"));
+    }
+
+    @Test
+    void refreshKeepsTheRegistryIfTheDownloadIsTooLarge() throws Exception {
+        URI uri = serve("/registry", exchange -> {
+            exchange.sendResponseHeaders(200, 0);
+            byte[] chunk = new byte[1024 * 1024];
+            try (var out = exchange.getResponseBody()) {
+                for (int i = 0; i <= RegistryUtil.MAX_REGISTRY_BYTES / chunk.length; i++) {
+                    out.write(chunk);
+                }
+            } catch (java.io.IOException e) {
+                // the client stops reading at the limit
+            }
+        });
+        MiriamRegistry registry = MiriamRegistry.bundled();
+
+        assertFalse(registry.refresh(uri, Duration.ofSeconds(5)));
+        assertNotNull(registry.get("go"));
+    }
+
+    /** A malformed data collection is skipped instead of failing the whole update. */
+    @Test
+    void parseSkipsAMalformedDataCollection() throws Exception {
+        String json = """
+                {"payload": {"namespaces": [
+                  {"id": 1, "prefix": "noname"},
+                  {"id": 2, "prefix": "badresource", "name": "Bad", "resources": [{"id": 3}]},
+                  {"id": 4, "prefix": "good", "name": "Good", "pattern": "^\\\\d+$",
+                   "namespaceEmbeddedInLui": false,
+                   "resources": [{"id": 5, "urlPattern": "https://example.org/{$id}", "official": true}]}
+                ]}}""";
+
+        Map<String, Namespace> namespaces = RegistryUtil.parseRegistry(json.getBytes(StandardCharsets.UTF_8));
+
+        assertEquals(1, namespaces.size());
+        Namespace good = namespaces.get("good");
+        assertEquals("Good", good.getName());
+        assertEquals("^\\d+$", good.getPattern());
+        assertEquals(false, good.getNamespaceEmbeddedInLui());
+        assertEquals("https://example.org/{$id}", good.getPrimaryResource().getUrlPattern());
+        assertEquals("", good.getPrimaryResource().getResourceHomeUrl());
+    }
+
     /** The primary resource is the official one, skipping deprecated resources. */
     @Test
     void primaryResourceSkipsDeprecatedResources() {

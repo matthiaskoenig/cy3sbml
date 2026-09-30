@@ -1,5 +1,9 @@
 package org.cy3sbml.uniprot;
 
+/**
+ * The keys of the UniProt HTML fragments in {@code GUIConstants.htmlFragments} and their
+ * placeholders, and the base URL of the UniProt entry pages.
+ */
 public interface UniprotHTMLFields {
 
     String COMMENT_TEXT = "{COMMENT_TEXT}";
