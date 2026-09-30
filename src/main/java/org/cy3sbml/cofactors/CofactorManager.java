@@ -46,7 +46,7 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
     private static final Logger logger = LoggerFactory.getLogger(CofactorManager.class);
 
     /** Distance of a clone from its neighbor in the network view. */
-    static final double CLONE_DISTANCE = 70.0;
+    public static final double CLONE_DISTANCE = 70.0;
 
     /** Angle between the clones at one neighbor; with the distance, the clones do not overlap. */
     static final double CLONE_ANGLE = Math.toRadians(45);
@@ -367,6 +367,21 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
     // ------------------------------------------------------------
 
     /**
+     * Places the clones of all split nodes of the network next to their neighbors, e.g.
+     * after the neighbors were moved by loading a layout, see {@link #placeClones(CyNetwork,
+     * CyNetworkView, List)}.
+     */
+    public void placeClones(CyNetwork network, CyNetworkView view) {
+        List<CyNode> clones = new ArrayList<>();
+        for (Long cofactor : mapper.getCofactors(network.getSUID())) {
+            clones.addAll(clones(network, cofactor));
+        }
+        if (!clones.isEmpty()) {
+            placeClones(network, view, clones);
+        }
+    }
+
+    /**
      * Places every clone {@link #CLONE_DISTANCE} away from its neighbor, in the direction of
      * the position of the split node; the clones at one neighbor, also of different split
      * nodes, are spread to at least {@link #CLONE_ANGLE} apart, so they do not overlap.
@@ -379,7 +394,11 @@ public class CofactorManager implements NetworkAboutToBeDestroyedListener {
         Map<CyNode, Double> directions = new HashMap<>();
         for (CyNode clone : clones) {
             Long cofactor = mapper.getCofactor(network.getSUID(), clone.getSUID());
+            // the position of the split node, else (split without view) the clone's own
             double[] origin = mapper.getPosition(network.getSUID(), cofactor);
+            if (origin == null) {
+                origin = position(view, clone);
+            }
             List<CyNode> neighbors = network.getNeighborList(clone, CyEdge.Type.ANY);
             if (origin == null || neighbors.isEmpty()) {
                 continue;

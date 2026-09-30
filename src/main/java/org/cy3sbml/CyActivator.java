@@ -113,7 +113,8 @@ public class CyActivator extends AbstractCyActivator {
             SBMLManager sbmlManager,
             CofactorManager cofactorManager,
             BiomodelsQuery biomodelsQuery,
-            BiomodelLoader biomodelLoader) {}
+            BiomodelLoader biomodelLoader,
+            LayoutTools layoutTools) {}
 
     private WebViewPanel webViewPanel;
     // the directories the COMBINE archives are unpacked into, deleted in shutDown
@@ -303,6 +304,7 @@ public class CyActivator extends AbstractCyActivator {
         BiomodelLoader biomodelLoader = new BiomodelLoader(
                 biomodelsQuery, appDirectory.toPath().resolve("biomodels"), loadNetworkFileTaskFactory);
 
+        LayoutTools layoutTools = new LayoutTools(adapter, cofactorManager);
         // automation commands (namespace cy3sbml, CyREST /v1/commands/cy3sbml/...), #18
         CommandServices commandServices = new CommandServices(
                 cyApplicationManager,
@@ -316,14 +318,15 @@ public class CyActivator extends AbstractCyActivator {
                 cofactorManager,
                 biomodelsQuery,
                 biomodelLoader,
-                new LayoutTools(adapter));
+                layoutTools);
         for (Commands.Command command : Commands.create(commandServices)) {
             registerService(bc, command.factory(), TaskFactory.class, command.properties());
         }
 
         Log.logger.info("cy3sbml core services, SBML reader and commands registered");
 
-        return new CoreServices(appDirectory, adapter, sbmlManager, cofactorManager, biomodelsQuery, biomodelLoader);
+        return new CoreServices(
+                appDirectory, adapter, sbmlManager, cofactorManager, biomodelsQuery, biomodelLoader, layoutTools);
     }
 
     /**
@@ -492,10 +495,10 @@ public class CyActivator extends AbstractCyActivator {
             HelpAction helpAction = new HelpAction(webViewPanel);
             registerService(bc, helpAction, CyAction.class, new Properties());
 
-            SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter);
+            SaveLayoutAction saveLayoutAction = new SaveLayoutAction(adapter, core.layoutTools());
             registerService(bc, saveLayoutAction, CyAction.class, new Properties());
 
-            LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter);
+            LoadLayoutAction loadLayoutAction = new LoadLayoutAction(adapter, core.layoutTools());
             registerService(bc, loadLayoutAction, CyAction.class, new Properties());
 
             // cy3sbml panels

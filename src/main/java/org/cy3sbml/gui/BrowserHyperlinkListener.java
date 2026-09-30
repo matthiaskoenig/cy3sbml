@@ -21,6 +21,7 @@ import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.actions.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.cofactors.CofactorManager;
+import org.cy3sbml.layout.LayoutTools;
 import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.HtmlSanitizer;
 import org.cy3sbml.util.NetworkUtil;
@@ -265,8 +266,8 @@ public class BrowserHyperlinkListener {
             case URL_EXAMPLES -> new ExamplesAction(webViewPanel);
             case URL_BIOMODELS -> new BiomodelsAction(biomodelsDialog);
             case URL_HELP -> new HelpAction(webViewPanel);
-            case URL_SAVELAYOUT -> new SaveLayoutAction(adapter);
-            case URL_LOADLAYOUT -> new LoadLayoutAction(adapter);
+            case URL_SAVELAYOUT -> new SaveLayoutAction(adapter, new LayoutTools(adapter, cofactorManager));
+            case URL_LOADLAYOUT -> new LoadLayoutAction(adapter, new LayoutTools(adapter, cofactorManager));
             default -> throw new IllegalArgumentException("No action for " + url);
         };
     }

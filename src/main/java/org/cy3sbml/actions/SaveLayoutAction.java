@@ -24,11 +24,13 @@ public final class SaveLayoutAction extends AbstractCyAction {
     private static final long serialVersionUID = 1L;
 
     private final ServiceAdapter adapter;
+    private final LayoutTools layoutTools;
 
     /** Creates the toolbar action. */
-    public SaveLayoutAction(ServiceAdapter adapter) {
+    public SaveLayoutAction(ServiceAdapter adapter, LayoutTools layoutTools) {
         super(SaveLayoutAction.class.getSimpleName());
         this.adapter = adapter;
+        this.layoutTools = layoutTools;
 
         ImageIcon icon = new ImageIcon(getClass().getResource(GUIConstants.ICON_SAVELAYOUT));
         putValue(LARGE_ICON_KEY, icon);
@@ -57,7 +59,6 @@ public final class SaveLayoutAction extends AbstractCyAction {
             return;
         }
 
-        LayoutTools layoutTools = new LayoutTools(adapter);
         try {
             layoutTools.saveLayoutOfCurrentViewInFile(xmlFile);
         } catch (IOException e) {

@@ -55,7 +55,7 @@ class LayoutRoundTripTest {
         view2.setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, 30.0);
         view2.setVisualProperty(BasicVisualLexicon.NODE_Y_LOCATION, 40.0);
 
-        LayoutTools layoutTools = new LayoutTools(null);
+        LayoutTools layoutTools = new LayoutTools(null, null);
         File file = tempDir.resolve("layout.xml").toFile();
         layoutTools.saveLayoutOfViewInFile(view, file);
 
@@ -101,7 +101,7 @@ class LayoutRoundTripTest {
             view.getNodeView(node).setVisualProperty(BasicVisualLexicon.NODE_X_LOCATION, x);
             positions.put(node, x);
         }
-        LayoutTools layoutTools = new LayoutTools(null);
+        LayoutTools layoutTools = new LayoutTools(null, null);
         File file = tempDir.resolve("layout.xml").toFile();
         layoutTools.saveLayoutOfViewInFile(view, file);
         for (CyNode node : layout.getNodeList()) {

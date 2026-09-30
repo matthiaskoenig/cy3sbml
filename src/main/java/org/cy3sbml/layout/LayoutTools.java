@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import org.cy3sbml.SBML;
 import org.cy3sbml.ServiceAdapter;
+import org.cy3sbml.cofactors.CofactorManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyRow;
@@ -33,9 +34,15 @@ public class LayoutTools {
     private static final Logger logger = LoggerFactory.getLogger(LayoutTools.class);
 
     private final ServiceAdapter adapter;
+    private final CofactorManager cofactorManager;
 
-    public LayoutTools(ServiceAdapter adapter) {
+    /**
+     * @param cofactorManager places the clones of split cofactor nodes after loading a
+     *     layout, may be null
+     */
+    public LayoutTools(ServiceAdapter adapter, CofactorManager cofactorManager) {
         this.adapter = adapter;
+        this.cofactorManager = cofactorManager;
     }
 
     // ------------------------------------------------------------
@@ -56,7 +63,8 @@ public class LayoutTools {
 
     /**
      * Save layout of given view in file.
-     * Nodes without cyId and SBML id (not created by cy3sbml) are not saved.
+     * Nodes without cyId and SBML id (not created by cy3sbml) are not saved, and neither are
+     * the clones of split cofactor nodes, which have the cyId of their node.
      *
      * @return the number of saved node positions
      * @throws IOException if the file could not be written
@@ -68,7 +76,7 @@ public class LayoutTools {
             View<CyNode> nodeView = view.getNodeView(node);
             String cyId = attribute(network, node, SBML.ATTR_CYID);
             String sbmlId = attribute(network, node, SBML.ATTR_ID);
-            if (nodeView == null || (cyId == null && sbmlId == null)) {
+            if (nodeView == null || (cyId == null && sbmlId == null) || isClone(network, node)) {
                 continue;
             }
             boxes.add(new CyBoundingBox(
@@ -100,7 +108,9 @@ public class LayoutTools {
     }
 
     /**
-     * Moves every node of the view with a position in the file to that position.
+     * Moves every node of the view with a position in the file to that position. The clones
+     * of split cofactor nodes, which have the cyId of their node, are placed next to their
+     * neighbors instead.
      *
      * @return number of positioned nodes
      */
@@ -122,6 +132,9 @@ public class LayoutTools {
         CyNetwork network = view.getModel();
         int positioned = 0;
         for (CyNode node : network.getNodeList()) {
+            if (isClone(network, node)) {
+                continue;
+            }
             String glyph = attribute(network, node, SBML.ATTR_LAYOUT_GLYPH);
             CyBoundingBox box =
                     glyph != null ? byGlyph.get(glyph) : byCyId.get(attribute(network, node, SBML.ATTR_CYID));
@@ -135,9 +148,18 @@ public class LayoutTools {
                 positioned++;
             }
         }
+        if (cofactorManager != null) {
+            cofactorManager.placeClones(network, view);
+        }
         view.updateView();
         logger.info("Layout of {}/{} nodes loaded from {}", positioned, network.getNodeCount(), file);
         return positioned;
+    }
+
+    /** Whether the node is a clone of a split cofactor node. */
+    private static boolean isClone(CyNetwork network, CyNode node) {
+        return network.getDefaultNodeTable().getColumn(SBML.ATTR_COFACTOR_CLONE) != null
+                && Boolean.TRUE.equals(network.getRow(node).get(SBML.ATTR_COFACTOR_CLONE, Boolean.class));
     }
 
     /**

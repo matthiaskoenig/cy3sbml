@@ -88,7 +88,7 @@ class LayoutReimportTest {
         assertEquals(first.length, second.length);
 
         CyNetworkViewFactory viewFactory = new NetworkViewTestSupport().getNetworkViewFactory();
-        LayoutTools layoutTools = new LayoutTools(null);
+        LayoutTools layoutTools = new LayoutTools(null, null);
         List<Reimport> reimports = new ArrayList<>();
         for (int k = 0; k < first.length; k++) {
             CyNetworkView saved = viewFactory.createNetworkView(first[k]);

@@ -23,11 +23,13 @@ public final class LoadLayoutAction extends AbstractCyAction {
     private static final long serialVersionUID = 1L;
 
     private final ServiceAdapter adapter;
+    private final LayoutTools layoutTools;
 
     /** Creates the toolbar action. */
-    public LoadLayoutAction(ServiceAdapter adapter) {
+    public LoadLayoutAction(ServiceAdapter adapter, LayoutTools layoutTools) {
         super(LoadLayoutAction.class.getSimpleName());
         this.adapter = adapter;
+        this.layoutTools = layoutTools;
 
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(GUIConstants.ICON_LOADLAYOUT)));
         putValue(LARGE_ICON_KEY, icon);
@@ -54,7 +56,6 @@ public final class LoadLayoutAction extends AbstractCyAction {
             return;
         }
 
-        LayoutTools layoutTools = new LayoutTools(adapter);
         layoutTools.loadLayoutOfCurrentViewFromFile(xmlFile);
     }
 }
