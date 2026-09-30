@@ -367,6 +367,11 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
         return getSBMLDocument(currentSUID);
     }
 
+    /** The model of the current network collection, see {@link #getModel(Long)}. */
+    public Model getCurrentModel() {
+        return getModel(currentSUID);
+    }
+
     /**
      * The document of the collection of the network.
      *
@@ -385,6 +390,24 @@ public class SBMLManager implements NetworkAboutToBeDestroyedListener, CompTarge
      */
     public SBMLDocument getSBMLDocument(Long rootNetworkSUID) {
         return network2sbml.getDocument(rootNetworkSUID);
+    }
+
+    /**
+     * The model the network collection of the root network was created from: the main model,
+     * a comp model definition, the model of an external model definition or the flat model.
+     * The main model of the document for a network collection without stored model (a
+     * session of an older version).
+     *
+     * @param rootNetworkSUID root network SUID, may be null
+     * @return the model, null if the root network has no document or its document no model
+     */
+    public Model getModel(Long rootNetworkSUID) {
+        Model model = network2sbml.getModel(rootNetworkSUID);
+        if (model != null) {
+            return model;
+        }
+        SBMLDocument document = getSBMLDocument(rootNetworkSUID);
+        return document != null && document.isSetModel() ? document.getModel() : null;
     }
 
     /**

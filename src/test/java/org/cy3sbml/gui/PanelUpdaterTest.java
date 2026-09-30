@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.List;
 import org.cy3sbml.SBMLManager;
+import org.cy3sbml.mapping.One2ManyMapping;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.NetworkTestSupport;
@@ -14,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.sbml.jsbml.Compartment;
 import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
+import org.sbml.jsbml.ext.comp.ModelDefinition;
 
 /**
  * Tests {@link PanelUpdater#resolveTarget} (pure) and {@link PanelUpdater#run()}, without
@@ -46,6 +50,22 @@ class PanelUpdaterTest {
         when(sbmlManager.getCyIdsFromSUIDs(List.of())).thenReturn(List.of());
 
         assertSame(document, PanelUpdater.resolveTarget(network, sbmlManager));
+    }
+
+    /** A network collection of a comp model definition shows the model definition, not the main model. */
+    @Test
+    void resolveTargetReturnsTheModelOfTheCollectionWhenNothingIsSelected() {
+        SBMLDocument document = new SBMLDocument(3, 1);
+        document.createModel("main");
+        ModelDefinition definition = new ModelDefinition("definition", 3, 1);
+        ((CompSBMLDocumentPlugin) document.getPlugin(CompConstants.shortLabel)).addModelDefinition(definition);
+        CyNetwork definitionNetwork = new NetworkTestSupport().getNetwork();
+        SBMLManager manager = new SBMLManager(null);
+        manager.addSBMLForNetwork(document, definitionNetwork, new One2ManyMapping<>());
+        manager.addModelForNetwork(definitionNetwork, definition);
+        manager.updateCurrent(definitionNetwork);
+
+        assertSame(definition, PanelUpdater.resolveTarget(definitionNetwork, manager));
     }
 
     @Test

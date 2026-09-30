@@ -70,6 +70,11 @@ public class Network2SBMLMapper implements Serializable {
         modelMap().put(rootSUID, model);
     }
 
+    /** The model the root network was created from, null if none is stored. */
+    public synchronized Model getModel(Long rootSUID) {
+        return modelMap().get(rootSUID);
+    }
+
     /** The models of the root networks; a defensive copy. */
     public synchronized Map<Long, Model> getModelMap() {
         return new HashMap<>(modelMap());

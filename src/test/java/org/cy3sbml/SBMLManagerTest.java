@@ -62,6 +62,23 @@ public class SBMLManagerTest {
         assertEquals(DOC, doc);
     }
 
+    /** The stored model of the collection, else the main model of the document. */
+    @Test
+    public void getModel() throws Exception {
+        SBMLDocument document = new SBMLDocument(3, 1);
+        Model main = document.createModel("main");
+        manager.addSBMLForNetwork(document, SUID, MAPPING);
+        assertSame(main, manager.getModel(SUID));
+
+        CyNetwork network = new NetworkTestSupport().getNetworkFactory().createNetwork();
+        Model definition = new Model("definition", 3, 1);
+        manager.addSBMLForNetwork(document, network, MAPPING);
+        manager.addModelForNetwork(network, definition);
+        assertSame(definition, manager.getModel(NetworkUtil.getRootNetworkSUID(network)));
+
+        assertNull(manager.getModel(Long.valueOf(-1)));
+    }
+
     @Test
     public void removeSBMLForNetwork() throws Exception {
         final CyNetworkFactory networkFactory = new NetworkTestSupport().getNetworkFactory();

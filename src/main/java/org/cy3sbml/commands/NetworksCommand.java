@@ -11,6 +11,7 @@ import org.cytoscape.model.subnetwork.CyRootNetwork;
 import org.cytoscape.work.AbstractTaskFactory;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.ext.SBasePlugin;
 
@@ -58,22 +59,22 @@ final class NetworksCommand extends AbstractTaskFactory {
                 SBMLDocument document = services.sbmlManager().getSBMLDocument(root.getSUID());
                 model.put("level", document.getLevel());
                 model.put("version", document.getVersion());
-                model.put("packages", packages(document));
+                model.put("packages", packages(document, services.sbmlManager().getModel(root.getSUID())));
                 models.add(model);
             }
             setResult(Map.of("models", models));
         }
 
         /**
-         * The packages of the document and its model, with their versions, e.g.
-         * {@code {"fbc": 2}}.
+         * The packages of the document and the model of the collection, with their
+         * versions, e.g. {@code {"fbc": 2}}.
          */
-        private static Map<String, Integer> packages(SBMLDocument document) {
+        private static Map<String, Integer> packages(SBMLDocument document, Model model) {
             Map<String, Integer> packages = new TreeMap<>();
             List<SBasePlugin> plugins =
                     new ArrayList<>(document.getExtensionPackages().values());
-            if (document.isSetModel()) {
-                plugins.addAll(document.getModel().getExtensionPackages().values());
+            if (model != null) {
+                plugins.addAll(model.getExtensionPackages().values());
             }
             for (SBasePlugin plugin : plugins) {
                 packages.put(plugin.getPackageName(), plugin.getPackageVersion());

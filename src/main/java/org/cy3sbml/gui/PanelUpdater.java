@@ -6,6 +6,7 @@ import org.cy3sbml.SBMLManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
+import org.sbml.jsbml.Model;
 import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBase;
 import org.slf4j.Logger;
@@ -48,13 +49,16 @@ public class PanelUpdater implements Runnable {
     }
 
     /**
-     * Resolves what should be rendered for the given network's current selection: the
-     * model's {@code SBMLDocument} if nothing (that has a mapped {@code SBase}) is
-     * selected, the selected node's {@code SBase}, or one of the two fixed "no
-     * information" messages. Pure and side-effect-free (queries {@code sbmlManager} but
+     * Resolves what should be rendered for the given network's current selection: if
+     * nothing (that has a mapped {@code SBase}) is selected the {@code SBMLDocument}, or
+     * the {@code Model} of the network collection if it is not the main model of the
+     * document (e.g. a comp model definition); the selected node's {@code SBase}; or one
+     * of the two fixed "no information" messages. Pure and side-effect-free (queries {@code sbmlManager} but
      * changes nothing), so a caller can use it as the key for {@code LatestTaskExecutor.
      * submit} before submitting a render for it.
      */
+    // reason: the model of the collection is compared by identity, JSBML's equals compares the content
+    @SuppressWarnings("ReferenceEquality")
     static Object resolveTarget(CyNetwork network, SBMLManager sbmlManager) {
         SBMLDocument document = sbmlManager.getCurrentSBMLDocument();
         if (document == null) {
@@ -68,7 +72,9 @@ public class PanelUpdater implements Runnable {
         }
         List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(suids);
         if (cyIds.isEmpty()) {
-            return document;
+            // the model of the collection, e.g. a comp model definition, with its document
+            Model model = sbmlManager.getCurrentModel();
+            return model != null && model != document.getModel() ? model : document;
         }
         SBase sbase = sbmlManager.getSBaseByCyId(cyIds.get(0));
         return sbase != null ? sbase : TEXT_NO_SBML_NODE;
@@ -82,8 +88,9 @@ public class PanelUpdater implements Runnable {
         // SBMLDocument is itself an SBase in JSBML, so it must be checked first: a
         // selected document (nothing mapped is selected) is shown directly, without the
         // "Loading..." placeholder that is only for a genuinely selected SBase.
-        if (target instanceof SBMLDocument document) {
-            panel.showSBaseInfo(document);
+        if (target instanceof SBMLDocument || target instanceof Model) {
+            // the document or the model of the collection, no node is a model
+            panel.showSBaseInfo(target);
         } else if (target instanceof SBase sbase) {
             panel.setText(htmlFactory.createHTMLText(TEXT_LOAD_WEBSERVICE));
             panel.showSBaseInfo(sbase);

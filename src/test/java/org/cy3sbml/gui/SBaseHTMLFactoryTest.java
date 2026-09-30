@@ -25,6 +25,9 @@ import org.sbml.jsbml.SBMLDocument;
 import org.sbml.jsbml.SBMLReader;
 import org.sbml.jsbml.SBase;
 import org.sbml.jsbml.Species;
+import org.sbml.jsbml.ext.comp.CompConstants;
+import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
+import org.sbml.jsbml.ext.comp.ModelDefinition;
 import org.sbml.jsbml.util.filters.Filter;
 import org.sbml.jsbml.xml.XMLAttributes;
 import org.sbml.jsbml.xml.XMLNode;
@@ -41,6 +44,23 @@ class SBaseHTMLFactoryTest {
         assertTrue(html.contains("<base href=\"file:///app/gui/\" />"), html);
         assertTrue(html.contains("<title>Title</title>"), html);
         assertTrue(html.contains("<p>text</p>"), html);
+    }
+
+    /** A model definition is shown with its document, like the main model. */
+    @Test
+    void modelDefinitionIsShownWithItsDocument() throws Exception {
+        SBMLDocument document = new SBMLDocument(3, 1);
+        document.createModel("main");
+        ModelDefinition definition = new ModelDefinition("definition", 3, 1);
+        ((CompSBMLDocumentPlugin) document.getPlugin(CompConstants.shortLabel)).addModelDefinition(definition);
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null, null);
+
+        String html = htmlFactory.createInfo(definition);
+
+        assertTrue(html.contains("<title>definition ModelDefinition</title>"), html);
+        assertTrue(html.contains("SBMLDocument"), html);
+        assertTrue(html.contains("ModelDefinition <small>definition</small>"), html);
+        assertFalse(html.contains("<small>main</small>"), html);
     }
 
     @Test
