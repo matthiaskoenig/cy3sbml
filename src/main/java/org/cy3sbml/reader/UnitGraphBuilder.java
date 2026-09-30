@@ -32,12 +32,6 @@ final class UnitGraphBuilder {
         if (q.isSetUnits()) {
             // Every time a new unit instance is created for base units !
             UnitDefinition ud = q.getUnitsInstance();
-            if (ud == null) {
-                logger.error(
-                        "UnitDefinition does not exist for {}: {} for {}", q.getElementName(), q.getUnits(), q.getId());
-                return null;
-            }
-            CyNode udNode = context.nodeByMetaId(ud.getMetaId()).orElse(null);
             /*
             The UnitDefinition instance which has the unitsID of this SBaseWithUnit as id.
             Null if it doesn't exist. In case that the unit of this SBaseWithUnit represents
@@ -49,6 +43,12 @@ final class UnitGraphBuilder {
 
             I.e. in the case of a base unit we have to create the UnitDefinition node first.
             */
+            if (ud == null) {
+                logger.error(
+                        "UnitDefinition does not exist for {}: {} for {}", q.getElementName(), q.getUnits(), q.getId());
+                return null;
+            }
+            CyNode udNode = context.nodeByMetaId(ud.getMetaId()).orElse(null);
             if (udNode == null) {
                 logger.debug("Base UnitDefinition encountered. Creating UnitDefinition graph: {}", ud);
                 String unitSid = ud.getId();

@@ -157,12 +157,18 @@ public class SBaseHTMLFactory {
         String title = escape(getTitle(sbase));
         String html = String.format(HTML_START_TEMPLATE, baseDir, title);
 
-        html += createInfoForSBase(sbase);
         if (sbase instanceof SBMLDocument doc) {
             // in case of SBMLDocument add the model information
+            html += createInfoForSBase(doc);
             if (doc.isSetModel()) {
                 html += createInfoForSBase(doc.getModel());
             }
+        } else if (sbase instanceof Model model && model.getSBMLDocument() != null) {
+            // a model of a network collection, e.g. a comp model definition, with its document
+            html += createInfoForSBase(model.getSBMLDocument());
+            html += createInfoForSBase(model);
+        } else {
+            html += createInfoForSBase(sbase);
         }
         html += HTML_STOP_TEMPLATE;
         return html;

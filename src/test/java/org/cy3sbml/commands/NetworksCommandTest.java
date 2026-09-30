@@ -3,6 +3,7 @@ package org.cy3sbml.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import java.util.ArrayList;
 import java.util.List;
 import org.cytoscape.model.CyNetwork;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,21 @@ class NetworksCommandTest {
         JsonNode json = CommandTestSupport.run(new NetworksCommand.NetworksTask(support.services()));
 
         assertEquals(3, json.get("models").get(0).get("packages").get("fbc").asInt(), json.toPrettyString());
+    }
+
+    /** Every network collection of a comp model has the id of its own model. */
+    @Test
+    void listsTheModelDefinitionsWithTheirOwnIds() throws Exception {
+        CommandTestSupport support = new CommandTestSupport();
+        support.importModel("/models/unittests/01134-sbml-l3v1.xml");
+
+        JsonNode json = CommandTestSupport.run(new NetworksCommand.NetworksTask(support.services()));
+
+        List<String> modelIds = new ArrayList<>();
+        json.get("models").forEach(model -> modelIds.add(model.get("modelId").asText()));
+        // the main model, the model definitions and the flat model
+        assertEquals(
+                List.of("case01134", "moddef1", "moddef2", "moddef3", "case01134"), modelIds, json.toPrettyString());
     }
 
     @Test

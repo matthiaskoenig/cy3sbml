@@ -137,8 +137,8 @@ final class CommandNetworks {
         Map<String, Object> json = new LinkedHashMap<>();
         json.put("rootNetwork", root.getSUID());
         json.put("name", rootName);
-        SBMLDocument document = sbmlManager.getSBMLDocument(root.getSUID());
-        Model model = document != null && document.isSetModel() ? document.getModel() : null;
+        // the model of the collection, e.g. a comp model definition, not the main model
+        Model model = sbmlManager.getModel(root.getSUID());
         json.put("modelId", model != null && model.isSetId() ? model.getId() : "");
         json.put("modelName", model != null && model.isSetName() ? model.getName() : "");
         // base, kinetic, all, then the layout and other networks in the order of their SUIDs

@@ -366,8 +366,8 @@ final class CoreReader implements PackageReader {
                         context, assignment, assignmentNode, SBML.INTERACTION_REFERENCE_INITIAL_ASSIGNMENT);
 
             } else {
-                logger.error(String.format(
-                        "Variable does not exist for InitialAssignment: %s for %s", assignment.getVariable(), "?"));
+                // the symbol identifies the initial assignment, which usually has no id
+                logger.error("Variable does not exist for InitialAssignment: {}", assignment.getVariable());
             }
         }
     }
