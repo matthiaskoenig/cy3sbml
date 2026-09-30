@@ -25,6 +25,7 @@
 
 <!-- HTML_START -->
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <base href="%s" />
     <meta charset="utf-8">
@@ -33,21 +34,12 @@
     <title>%s</title>
     <link rel="shortcut icon" href="./images/favicon.ico" />
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="./css/cy3sbml.css" />
 </head>
+<body>
 <!-- /HTML_START -->
 
 <!-- HTML_STOP -->
-</div>
-<script type="text/javascript" language="javascript" src="./js/jquery-1.12.3.js"></script>
-<script type="text/javascript" language="javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="./js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript">
-    $(document).ready(function() {
-        $('#table').DataTable();
-    } );
-</script>
 </body>
 </html>
 <!-- /HTML_STOP -->
@@ -88,13 +80,7 @@
 <!-- /TABLE_ROW_END -->
 
 
-<!-- HEADER_TEMPLATE -->
-<h2>{exportHtml}{className}</h2>
-<!-- /HEADER_TEMPLATE -->
 
-<!-- NSB_HEADER -->
-<h2>{exportHTML}{className} <small>{nsbId}</small></h2>
-<!-- /NSB_HEADER -->
 
 <!-- EMAIL_LINK -->
 (<a href="mailto:{email}">{email}</a>)
@@ -129,9 +115,6 @@
 {ICON_WARNING} <span class="text-danger">Identifier &lt;{identifier}&gt; does not match pattern '{pattern}'</span><br />
 <!-- /IDENTIFIER_PATTERN_MISMATCH -->
 
-<!-- CONDITIONAL_LINK -->
-{ICON} <a href="{URL}"> {INFO}</a><br />
-<!-- /CONDITIONAL_LINK -->
 
 <!-- ONTOLOGY_TERM_LINK -->
 <a href="{ontologyURL}"><span class="ontology" title="Ontology">{ontologyName}</span></a> <b>{termLabel}</b> <a href="{purlURL}" class="text-muted">{purlDisplay}</a><br />

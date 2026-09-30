@@ -7,10 +7,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
 import javax.swing.SwingUtilities;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
@@ -20,20 +22,20 @@ import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
-import org.cytoscape.model.*;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.view.model.CyNetworkView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Handle hyperlink events in WebView.
- * Either opens browser for given hyperlink or triggers Cytoscape actions
- * for subsets of special hyperlinks.
+ * Handles the links clicked in the cy3sbml panel.
  * <p>
- * This provides an easy solution for integrating app functionality
- * with click on hyperlinks.
- * Alternative javascript upcalls could be performed.
+ * The special cy3sbml URLs run the actions of the app (e.g. {@link #URL_HELP}), select
+ * nodes ({@link #URL_SELECT_ID}), load example models ({@link #EXAMPLE_SBML}) or export
+ * the shown information; any other web ({@code http}, {@code https}, {@code ftp}) or
+ * {@code mailto} link opens in the system browser. Links with other schemes, e.g.
+ * {@code file} links in the notes of a model, are ignored, so a model cannot open or run
+ * local files.
  */
 public class BrowserHyperlinkListener {
     private static final Logger logger = LoggerFactory.getLogger(BrowserHyperlinkListener.class);
@@ -56,6 +58,9 @@ public class BrowserHyperlinkListener {
     public static final String URL_SELECT_ID = "http://select-id/";
     // the node of a comp reference in the network of its model: <model id>/<metaid>
     public static final String URL_SELECT_TARGET = "http://select-target/";
+
+    /** The URL schemes of the links opened in the system browser. */
+    static final Set<String> EXTERNAL_SCHEMES = Set.of("http", "https", "ftp", "mailto");
 
     public static final Map<String, String> EXAMPLE_SBML;
     public static final Set<String> URLS_ACTION;
@@ -106,19 +111,32 @@ public class BrowserHyperlinkListener {
     private final CofactorManager cofactorManager;
     private final BiomodelsDialog biomodelsDialog;
     private final Executor dispatch;
+    private final Consumer<String> externalBrowser;
 
+    /**
+     * Creates the listener, which runs the actions of the links on the Swing event dispatch
+     * thread and opens the web links in the system browser.
+     */
     public BrowserHyperlinkListener(
             ServiceAdapter adapter,
             WebViewPanel webViewPanel,
             SBMLManager sbmlManager,
             CofactorManager cofactorManager,
             BiomodelsDialog biomodelsDialog) {
-        this(adapter, webViewPanel, sbmlManager, cofactorManager, biomodelsDialog, SwingUtilities::invokeLater);
+        this(
+                adapter,
+                webViewPanel,
+                sbmlManager,
+                cofactorManager,
+                biomodelsDialog,
+                SwingUtilities::invokeLater,
+                GUIUtil::openURLinExternalBrowser);
     }
 
     /**
      * @param dispatch runs the action of a clicked link; the Swing event dispatch thread
      *     outside of tests
+     * @param externalBrowser opens a web link in the system browser
      */
     BrowserHyperlinkListener(
             ServiceAdapter adapter,
@@ -126,13 +144,15 @@ public class BrowserHyperlinkListener {
             SBMLManager sbmlManager,
             CofactorManager cofactorManager,
             BiomodelsDialog biomodelsDialog,
-            Executor dispatch) {
+            Executor dispatch,
+            Consumer<String> externalBrowser) {
         this.adapter = adapter;
         this.webViewPanel = webViewPanel;
         this.sbmlManager = sbmlManager;
         this.cofactorManager = cofactorManager;
         this.biomodelsDialog = biomodelsDialog;
         this.dispatch = dispatch;
+        this.externalBrowser = externalBrowser;
     }
 
     /**
@@ -141,13 +161,11 @@ public class BrowserHyperlinkListener {
      * dispatch thread.
      *
      * @param url the absolute URL of the link
-     * @return true if the WebView must not load the link itself
      */
-    public boolean linkActivated(URL url) {
+    public void linkActivated(URL url) {
         logger.debug("Link activated: {}", url);
         String s = url.toString();
         dispatch.execute(() -> processURL(s));
-        return true;
     }
 
     /**
@@ -156,7 +174,7 @@ public class BrowserHyperlinkListener {
      *
      * @param baseUri the base URI of the link, may be null
      * @param href the href attribute of the link
-     * @return the URL, or null if there is none (the WebView then handles the link itself)
+     * @return the URL, or null if there is none
      */
     static URL resolve(String baseUri, String href) {
         try {
@@ -171,48 +189,12 @@ public class BrowserHyperlinkListener {
     }
 
     /**
-     * Processes the given url.
-     * Decides what to do if a given URL is encountered.
-     * Here the actions are called.
+     * Runs what the link of the URL stands for: an action, a selection, an example model,
+     * an export or a web link.
      */
     private void processURL(String s) {
-        // Cytoscape Action
         if (URLS_ACTION.contains(s)) {
-            AbstractCyAction action = null;
-            if (s.equals(URL_COFACTOR_SPLIT)) {
-                action = new SplitCofactorsAction(adapter, sbmlManager, cofactorManager);
-            }
-            if (s.equals(URL_COFACTOR_MERGE)) {
-                action = new MergeCofactorsAction(adapter, sbmlManager, cofactorManager);
-            }
-            if (s.equals(URL_CHANGESTATE)) {
-                action = new ChangeStateAction(webViewPanel);
-            }
-            if (s.equals(URL_IMPORT)) {
-                action = new ImportAction(adapter);
-            }
-            if (s.equals(URL_EXAMPLES)) {
-                action = new ExamplesAction(webViewPanel);
-            }
-            if (s.equals(URL_BIOMODELS)) {
-                action = new BiomodelsAction(biomodelsDialog);
-            }
-            if (s.equals(URL_HELP)) {
-                action = new HelpAction(webViewPanel);
-            }
-            if (s.equals(URL_SAVELAYOUT)) {
-                action = new SaveLayoutAction(adapter);
-            }
-            if (s.equals(URL_LOADLAYOUT)) {
-                action = new LoadLayoutAction(adapter);
-            }
-
-            // execute action
-            if (action != null) {
-                action.actionPerformed(null);
-            } else {
-                logger.error(String.format("Action not created for <%s>", s));
-            }
+            createAction(s).actionPerformed(null);
         } else if (s.startsWith(URL_SELECT_TARGET)) {
             selectTarget(s.substring(URL_SELECT_TARGET.length()));
         } else if (s.startsWith(URL_SELECT_METAID) || s.startsWith(URL_SELECT_ID)) {
@@ -246,10 +228,34 @@ public class BrowserHyperlinkListener {
             GUIUtil.openSBaseHTMLInBrowser(webViewPanel.getHtml());
         }
 
-        // HTML links
-        else {
-            GUIUtil.openURLinExternalBrowser(s);
+        // web links
+        else if (isExternalLink(s)) {
+            externalBrowser.accept(s);
+        } else {
+            logger.warn("Link not opened, only web and mailto links open in the browser: {}", s);
         }
+    }
+
+    /** The action of an action URL, one of {@link #URLS_ACTION}. */
+    private AbstractCyAction createAction(String url) {
+        return switch (url) {
+            case URL_COFACTOR_SPLIT -> new SplitCofactorsAction(adapter, sbmlManager, cofactorManager);
+            case URL_COFACTOR_MERGE -> new MergeCofactorsAction(adapter, sbmlManager, cofactorManager);
+            case URL_CHANGESTATE -> new ChangeStateAction(webViewPanel);
+            case URL_IMPORT -> new ImportAction(adapter);
+            case URL_EXAMPLES -> new ExamplesAction(webViewPanel);
+            case URL_BIOMODELS -> new BiomodelsAction(biomodelsDialog);
+            case URL_HELP -> new HelpAction(webViewPanel);
+            case URL_SAVELAYOUT -> new SaveLayoutAction(adapter);
+            case URL_LOADLAYOUT -> new LoadLayoutAction(adapter);
+            default -> throw new IllegalArgumentException("No action for " + url);
+        };
+    }
+
+    /** Whether the link opens in the system browser: a web or mailto link. */
+    static boolean isExternalLink(String url) {
+        int colon = url.indexOf(':');
+        return colon > 0 && EXTERNAL_SCHEMES.contains(url.substring(0, colon).toLowerCase(Locale.ROOT));
     }
 
     /**

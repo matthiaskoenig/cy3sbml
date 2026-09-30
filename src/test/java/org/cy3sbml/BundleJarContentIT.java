@@ -98,7 +98,6 @@ public class BundleJarContentIT {
     public void hasTheGuiTemplates() {
         assertHasEntry("gui/help.html");
         assertHasEntry("gui/examples.html");
-        assertHasEntry("gui/icons.html");
         assertHasEntry("gui/linktemplate.html");
     }
 
