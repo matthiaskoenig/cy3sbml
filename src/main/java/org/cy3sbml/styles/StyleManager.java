@@ -1,5 +1,6 @@
 package org.cy3sbml.styles;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 import org.cytoscape.session.events.SessionLoadedEvent;
@@ -11,7 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class to manage the loading of the visual styles.
+ * Loads the visual styles of cy3sbml and their layout styles, at start and after a
+ * session is loaded.
  */
 public class StyleManager implements SessionLoadedListener {
     private static final Logger logger = LoggerFactory.getLogger(StyleManager.class);
@@ -43,15 +45,25 @@ public class StyleManager implements SessionLoadedListener {
      */
     public void loadStyles() {
         for (String styleName : styles) {
-            logger.info("Load visual style: {}", styleName);
-            String resource = String.format("/styles/%s.xml", styleName);
-            InputStream styleStream = getClass().getResourceAsStream(resource);
-            // Check if already existing
-            VisualStyle style = getVisualStyleByName(vmm, styleName);
-            if (!styleName.equals(style.getTitle())) {
-                loadVizmapFileTaskFactory.loadStyles(styleStream);
+            if (!styleName.equals(getVisualStyleByName(vmm, styleName).getTitle())) {
+                loadStyle(styleName);
             }
             addLayoutStyle(styleName);
+        }
+    }
+
+    /** Loads the style from its resource {@code /styles/<name>.xml}. */
+    private void loadStyle(String styleName) {
+        logger.info("Load visual style: {}", styleName);
+        String resource = String.format("/styles/%s.xml", styleName);
+        try (InputStream styleStream = getClass().getResourceAsStream(resource)) {
+            if (styleStream == null) {
+                logger.error("Visual style resource not found: {}", resource);
+                return;
+            }
+            loadVizmapFileTaskFactory.loadStyles(styleStream);
+        } catch (IOException e) {
+            logger.error("Visual style could not be loaded: {}", resource, e);
         }
     }
 
@@ -86,9 +98,10 @@ public class StyleManager implements SessionLoadedListener {
         return vmm.getDefaultVisualStyle();
     }
 
+    /** Loads the styles missing in the loaded session. */
     @Override
     public void handleEvent(SessionLoadedEvent e) {
-        logger.debug("SessionAboutToBeLoadedEvent");
+        logger.debug("SessionLoadedEvent");
         loadStyles();
     }
 }
