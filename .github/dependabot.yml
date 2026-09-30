@@ -3,6 +3,8 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    # the actions are pinned to commit SHAs with the version as a comment,
+    # Dependabot updates both
     directory: "/"
     schedule:
       interval: "weekly"
@@ -14,8 +16,11 @@ updates:
     commit-message:
       prefix: "ci"
   - package-ecosystem: "uv"
-    # the Python helpers, see tools/pyproject.toml
-    directory: "/tools"
+    # the Python helpers (tools/pyproject.toml) and the Python examples of the
+    # automation commands (examples/python/pyproject.toml)
+    directories:
+      - "/tools"
+      - "/examples/python"
     schedule:
       interval: "weekly"
     groups:

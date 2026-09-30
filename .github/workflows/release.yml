@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: write  # create the GitHub release
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Check the release notes
@@ -30,7 +30,7 @@ jobs:
             exit 1
           }
           echo "NOTES=release-notes/${VERSION}.md" >> "$GITHUB_ENV"
-      - uses: actions/setup-java@v6
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           java-version: "17"
           distribution: temurin
@@ -54,7 +54,7 @@ jobs:
           done
           ls -l
       - name: Create the GitHub release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
           name: cy3sbml-${{ github.ref_name }}
           body_path: ${{ env.NOTES }}
@@ -68,7 +68,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
       - name: Fast-forward main to the release
