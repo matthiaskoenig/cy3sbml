@@ -23,6 +23,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * Reads a COMBINE archive (OMEX): unpacks it into a directory and reads its manifest
@@ -332,10 +334,22 @@ public final class CombineArchive {
         return resource.isEmpty() ? text(element) : resource;
     }
 
+    /**
+     * A namespace aware document builder of the hardened factory of {@link XMLUtil} (no
+     * DTDs, no external entities) that reports parse errors only through its exceptions; the
+     * default error handler also prints them to stderr.
+     */
     private static DocumentBuilder documentBuilder() throws ParserConfigurationException {
         DocumentBuilderFactory factory = XMLUtil.documentBuilderFactory();
         factory.setNamespaceAware(true);
-        return factory.newDocumentBuilder();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        builder.setErrorHandler(new DefaultHandler() {
+            @Override
+            public void fatalError(SAXParseException e) throws SAXException {
+                throw e;
+            }
+        });
+        return builder;
     }
 
     /** Whether the format is the one of the OMEX metadata, ignoring case. */

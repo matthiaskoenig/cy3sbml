@@ -185,4 +185,18 @@ class CombineArchiveTest {
                 () -> CombineArchive.extract(stream, "a.omex", directory.resolve("archive")));
         assertEquals("The archive a.omex has the entry '../outside.xml' outside the archive.", e.getMessage());
     }
+
+    @Test
+    void malformedXhtmlDescriptionIsReducedToItsText() {
+        assertEquals("A model of glycolysis", CombineArchive.description("<p>A <b>model</p> of glycolysis"));
+    }
+
+    @Test
+    void malformedManifestIsAnError() throws Exception {
+        InputStream stream = zip(Map.of("manifest.xml", "<omexManifest><content"));
+
+        CombineArchiveException e =
+                assertThrows(CombineArchiveException.class, () -> CombineArchive.extract(stream, "a.omex", directory));
+        assertTrue(e.getMessage().startsWith("The manifest of the archive a.omex cannot be read"), e.getMessage());
+    }
 }
