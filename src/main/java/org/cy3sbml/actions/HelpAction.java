@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Set help information in ResultsPanel.
+ * Shows the help page in the cy3sbml panel.
  */
 public final class HelpAction extends AbstractCyAction {
     private static final Logger logger = LoggerFactory.getLogger(HelpAction.class);
@@ -17,9 +17,7 @@ public final class HelpAction extends AbstractCyAction {
 
     private final WebViewPanel webViewPanel;
 
-    /**
-     * Constructor.
-     */
+    /** Creates the toolbar action. */
     public HelpAction(WebViewPanel webViewPanel) {
         super(HelpAction.class.getSimpleName());
         this.webViewPanel = webViewPanel;

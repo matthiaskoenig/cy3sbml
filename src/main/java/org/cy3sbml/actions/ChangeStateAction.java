@@ -19,9 +19,7 @@ public final class ChangeStateAction extends AbstractCyAction {
 
     private final WebViewPanel webViewPanel;
 
-    /**
-     * Constructor.
-     */
+    /** Creates the toolbar action. */
     public ChangeStateAction(WebViewPanel webViewPanel) {
         super(ChangeStateAction.class.getSimpleName());
         this.webViewPanel = webViewPanel;
