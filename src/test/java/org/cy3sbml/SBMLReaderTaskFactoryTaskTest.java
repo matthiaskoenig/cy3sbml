@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
@@ -14,6 +15,7 @@ import org.cytoscape.ding.NetworkViewTestSupport;
 import org.cytoscape.group.CyGroupFactory;
 import org.cytoscape.group.GroupTestSupport;
 import org.cytoscape.io.DataCategory;
+import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.io.util.StreamUtil;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
@@ -97,6 +99,30 @@ public class SBMLReaderTaskFactoryTaskTest {
      * Cytoscape passes the reader only the stream and the file name: the location
      * of the file comes from the file filter, which accepted it just before.
      */
+    /** A stream that fails while it is read, e.g. of a URL whose connection drops. */
+    static InputStream failingStream() {
+        return new InputStream() {
+            @Override
+            public int read() throws IOException {
+                throw new IOException("Connection reset");
+            }
+        };
+    }
+
+    /** An input that cannot be read gives a reader that reports the error, not no reader. */
+    @Test
+    public void unreadableInputGivesAReaderThatReportsTheError() {
+        SBMLReaderTaskFactory factory =
+                new SBMLReaderTaskFactory(new SBMLFileFilter(mock(StreamUtil.class)), null, null);
+
+        TaskIterator iterator = factory.createTaskIterator(failingStream(), "model.xml");
+
+        CyNetworkReader reader = (CyNetworkReader) iterator.next();
+        SBMLReaderError error = assertThrows(SBMLReaderError.class, () -> reader.run(mock(TaskMonitor.class)));
+        assertEquals("cy3sbml could not read 'model.xml': Connection reset", error.getMessage());
+        assertEquals(0, reader.getNetworks().length);
+    }
+
     @Test
     public void taskGetsTheLocationAcceptedByTheFilter() throws Exception {
         URI uri = URI.create("file:/models/comp/toy_top_level.xml");

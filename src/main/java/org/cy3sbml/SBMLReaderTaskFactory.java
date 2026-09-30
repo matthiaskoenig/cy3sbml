@@ -2,6 +2,7 @@ package org.cy3sbml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.cy3sbml.reader.FailedReaderTask;
 import org.cy3sbml.reader.SBMLReaderTask;
 import org.cy3sbml.util.IOUtil;
 import org.cytoscape.io.read.AbstractInputStreamTaskFactory;
@@ -47,7 +48,7 @@ public class SBMLReaderTaskFactory extends AbstractInputStreamTaskFactory {
                     sbmlManager));
         } catch (IOException e) {
             logger.error("Error in creating TaskIterator for SBMLReaderTaskFactory.", e);
-            return null;
+            return new TaskIterator(new FailedReaderTask(inputName, e));
         }
     }
 }
