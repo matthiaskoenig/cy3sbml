@@ -2,8 +2,12 @@ package org.cy3sbml.chebi;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.time.Clock;
+import java.util.Base64;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.cy3sbml.cache.MemoryCache;
 import org.cy3sbml.gui.GUIConstants;
 import org.cy3sbml.util.FetchResult;
@@ -15,11 +19,22 @@ import org.slf4j.LoggerFactory;
 /**
  * Client for the ChEBI public backend REST API.
  * <p>
- * Looks up compounds by ChEBI id (e.g. {@code CHEBI:15422}). Results are
- * cached in memory since compounds do not change within a Cytoscape session.
+ * Looks up compounds and their structure images by ChEBI id (e.g. {@code CHEBI:15422}). Results
+ * are cached in memory since compounds do not change within a Cytoscape session. An id that is
+ * not a ChEBI id is never looked up, so an identifier from an SBML annotation cannot change the
+ * requested URL.
  */
 public final class ChebiAccess {
     private static final Logger logger = LoggerFactory.getLogger(ChebiAccess.class);
+    private static final String API_URL = "https://www.ebi.ac.uk/chebi/backend/api/public/compound/";
+
+    /** A ChEBI id: its number, with or without the prefix {@code CHEBI:} in any case. */
+    private static final Pattern CHEBI_ID = Pattern.compile("(?:chebi:)?(\\d{1,10})", Pattern.CASE_INSENSITIVE);
+
+    /** The start of an SVG image: an optional XML declaration, comments and doctype, then the svg element. */
+    private static final Pattern SVG_START = Pattern.compile(
+            "\\A\\s*(?:<\\?xml[^>]*>\\s*)?(?:<!--.*?-->\\s*)*(?:<!DOCTYPE[^>]*>\\s*)?<svg[\\s>]",
+            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
 
     private final HttpJson http;
     private final MemoryCache<String, ChebiCompound> compoundCache;
@@ -38,17 +53,19 @@ public final class ChebiAccess {
 
     /**
      * Gets the ChEBI compound for a given id, e.g. {@code CHEBI:15422}.
-     * Returns empty if the compound could not be retrieved or parsed.
+     * Returns empty if the id is no ChEBI id or the compound could not be retrieved or parsed.
      * A "not found" result is cached for a short TTL; a transport or parse
      * error is retried on the next call rather than stuck for the session.
      */
     public Optional<ChebiCompound> compound(String chebiId) {
+        if (chebiNumber(chebiId).isEmpty()) {
+            return Optional.empty();
+        }
         return compoundCache.get(chebiId, this::lookupCompound);
     }
 
     private FetchResult<ChebiCompound> lookupCompound(String chebiId) {
-        URI uri = URI.create(
-                String.format("https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/", chebiNumber(chebiId)));
+        URI uri = URI.create(API_URL + chebiNumber(chebiId).orElseThrow() + "/");
         FetchResult<JsonNode> json = http.fetch(uri);
         return switch (json.status()) {
             case FOUND -> parseCompound(json.value().orElseThrow(), chebiId);
@@ -66,10 +83,14 @@ public final class ChebiAccess {
     }
 
     private FetchResult<String> lookupStructure(String chebiId) {
-        URI uri = URI.create(String.format(
-                "https://www.ebi.ac.uk/chebi/backend/api/public/compound/%s/structure/?width=300&height=300",
-                chebiNumber(chebiId)));
-        return http.fetchText(uri);
+        URI uri = URI.create(API_URL + chebiNumber(chebiId).orElseThrow() + "/structure/?width=300&height=300");
+        FetchResult<String> svg = http.fetchText(uri);
+        if (svg.value().isPresent() && !SVG_START.matcher(svg.value().get()).lookingAt()) {
+            // e.g. a maintenance page answered with status 200: transient, not cached
+            logger.warn("ChEBI structure of {} is no SVG image", chebiId);
+            return FetchResult.error();
+        }
+        return svg;
     }
 
     private static FetchResult<ChebiCompound> parseCompound(JsonNode json, String chebiId) {
@@ -86,18 +107,29 @@ public final class ChebiAccess {
         return FetchResult.found(new ChebiCompound(chebiId, name, formula, charge, mass));
     }
 
-    private static String chebiNumber(String chebiId) {
-        int idx = chebiId.indexOf(':');
-        return idx >= 0 ? chebiId.substring(idx + 1) : chebiId;
+    /** The number of the given ChEBI id, empty if it is no ChEBI id. */
+    private static Optional<String> chebiNumber(String chebiId) {
+        if (chebiId == null) {
+            return Optional.empty();
+        }
+        Matcher matcher = CHEBI_ID.matcher(chebiId);
+        return matcher.matches() ? Optional.of(matcher.group(1)) : Optional.empty();
     }
 
     /**
      * Creates the secondary-information HTML fragment for a ChEBI id,
-     * for display in the SBase details panel. Composed fresh on every call
-     * from the (independently cached) compound and structure lookups, so a
-     * partial failure (e.g. while offline) is retried rather than cached.
+     * for display in the SBase details panel: the chemical data and the structure
+     * image (embedded as image, so the SVG cannot run scripts in the panel). Composed
+     * fresh on every call from the (independently cached) compound and structure
+     * lookups, so a partial failure (e.g. while offline) is retried rather than cached.
+     * Empty if the id is no ChEBI id.
      */
     public String html(String chebiId) {
+        Optional<String> number = chebiNumber(chebiId);
+        if (number.isEmpty()) {
+            logger.debug("Not a ChEBI id: {}", chebiId);
+            return "";
+        }
         StringBuilder html = new StringBuilder();
 
         Optional<ChebiCompound> optionalCompound = compound(chebiId);
@@ -124,9 +156,12 @@ public final class ChebiAccess {
             }
         }
 
-        Optional<String> svg = structure(chebiId);
-        svg.ifPresent(s ->
-                html.append(String.format("<a href=\"https://www.ebi.ac.uk/chebi/%s\">%s</a><br />\n", chebiId, s)));
+        structure(chebiId)
+                .ifPresent(svg -> html.append(String.format(
+                        "<a href=\"https://www.ebi.ac.uk/chebi/CHEBI:%s\"><img src=\"data:image/svg+xml;base64,%s\" alt=\"Structure of CHEBI:%s\" /></a><br />\n",
+                        number.get(),
+                        Base64.getEncoder().encodeToString(svg.getBytes(StandardCharsets.UTF_8)),
+                        number.get())));
 
         return html.toString();
     }
