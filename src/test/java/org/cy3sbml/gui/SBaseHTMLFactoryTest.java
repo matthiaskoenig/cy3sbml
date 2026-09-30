@@ -7,10 +7,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.beans.PropertyChangeEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.swing.tree.TreeNode;
 import org.cy3sbml.chebi.ChebiAccess;
 import org.cy3sbml.miriam.MiriamRegistry;
 import org.cy3sbml.ols.OlsClient;
@@ -20,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sbml.jsbml.CVTerm;
+import org.sbml.jsbml.Constraint;
 import org.sbml.jsbml.Creator;
 import org.sbml.jsbml.History;
 import org.sbml.jsbml.Model;
@@ -30,6 +33,11 @@ import org.sbml.jsbml.Species;
 import org.sbml.jsbml.ext.comp.CompConstants;
 import org.sbml.jsbml.ext.comp.CompSBMLDocumentPlugin;
 import org.sbml.jsbml.ext.comp.ModelDefinition;
+import org.sbml.jsbml.ext.groups.Group;
+import org.sbml.jsbml.ext.groups.GroupsConstants;
+import org.sbml.jsbml.ext.groups.GroupsModelPlugin;
+import org.sbml.jsbml.util.TreeNodeChangeListener;
+import org.sbml.jsbml.util.TreeNodeRemovedEvent;
 import org.sbml.jsbml.util.filters.Filter;
 import org.sbml.jsbml.xml.XMLAttributes;
 import org.sbml.jsbml.xml.XMLNode;
@@ -159,6 +167,88 @@ class SBaseHTMLFactoryTest {
         assertTrue(html.contains("https://www.kegg.jp/entry/C00002"), html);
         assertTrue(html.contains("https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:15422"), html);
         assertFalse(html.contains("Unknown data collection"), html);
+    }
+
+    /**
+     * Rendering only reads the document: JSBML getters like getListOfObjectives add an
+     * empty list, which would change the document on the render thread.
+     */
+    @ParameterizedTest
+    @ValueSource(
+            strings = {
+                "/models/unittests/fbc_01.xml",
+                "/models/unittests/groups_01.xml",
+                "/models/unittests/comp_01.xml",
+                "/models/unittests/qual_01.xml",
+                "/models/fbc/fbc_v3_example_L3V1_fbcV3.xml",
+                "/models/unittests/core_01.xml"
+            })
+    void renderingDoesNotChangeTheDocument(String resource) throws Exception {
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
+                "file:///app/gui/",
+                MiriamRegistry.bundled(),
+                mock(OlsClient.class),
+                mock(UniprotAccess.class),
+                mock(ChebiAccess.class));
+        SBMLDocument document;
+        try (InputStream in = getClass().getResourceAsStream(resource)) {
+            document = SBMLReader.read(in);
+        }
+        List<String> changes = new ArrayList<>();
+        document.addTreeNodeChangeListener(new TreeNodeChangeListener() {
+            @Override
+            public void nodeAdded(TreeNode node) {
+                changes.add("added " + node);
+            }
+
+            @Override
+            public void nodeRemoved(TreeNodeRemovedEvent event) {
+                changes.add("removed " + event.getSource());
+            }
+
+            @Override
+            public void propertyChange(PropertyChangeEvent event) {
+                changes.add(event.getPropertyName() + " of " + event.getSource());
+            }
+        });
+
+        for (TreeNode node : document.filter(o -> o instanceof SBase)) {
+            htmlFactory.createInfo((SBase) node);
+        }
+
+        assertEquals(List.of(), changes);
+    }
+
+    /** The XHTML message of a constraint is reduced to formatting markup, like the notes. */
+    @Test
+    void constraintMessageIsSanitized() throws Exception {
+        Model model = new Model("m", 3, 1);
+        Constraint constraint = model.createConstraint();
+        constraint.setMessage("<message><p xmlns=\"http://www.w3.org/1999/xhtml\">x &gt; 0"
+                + "<img src=\"file:///x.png\"/><a href=\"file:///etc/passwd\">a</a>"
+                + "<meta http-equiv=\"refresh\" content=\"0;url=https://example.org\"/></p></message>");
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null, null);
+
+        String html = htmlFactory.createInfo(constraint);
+
+        assertTrue(html.contains("x &gt; 0"), html);
+        assertFalse(html.contains("file:///x.png") || html.contains("file:///etc/passwd"), html);
+        assertFalse(html.contains("refresh") || html.contains("<message"), html);
+    }
+
+    /** The id and name of the list of members of a group are text. */
+    @Test
+    void membersNameIsEscaped() throws Exception {
+        Model model = new Model("m", 3, 1);
+        Group group = ((GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel)).createGroup("g");
+        group.setKind(Group.Kind.collection);
+        group.getListOfMembers().setName("<img src=\"https://example.org/x\">");
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null, null);
+
+        String html = htmlFactory.createInfo(group);
+
+        assertFalse(html.contains("<img"), html);
+        assertTrue(html.contains("&lt;img"), html);
     }
 
     /**
