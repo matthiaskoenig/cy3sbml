@@ -173,8 +173,8 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     /**
      * Build NetworkViews for given network.
      * <p>
-     * Here the SBMLDocument is registered in the SBMLManager for the given network,
-     * a VisualStyle is applied,
+     * Here the network becomes the current network of the SBMLManager (its SBMLDocument is
+     * registered when it is read), a VisualStyle is applied,
      * and a LayoutAlgorithm is applied. The nodes of a layout network are placed at the
      * positions of their glyphs instead, with the layout variant of the style.
      */
@@ -182,15 +182,6 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
     public CyNetworkView buildCyNetworkView(final CyNetwork network) {
         // SBMLManager is only available in the OSGI context
         if (sbmlManager != null) {
-            // the existing mapping (of read networks) is updated
-            One2ManyMapping<String, Long> mapping = mappingFromNetwork(network, sbmlManager.getMapping(network));
-            CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
-            sbmlManager.addSBMLForNetwork(documents.getOrDefault(rootNetwork.getSUID(), document), network, mapping);
-            sbmlManager.addSBaseRefResolver(sBaseRefResolver);
-            Model model = models.get(rootNetwork.getSUID());
-            if (model != null) {
-                sbmlManager.addModelForNetwork(network, model);
-            }
             sbmlManager.updateCurrent(network);
         } else {
             logger.warn("No mapping found for SBML network.");
@@ -322,6 +313,13 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
                 models.clear();
                 return;
             }
+            // registered for all networks, also the ones Cytoscape creates no view for
+            // (above its view threshold)
+            if (sbmlManager != null) {
+                for (CyNetwork network : cyNetworks) {
+                    register(network);
+                }
+            }
             if (taskMonitor != null) {
                 taskMonitor.setProgress(0.8);
             }
@@ -340,6 +338,19 @@ public class SBMLReaderTask extends AbstractTask implements CyNetworkReader, Req
             // the error keeps the cause, Cytoscape logs it with its stack trace
             logger.error(message);
             throw new SBMLReaderError(message, t);
+        }
+    }
+
+    /** Registers the document, the mapping and the model of the network in the SBMLManager. */
+    private void register(CyNetwork network) {
+        // the existing mapping (of the other networks of the collection) is updated
+        One2ManyMapping<String, Long> mapping = mappingFromNetwork(network, sbmlManager.getMapping(network));
+        CyRootNetwork rootNetwork = ((CySubNetwork) network).getRootNetwork();
+        sbmlManager.addSBMLForNetwork(documents.getOrDefault(rootNetwork.getSUID(), document), network, mapping);
+        sbmlManager.addSBaseRefResolver(sBaseRefResolver);
+        Model model = models.get(rootNetwork.getSUID());
+        if (model != null) {
+            sbmlManager.addModelForNetwork(network, model);
         }
     }
 
