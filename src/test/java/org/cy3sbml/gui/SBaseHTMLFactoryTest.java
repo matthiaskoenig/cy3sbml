@@ -177,7 +177,6 @@ class SBaseHTMLFactoryTest {
                         "http://purl.obolibrary.org/obo/SBO_0000247\"><img id=\"iri\" src=\"x\">",
                         "label",
                         "sbo<img id=\"ontology\">",
-                        "SBO:0000247",
                         List.of(),
                         List.of())));
         SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
@@ -205,8 +204,7 @@ class SBaseHTMLFactoryTest {
     @Test
     void termWithoutIriIsShown() throws Exception {
         OlsClient olsClient = mock(OlsClient.class);
-        when(olsClient.termForPage(anyString()))
-                .thenReturn(Optional.of(new OlsTerm(null, "label", null, null, null, null)));
+        when(olsClient.termForPage(anyString())).thenReturn(Optional.of(new OlsTerm(null, "label", null, null, null)));
         SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory(
                 "file:///app/gui/",
                 MiriamRegistry.bundled(),

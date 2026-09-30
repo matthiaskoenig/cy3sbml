@@ -143,15 +143,16 @@ public class Network2SBMLMapperTest {
     /** A session is saved with a consistent snapshot: the serialization holds the mapper lock. */
     @Test
     public void serializationWaitsForAConcurrentWriter() throws Exception {
-        mapper.putDocument(SUID, DOC, new One2ManyMapping<>());
+        final Network2SBMLMapper lockedMapper = mapper;
+        lockedMapper.putDocument(SUID, DOC, new One2ManyMapping<>());
         ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
             Future<?> serialization;
-            synchronized (mapper) {
+            synchronized (lockedMapper) {
                 serialization = executor.submit(() -> {
                     try (java.io.ObjectOutputStream out =
                             new java.io.ObjectOutputStream(new java.io.ByteArrayOutputStream())) {
-                        out.writeObject(mapper);
+                        out.writeObject(lockedMapper);
                     }
                     return null;
                 });
