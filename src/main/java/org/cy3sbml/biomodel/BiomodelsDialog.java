@@ -68,6 +68,8 @@ public final class BiomodelsDialog extends JDialog {
     private static final int GAP = 12;
     /** Width of the column of the search and id controls. */
     private static final int CONTROLS_WIDTH = 240;
+    /** A BioModels id: a curated (BIOMD), non-curated (MODEL) or BMID model. */
+    private static final Pattern BIOMODELS_ID = Pattern.compile("((BIOMD|MODEL)\\d{10})|(BMID\\d{12})");
 
     private final SearchBioModel searchBioModel;
     private final Consumer<List<String>> loadModels;
@@ -86,8 +88,7 @@ public final class BiomodelsDialog extends JDialog {
     private final JScrollPane infoScrollPane;
     private final JEditorPane infoPane;
 
-    @SuppressWarnings("rawtypes")
-    private JList biomodelsList;
+    private final JList<String> biomodelsList;
 
     /** The current search result, null if none. */
     private SearchBioModel.Result searchResult;
@@ -106,14 +107,11 @@ public final class BiomodelsDialog extends JDialog {
      * @param openUrl opens a URL in the web browser
      * @param loadModels loads the models with the given ids, called on the event dispatch thread
      */
-    @SuppressWarnings("rawtypes")
     public BiomodelsDialog(
             Frame parent, SearchBioModel searchBioModel, Consumer<String> openUrl, Consumer<List<String>> loadModels) {
         super(parent, true);
         this.searchBioModel = searchBioModel;
         this.loadModels = loadModels;
-
-        logger.info("BioModelGUIDialog created");
 
         this.setSize(1000, 754);
         this.setResizable(true);
@@ -161,7 +159,7 @@ public final class BiomodelsDialog extends JDialog {
         listScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         // Set the empty Lists
-        biomodelsList = new JList();
+        biomodelsList = new JList<>();
         biomodelsList.setToolTipText("Search results, select for information.");
 
         biomodelsList.addListSelectionListener(event -> {
@@ -292,7 +290,7 @@ public final class BiomodelsDialog extends JDialog {
         getContentPane().add(infoScrollPane, BorderLayout.CENTER);
     }
 
-    class EnterKeyAdapter extends KeyAdapter {
+    private final class EnterKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent keyE) {
             int key = keyE.getKeyCode();
@@ -399,7 +397,7 @@ public final class BiomodelsDialog extends JDialog {
     }
 
     // ////// SEARCH MODELS
-    public void searchBioModels() {
+    private void searchBioModels() {
         SearchContent searchContent = getSearchContent();
         logger.info("Search BioModels: {}", searchContent.namesToString(" "));
         runInBackground(
@@ -413,7 +411,7 @@ public final class BiomodelsDialog extends JDialog {
                 });
     }
 
-    public SearchContent getSearchContent() {
+    private SearchContent getSearchContent() {
         String mode = SearchContent.CONNECT_AND;
         if (chckbxOR.isSelected()) {
             mode = SearchContent.CONNECT_OR;
@@ -443,19 +441,17 @@ public final class BiomodelsDialog extends JDialog {
         infoScrollPane.getVerticalScrollBar().setValue(0);
     }
 
-    // working on raw JList - yes this should be like that
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public void updateModelListInDialog(final List<String> modelIds) {
-        biomodelsList.setModel(new AbstractListModel() {
-            List<String> values = modelIds;
-
+    /** Shows the given model ids in the list. */
+    private void updateModelListInDialog(List<String> modelIds) {
+        List<String> values = List.copyOf(modelIds);
+        biomodelsList.setModel(new AbstractListModel<>() {
             @Override
             public int getSize() {
                 return values.size();
             }
 
             @Override
-            public Object getElementAt(int index) {
+            public String getElementAt(int index) {
                 return values.get(index);
             }
         });
@@ -559,20 +555,19 @@ public final class BiomodelsDialog extends JDialog {
         showInformation(scrollToId);
     }
 
-    public List<String> getListOfSelectedModelIds() {
-        @SuppressWarnings("unchecked")
-        List<String> selected = biomodelsList.getSelectedValuesList();
-        return selected;
+    /** The ids of the models selected in the list. */
+    private List<String> getListOfSelectedModelIds() {
+        return biomodelsList.getSelectedValuesList();
     }
 
     // ////// LOAD MODELS
-    public void loadSelectedBioModelsAndDisposeDialog() {
+    private void loadSelectedBioModelsAndDisposeDialog() {
         if (!biomodelsList.isSelectionEmpty()) {
             loadBioModelsAndDisposeDialog(getListOfSelectedModelIds());
         }
     }
 
-    public void loadBioModelByIdsAndDisposeDialog() {
+    private void loadBioModelByIdsAndDisposeDialog() {
         loadBioModelsAndDisposeDialog(List.copyOf(parseBioModelIdsFromString(idTextArea.getText())));
     }
 
@@ -591,30 +586,24 @@ public final class BiomodelsDialog extends JDialog {
     /**
      * Lists the BioModel ids parsed from the text and looks up their details.
      */
-    public void parseBioModelByIds() {
+    private void parseBioModelByIds() {
         Set<String> ids = parseBioModelIdsFromString(idTextArea.getText());
         idTextArea.setText(String.join(" ", ids));
         showSearchResult(SearchBioModel.fromIds(ids));
     }
 
-    /**
-     * Returns set of BioModel identifiers from given text.
-     */
-    public static Set<String> parseBioModelIdsFromString(String text) {
-        Set<String> ids = new LinkedHashSet<String>();
-        String bioModelPattern = "((BIOMD|MODEL)\\d{10})|(BMID\\d{12})";
-        Pattern pattern = Pattern.compile(bioModelPattern);
-        Matcher matcher = pattern.matcher(text);
+    /** The BioModels ids in the text, in their order, without duplicates. */
+    static Set<String> parseBioModelIdsFromString(String text) {
+        Set<String> ids = new LinkedHashSet<>();
+        Matcher matcher = BIOMODELS_ID.matcher(text);
         while (matcher.find()) {
-            String id = matcher.group();
-            ids.add(id);
+            ids.add(matcher.group());
         }
         return ids;
     }
 
-    // Clear fields
-    public void resetFields() {
-        String reset = "";
-        nameField.setText(reset);
+    /** Clears the search text. */
+    private void resetFields() {
+        nameField.setText("");
     }
 }
