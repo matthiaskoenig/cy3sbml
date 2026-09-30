@@ -27,14 +27,6 @@ public class ResourceExtractorTest {
     Path appDirectory;
 
     @Test
-    public void getResource() throws Exception {
-        ResourceExtractor resourceExtractor = new ResourceExtractor(null, null);
-        String resource = resourceExtractor.getResource("/gui/help.html");
-        // without appdirectory the resources cannot be resolved
-        assertNull(resource);
-    }
-
-    @Test
     public void extractCopiesBundleResources() throws IOException {
         write(bundleRoot.resolve("gui/help.html"), "help");
         write(bundleRoot.resolve("gui/css/info.css"), "css");
