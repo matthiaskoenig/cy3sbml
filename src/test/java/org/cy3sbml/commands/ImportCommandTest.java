@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -161,5 +162,22 @@ class ImportCommandTest {
         assertTrue(error.getMessage().endsWith("does not exist."), error.getMessage());
         error = assertThrows(IllegalArgumentException.class, () -> invalid.run(mock(TaskMonitor.class)));
         assertTrue(error.getMessage().startsWith("Invalid URL 'not a url'"), error.getMessage());
+    }
+
+    @Test
+    void failsForAUrlThatIsNoHttpUrl() {
+        CommandTestSupport support = new CommandTestSupport();
+        for (String url : List.of("file:///etc/passwd", "jar:file:/tmp/a.jar!/model.xml", "ftp://example.org/a.xml")) {
+            ImportCommand.ImportTask task = importTask(support);
+            task.url = url;
+
+            IllegalArgumentException error =
+                    assertThrows(IllegalArgumentException.class, () -> task.run(mock(TaskMonitor.class)));
+            assertEquals(
+                    "Invalid URL '" + url + "': only http and https URLs are imported, give a local file with"
+                            + " the argument file.",
+                    error.getMessage());
+        }
+        verifyNoInteractions(support.loadNetworkURL);
     }
 }

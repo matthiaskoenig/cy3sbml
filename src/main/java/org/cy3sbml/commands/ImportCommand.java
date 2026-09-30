@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,6 +14,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
@@ -58,6 +60,7 @@ final class ImportCommand extends AbstractTaskFactory {
     public static final class ImportTask extends JsonTask {
         private static final Logger logger = LoggerFactory.getLogger(ImportTask.class);
         private static final String MODEL_FILE = "model.xml";
+        private static final Set<String> ALLOWED_URL_SCHEMES = Set.of("http", "https");
 
         @Tunable(
                 description = "SBML file",
@@ -68,7 +71,7 @@ final class ImportCommand extends AbstractTaskFactory {
 
         @Tunable(
                 description = "SBML URL",
-                longDescription = "URL of an SBML file or a COMBINE archive to import.",
+                longDescription = "URL (http or https) of an SBML file or a COMBINE archive to import.",
                 exampleStringValue =
                         "https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000012?filename=BIOMD0000000012_url.xml",
                 context = "nogui")
@@ -184,9 +187,24 @@ final class ImportCommand extends AbstractTaskFactory {
             return value != null && !value.isBlank();
         }
 
+        /**
+         * The URL of the argument, an http or https URL: the command must not read local
+         * files or other resources through {@code file:} or {@code jar:} URLs.
+         */
         private static URL toUrl(String url) {
+            URI uri;
             try {
-                return URI.create(url).toURL();
+                uri = new URI(url);
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException("Invalid URL '" + url + "': " + e.getMessage(), e);
+            }
+            String scheme = uri.getScheme() != null ? uri.getScheme().toLowerCase(Locale.ROOT) : "";
+            if (!ALLOWED_URL_SCHEMES.contains(scheme)) {
+                throw new IllegalArgumentException("Invalid URL '" + url
+                        + "': only http and https URLs are imported, give a local file with the argument file.");
+            }
+            try {
+                return uri.toURL();
             } catch (IllegalArgumentException | MalformedURLException e) {
                 throw new IllegalArgumentException("Invalid URL '" + url + "': " + e.getMessage(), e);
             }
