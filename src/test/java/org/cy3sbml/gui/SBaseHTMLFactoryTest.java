@@ -56,6 +56,19 @@ class SBaseHTMLFactoryTest {
         assertTrue(html.contains("<p>text</p>"), html);
     }
 
+    /** The model row links the model to sbml4humans, next to its SBML file. */
+    @Test
+    void modelLinksSbml4Humans() throws Exception {
+        SBMLDocument document = new SBMLDocument(3, 1);
+        document.createModel("m");
+        SBaseHTMLFactory htmlFactory = new SBaseHTMLFactory("file:///app/gui/", null, null, null, null);
+
+        String html = htmlFactory.createInfo(document);
+
+        assertTrue(html.contains("<a href=\"" + BrowserHyperlinkListener.URL_SBML4HUMANS + "\">"), html);
+        assertTrue(html.contains("./images/logos/sbml4humans_icon.png"), html);
+    }
+
     /** A model definition is shown with its document, like the main model. */
     @Test
     void modelDefinitionIsShownWithItsDocument() throws Exception {

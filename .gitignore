@@ -39,3 +39,6 @@ __pycache__/
 # generated
 site/
 docs/release-notes.md
+
+# the log file logback writes when the app classes run without the cy3sbml.logfile property
+*_IS_UNDEFINED
