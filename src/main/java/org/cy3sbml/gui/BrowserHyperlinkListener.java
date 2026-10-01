@@ -1,5 +1,6 @@
 package org.cy3sbml.gui;
 
+import java.awt.Component;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -15,6 +16,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
@@ -22,12 +25,17 @@ import org.cy3sbml.actions.*;
 import org.cy3sbml.biomodel.BiomodelsDialog;
 import org.cy3sbml.cofactors.CofactorManager;
 import org.cy3sbml.layout.LayoutTools;
+import org.cy3sbml.sbml4humans.Sbml4HumansClient;
+import org.cy3sbml.sbml4humans.Sbml4HumansConsent;
+import org.cy3sbml.sbml4humans.Sbml4HumansTask;
 import org.cy3sbml.util.GUIUtil;
 import org.cy3sbml.util.HtmlSanitizer;
+import org.cy3sbml.util.HtmlUtil;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.view.model.CyNetworkView;
+import org.cytoscape.work.TaskIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +70,8 @@ public class BrowserHyperlinkListener {
     public static final String URL_SELECT_ID = "http://select-id/";
     // the node of a comp reference in the network of its model: <model id>/<metaid>
     public static final String URL_SELECT_TARGET = "http://select-target/";
+    // uploads the model of the current network to sbml4humans and opens its report
+    public static final String URL_SBML4HUMANS = "http://sbml4humans/";
 
     public static final Map<String, String> EXAMPLE_SBML;
     public static final Set<String> URLS_ACTION;
@@ -113,6 +123,13 @@ public class BrowserHyperlinkListener {
     private final BiomodelsDialog biomodelsDialog;
     private final Executor dispatch;
     private final Consumer<String> externalBrowser;
+    private final ConsentDialog consentDialog;
+
+    /** Asks for the consent to upload a model to sbml4humans; true to upload. */
+    @FunctionalInterface
+    interface ConsentDialog {
+        boolean ask(Sbml4HumansConsent consent);
+    }
 
     /**
      * Creates the listener, which runs the actions of the links on the Swing event dispatch
@@ -147,6 +164,28 @@ public class BrowserHyperlinkListener {
             BiomodelsDialog biomodelsDialog,
             Executor dispatch,
             Consumer<String> externalBrowser) {
+        this(
+                adapter,
+                webViewPanel,
+                sbmlManager,
+                cofactorManager,
+                biomodelsDialog,
+                dispatch,
+                externalBrowser,
+                consent -> askConsent(adapter, consent));
+    }
+
+    /** @param consentDialog asks for the consent to upload a model to sbml4humans */
+    BrowserHyperlinkListener(
+            ServiceAdapter adapter,
+            WebViewPanel webViewPanel,
+            SBMLManager sbmlManager,
+            CofactorManager cofactorManager,
+            BiomodelsDialog biomodelsDialog,
+            Executor dispatch,
+            Consumer<String> externalBrowser,
+            ConsentDialog consentDialog) {
+        this.consentDialog = consentDialog;
         this.adapter = adapter;
         this.webViewPanel = webViewPanel;
         this.sbmlManager = sbmlManager;
@@ -243,6 +282,11 @@ public class BrowserHyperlinkListener {
             GUIUtil.openCurrentSBMLInBrowser(sbmlManager);
         }
 
+        // sbml4humans
+        else if (s.equals(URL_SBML4HUMANS)) {
+            openInSbml4Humans();
+        }
+
         // SBase HTML
         else if (s.equals(URL_HTML_SBASE)) {
             GUIUtil.openSBaseHTMLInBrowser(webViewPanel.getHtml());
@@ -254,6 +298,56 @@ public class BrowserHyperlinkListener {
         } else {
             logger.warn("Link not opened, only web and mailto links open in the browser: {}", s);
         }
+    }
+
+    /**
+     * Uploads the model of the current network to sbml4humans and opens its report, after the
+     * consent of the user (asked until "Don't ask again"). The upload runs in a task.
+     */
+    private void openInSbml4Humans() {
+        CyNetwork network = adapter.cyApplicationManager.getCurrentNetwork();
+        if (network == null || sbmlManager.getSBMLDocument(network) == null) {
+            logger.warn("No SBML network to open in sbml4humans");
+            return;
+        }
+        Sbml4HumansConsent consent = new Sbml4HumansConsent(adapter.cy3sbmlProperties);
+        if (!consent.isConfirmed() && !consentDialog.ask(consent)) {
+            return;
+        }
+        Sbml4HumansClient client = Sbml4HumansClient.fromProperties(adapter.cy3sbmlProperties.getProperties());
+        adapter.dialogTaskManager.execute(
+                new TaskIterator(new Sbml4HumansTask(sbmlManager, network, client, externalBrowser)));
+    }
+
+    /** The dialog which asks for the consent to upload, on the Swing event dispatch thread. */
+    private static boolean askConsent(ServiceAdapter adapter, Sbml4HumansConsent consent) {
+        String url = Sbml4HumansClient.fromProperties(adapter.cy3sbmlProperties.getProperties())
+                .url()
+                .toString();
+        JCheckBox again = new JCheckBox("Don't ask again");
+        Object[] message = {
+            "<html>The model is uploaded to the public server <b>" + HtmlUtil.escape(url)
+                    + "</b>, which keeps it for 24 hours.<br>Anyone with the link can open the report.</html>",
+            again
+        };
+        Component parent = adapter.cySwingApplication == null ? null : adapter.cySwingApplication.getJFrame();
+        String[] options = {"Upload", "Cancel"};
+        int answer = JOptionPane.showOptionDialog(
+                parent,
+                message,
+                "Open in sbml4humans",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (answer != 0) {
+            return false;
+        }
+        if (again.isSelected()) {
+            consent.confirm();
+        }
+        return true;
     }
 
     /** The action of an action URL, one of {@link #URLS_ACTION}. */

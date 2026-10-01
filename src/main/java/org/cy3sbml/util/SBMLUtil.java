@@ -324,8 +324,10 @@ public class SBMLUtil {
                 String.format(
                         "<span class=\"collection\">L%sV%s</span>%s", model.getLevel(), model.getVersion(), packages),
                 String.format(
-                        "<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>",
-                        BrowserHyperlinkListener.URL_SBMLFILE));
+                        "<a href=\"%s\"><img src=\"./images/logos/sbml_icon.png\" height=\"20\" /></a>"
+                                + " <a href=\"%s\"><img src=\"./images/logos/sbml4humans_icon.png\" height=\"20\""
+                                + " title=\"Open in sbml4humans\" /></a>",
+                        BrowserHyperlinkListener.URL_SBMLFILE, BrowserHyperlinkListener.URL_SBML4HUMANS));
         map.putAll(createNamedSBaseMap(model));
 
         // optional

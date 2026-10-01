@@ -15,17 +15,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Properties;
 import org.cy3sbml.SBML;
+import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.TestUtils;
+import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.sbml4humans.Sbml4HumansConsent;
+import org.cy3sbml.sbml4humans.Sbml4HumansTask;
 import org.cy3sbml.util.NetworkUtil;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.model.NetworkTestSupport;
+import org.cytoscape.property.CyProperty;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.work.TaskIterator;
+import org.cytoscape.work.swing.DialogTaskManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.mockito.ArgumentCaptor;
+import org.sbml.jsbml.SBMLDocument;
 
 class BrowserHyperlinkListenerTest {
 
@@ -186,5 +197,83 @@ class BrowserHyperlinkListenerTest {
 
         verify(applicationManager).setCurrentNetwork(fba);
         assertTrue(fba.getRow(node).get(CyNetwork.SELECTED, Boolean.class));
+    }
+
+    /** A listener for the current network with an SBML document, and its task manager. */
+    private static final class Sbml4HumansSetup {
+        final DialogTaskManager taskManager = mock(DialogTaskManager.class);
+        final Properties properties = new Properties();
+        final BrowserHyperlinkListener listener;
+        int asked;
+
+        @SuppressWarnings("unchecked")
+        Sbml4HumansSetup(boolean answer) {
+            CyNetwork network = new NetworkTestSupport().getNetwork();
+            CyApplicationManager applicationManager = mock(CyApplicationManager.class);
+            when(applicationManager.getCurrentNetwork()).thenReturn(network);
+            CyProperty<Properties> property = mock(CyProperty.class);
+            when(property.getProperties()).thenReturn(properties);
+            ServiceAdapter adapter = new ServiceAdapter(
+                    null,
+                    applicationManager,
+                    null,
+                    null,
+                    null,
+                    null,
+                    taskManager,
+                    null,
+                    null,
+                    null,
+                    property,
+                    null,
+                    null,
+                    null,
+                    null);
+            SBMLManager sbmlManager = new SBMLManager(applicationManager);
+            sbmlManager.addSBMLForNetwork(new SBMLDocument(3, 1), network, new One2ManyMapping<>());
+            listener = new BrowserHyperlinkListener(
+                    adapter, null, sbmlManager, null, null, Runnable::run, url -> {}, consent -> {
+                        asked++;
+                        return answer;
+                    });
+        }
+
+        void click() throws Exception {
+            listener.linkActivated(
+                    URI.create(BrowserHyperlinkListener.URL_SBML4HUMANS).toURL());
+        }
+    }
+
+    @Test
+    void sbml4humansLinkAsksAndRunsTheTask() throws Exception {
+        Sbml4HumansSetup setup = new Sbml4HumansSetup(true);
+
+        setup.click();
+
+        assertEquals(1, setup.asked);
+        ArgumentCaptor<TaskIterator> tasks = ArgumentCaptor.forClass(TaskIterator.class);
+        verify(setup.taskManager).execute(tasks.capture());
+        assertTrue(tasks.getValue().next() instanceof Sbml4HumansTask);
+    }
+
+    @Test
+    void sbml4humansLinkUploadsNothingWhenCancelled() throws Exception {
+        Sbml4HumansSetup setup = new Sbml4HumansSetup(false);
+
+        setup.click();
+
+        assertEquals(1, setup.asked);
+        verifyNoInteractions(setup.taskManager);
+    }
+
+    @Test
+    void sbml4humansLinkDoesNotAskAfterConsent() throws Exception {
+        Sbml4HumansSetup setup = new Sbml4HumansSetup(false);
+        setup.properties.setProperty(Sbml4HumansConsent.PROPERTY_CONFIRMED, "true");
+
+        setup.click();
+
+        assertEquals(0, setup.asked);
+        verify(setup.taskManager).execute(org.mockito.ArgumentMatchers.any(TaskIterator.class));
     }
 }
