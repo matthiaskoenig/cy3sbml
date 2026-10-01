@@ -59,6 +59,33 @@ so a model cannot add scripts or markup to the info panel.
 
 ![The info panel for the reaction React0 of BIOMD0000000001, with an SBO term and a Gene Ontology term](../images/screenshots/info-panel-ols-term.png){ width="400" }
 
+## Open the model in sbml4humans
+
+[sbml4humans](https://sbml4humans.de) shows an SBML model as an interactive, human
+readable report. The sbml4humans icon in the row of the model, next to the SBML icon,
+opens the model of the current network in sbml4humans in your web browser:
+
+- cy3sbml writes the SBML document of the network into a COMBINE archive, together with
+  the files of its comp external model definitions, so sbml4humans resolves the external
+  models like cy3sbml does. External models that are not files next to the model (for
+  example a URL) are left out.
+- The archive is uploaded to sbml4humans, which keeps it for 24 hours. The report opens
+  at the model of the network: the main model, a comp model definition, an external
+  model or the flat model. Anyone with the address of the report can open it until the
+  upload expires, so you can share it.
+- Before the first upload, cy3sbml asks whether you want to upload the model. Check
+  **Don't ask again** to upload without asking; the answer is the property
+  `cy3sbml.sbml4humans.confirmed=true` of `cy3sbml.props` (**Edit > Preferences >
+  Properties**), remove it to be asked again.
+
+The model is sent to a public server. Do not use the icon for models that must stay
+private. A model of at most 100 MB can be uploaded.
+
+The properties `cy3sbml.sbml4humans.url` (default `https://sbml4humans.de/`) and
+`cy3sbml.sbml4humans.api` (default `<url>api/`) set the server, for example a local
+sbml4humans for development, with the frontend on `http://localhost:3456/` and the api on
+`http://localhost:1444/api/`.
+
 ## Annotations
 
 cy3sbml shows the controlled vocabulary (CV) terms of the RDF annotation, and the SBO

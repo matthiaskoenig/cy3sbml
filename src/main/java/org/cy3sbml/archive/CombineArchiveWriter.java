@@ -47,7 +47,6 @@ public final class CombineArchiveWriter {
 
     private static final String OMEX = "http://identifiers.org/combine.specifications/omex";
     private static final String MANIFEST_FORMAT = "http://identifiers.org/combine.specifications/omex-manifest";
-    private static final String SBML_FORMAT = "http://identifiers.org/combine.specifications/sbml.level-%d.version-%d";
     private static final Pattern FILE_NAME = Pattern.compile("[A-Za-z0-9._-]+");
 
     private CombineArchiveWriter() {}
@@ -105,7 +104,8 @@ public final class CombineArchiveWriter {
     /** The documents of the archive by their location, the document first. */
     private static Map<String, SBMLDocument> entries(SBMLDocument document, String location, CompModels models) {
         Map<String, SBMLDocument> entries = new LinkedHashMap<>();
-        Map<SBMLDocument, String> locations = new IdentityHashMap<>();
+        // by identity, JSBML's equals compares the content
+        IdentityHashMap<SBMLDocument, String> locations = new IdentityHashMap<>();
         entries.put(location, document);
         locations.put(document, location);
         // the externals named by the documents of the archive, until no document is added; an
@@ -132,7 +132,7 @@ public final class CombineArchiveWriter {
             CompModels.External external,
             String parent,
             Map<String, SBMLDocument> entries,
-            Map<SBMLDocument, String> locations) {
+            IdentityHashMap<SBMLDocument, String> locations) {
         ExternalModelDefinition definition = external.definition();
         if (!(external.resolution() instanceof ModelResolution.Resolved resolved)) {
             logger.warn(
@@ -214,7 +214,9 @@ public final class CombineArchiveWriter {
             xml.append(String.format(
                     "  <content location=\"./%s\" format=\"%s\"%s/>%n",
                     HtmlUtil.escape(entry.getKey()),
-                    String.format(SBML_FORMAT, document.getLevel(), document.getVersion()),
+                    String.format(
+                            "http://identifiers.org/combine.specifications/sbml.level-%d.version-%d",
+                            document.getLevel(), document.getVersion()),
                     entry.getKey().equals(master) ? " master=\"true\"" : ""));
         }
         return xml.append("</omexManifest>\n").toString();
