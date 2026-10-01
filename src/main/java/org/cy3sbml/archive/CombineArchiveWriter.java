@@ -77,13 +77,20 @@ public final class CombineArchiveWriter {
     }
 
     /**
-     * The location of the document in an archive: its location in the archive it was imported
-     * from, else the file name of its location, else {@value #DEFAULT_LOCATION}.
+     * The location of the document in an archive: for a document of an archive import its entry
+     * in that archive (the import of every collection of an archive is the one of the master
+     * entry, so the entry is found by the location of the document, the unpacked file), else the
+     * file name of its location, else {@value #DEFAULT_LOCATION}.
      */
     public static String masterLocation(SBMLDocument document, Optional<ArchiveImport> archive) {
         if (archive.isPresent()) {
-            String imported = archive.get().location();
-            return imported.startsWith("./") ? imported.substring(2) : imported;
+            Optional<String> entry = archiveEntry(document, archive.get());
+            if (entry.isPresent()) {
+                return entry.get();
+            }
+            if (!document.isSetLocationURI()) {
+                return stripDot(archive.get().location());
+            }
         }
         if (document.isSetLocationURI()) {
             try {
@@ -99,6 +106,34 @@ public final class CombineArchiveWriter {
             }
         }
         return DEFAULT_LOCATION;
+    }
+
+    /** The entry of the archive whose file is the location of the document, the longest match. */
+    private static Optional<String> archiveEntry(SBMLDocument document, ArchiveImport archive) {
+        if (!document.isSetLocationURI()) {
+            return Optional.empty();
+        }
+        String path;
+        try {
+            path = new URI(document.getLocationURI()).getPath();
+        } catch (URISyntaxException e) {
+            return Optional.empty();
+        }
+        if (path == null) {
+            return Optional.empty();
+        }
+        String best = null;
+        for (ArchiveInfo.Entry entry : archive.info().entries()) {
+            String location = stripDot(entry.location());
+            if (path.endsWith("/" + location) && (best == null || location.length() > best.length())) {
+                best = location;
+            }
+        }
+        return Optional.ofNullable(best);
+    }
+
+    private static String stripDot(String location) {
+        return location.startsWith("./") ? location.substring(2) : location;
     }
 
     /** The documents of the archive by their location, the document first. */

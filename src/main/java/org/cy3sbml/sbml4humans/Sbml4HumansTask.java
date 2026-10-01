@@ -3,6 +3,7 @@ package org.cy3sbml.sbml4humans;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import org.cy3sbml.SBMLManager;
 import org.cy3sbml.archive.CombineArchiveWriter;
 import org.cy3sbml.comp.CompModels;
@@ -24,12 +25,16 @@ import org.sbml.jsbml.SBMLDocument;
 public final class Sbml4HumansTask extends AbstractTask {
     private final SBMLManager sbmlManager;
     private final CyNetwork network;
-    private final Sbml4HumansClient client;
+    private final Supplier<Sbml4HumansClient> client;
     private final Consumer<String> browser;
 
-    /** @param browser opens the address of the report, e.g. in the system browser */
+    /**
+     * @param client  the client of sbml4humans, created when the task runs, so an invalid
+     *     address of the properties is the error of the task
+     * @param browser opens the address of the report, e.g. in the system browser
+     */
     public Sbml4HumansTask(
-            SBMLManager sbmlManager, CyNetwork network, Sbml4HumansClient client, Consumer<String> browser) {
+            SBMLManager sbmlManager, CyNetwork network, Supplier<Sbml4HumansClient> client, Consumer<String> browser) {
         this.sbmlManager = sbmlManager;
         this.network = network;
         this.client = client;
@@ -55,6 +60,13 @@ public final class Sbml4HumansTask extends AbstractTask {
             return;
         }
         Model model = sbmlManager.getModel(NetworkUtil.getRootNetworkSUID(network));
+        Sbml4HumansClient client;
+        try {
+            client = this.client.get();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "The address of sbml4humans in the cy3sbml properties is invalid: " + e.getMessage(), e);
+        }
         taskMonitor.setStatusMessage("Uploading the model to " + client.url());
         taskMonitor.setProgress(0.2);
         URI report =

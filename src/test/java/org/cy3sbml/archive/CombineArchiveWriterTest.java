@@ -131,6 +131,31 @@ class CombineArchiveWriterTest {
         assertEquals(Set.of("ext.xml"), locations(info));
     }
 
+    /**
+     * Every collection of an archive import has the archive import of the master entry, so the
+     * location of a document of the archive is the entry of its own file.
+     */
+    @Test
+    void masterLocationOfADocumentOfAnArchive() throws Exception {
+        ArchiveImport imported = new ArchiveImport(
+                new ArchiveInfo(
+                        "a.omex",
+                        null,
+                        null,
+                        List.of(),
+                        List.of(
+                                new ArchiveInfo.Entry("top.xml", "sbml", true),
+                                new ArchiveInfo.Entry("lib/sub.xml", "sbml", false))),
+                "top.xml");
+        SBMLDocument master = new SBMLDocument(3, 1);
+        master.setLocationURI("file:/tmp/archive-1/top.xml");
+        SBMLDocument external = new SBMLDocument(3, 1);
+        external.setLocationURI("file:/tmp/archive-1/lib/sub.xml");
+
+        assertEquals("top.xml", CombineArchiveWriter.masterLocation(master, Optional.of(imported)));
+        assertEquals("lib/sub.xml", CombineArchiveWriter.masterLocation(external, Optional.of(imported)));
+    }
+
     @Test
     void masterLocation() throws Exception {
         SBMLDocument document = new SBMLDocument(3, 1);
@@ -139,8 +164,19 @@ class CombineArchiveWriterTest {
         assertEquals("m1.xml", CombineArchiveWriter.masterLocation(document, Optional.empty()));
         document.setLocationURI("file:/tmp/a%20b.xml");
         assertEquals("model.xml", CombineArchiveWriter.masterLocation(document, Optional.empty()));
-        ArchiveImport imported =
-                new ArchiveImport(new ArchiveInfo("a.omex", null, null, List.of(), List.of()), "./models/m1.xml");
+        // the document of an archive import is the unpacked file of its entry
+        ArchiveImport imported = new ArchiveImport(
+                new ArchiveInfo(
+                        "a.omex",
+                        null,
+                        null,
+                        List.of(),
+                        List.of(new ArchiveInfo.Entry("./models/m1.xml", "sbml", true))),
+                "./models/m1.xml");
+        document.setLocationURI("file:/tmp/archive-2/models/m1.xml");
         assertEquals("models/m1.xml", CombineArchiveWriter.masterLocation(document, Optional.of(imported)));
+        // without location, the entry of the import
+        assertEquals(
+                "models/m1.xml", CombineArchiveWriter.masterLocation(new SBMLDocument(3, 1), Optional.of(imported)));
     }
 }

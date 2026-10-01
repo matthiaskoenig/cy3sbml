@@ -21,6 +21,7 @@ import org.cy3sbml.SBMLManager;
 import org.cy3sbml.ServiceAdapter;
 import org.cy3sbml.TestUtils;
 import org.cy3sbml.mapping.One2ManyMapping;
+import org.cy3sbml.sbml4humans.Sbml4HumansClient;
 import org.cy3sbml.sbml4humans.Sbml4HumansConsent;
 import org.cy3sbml.sbml4humans.Sbml4HumansTask;
 import org.cy3sbml.util.NetworkUtil;
@@ -275,5 +276,26 @@ class BrowserHyperlinkListenerTest {
 
         assertEquals(0, setup.asked);
         verify(setup.taskManager).execute(org.mockito.ArgumentMatchers.any(TaskIterator.class));
+    }
+
+    /** A malformed address of sbml4humans is the error of the task, not a click that does nothing. */
+    @Test
+    void sbml4humansLinkWithAMalformedAddressRunsTheTask() throws Exception {
+        Sbml4HumansSetup setup = new Sbml4HumansSetup(true);
+        setup.properties.setProperty(Sbml4HumansConsent.PROPERTY_CONFIRMED, "true");
+        setup.properties.setProperty(Sbml4HumansClient.PROPERTY_URL, "http://exa mple.org");
+
+        setup.click();
+
+        verify(setup.taskManager).execute(org.mockito.ArgumentMatchers.any(TaskIterator.class));
+    }
+
+    @Test
+    void consentMessageNamesWhatIsUploaded() {
+        String message = BrowserHyperlinkListener.consentMessage("https://sbml4humans.de/");
+
+        assertTrue(message.contains("external model"), message);
+        assertTrue(message.contains("24 hours"), message);
+        assertTrue(message.contains("https://sbml4humans.de/"), message);
     }
 }

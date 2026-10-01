@@ -68,7 +68,7 @@ class Sbml4HumansTaskTest {
     }
 
     private Sbml4HumansTask task(CyNetwork network) {
-        return new Sbml4HumansTask(sbmlManager, network, client, opened::add);
+        return new Sbml4HumansTask(sbmlManager, network, () -> client, opened::add);
     }
 
     @Test

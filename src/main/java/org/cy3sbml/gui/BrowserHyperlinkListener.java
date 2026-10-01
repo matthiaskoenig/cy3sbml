@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
@@ -314,22 +315,23 @@ public class BrowserHyperlinkListener {
         if (!consent.isConfirmed() && !consentDialog.ask(consent)) {
             return;
         }
-        Sbml4HumansClient client = Sbml4HumansClient.fromProperties(adapter.cy3sbmlProperties.getProperties());
-        adapter.dialogTaskManager.execute(
-                new TaskIterator(new Sbml4HumansTask(sbmlManager, network, client, externalBrowser)));
+        Properties properties = adapter.cy3sbmlProperties.getProperties();
+        adapter.dialogTaskManager.execute(new TaskIterator(new Sbml4HumansTask(
+                sbmlManager, network, () -> Sbml4HumansClient.fromProperties(properties), externalBrowser)));
     }
 
     /** The dialog which asks for the consent to upload, on the Swing event dispatch thread. */
     private static boolean askConsent(ServiceAdapter adapter, Sbml4HumansConsent consent) {
-        String url = Sbml4HumansClient.fromProperties(adapter.cy3sbmlProperties.getProperties())
-                .url()
-                .toString();
+        Properties properties = adapter.cy3sbmlProperties.getProperties();
+        String url;
+        try {
+            url = Sbml4HumansClient.fromProperties(properties).url().toString();
+        } catch (IllegalArgumentException e) {
+            // an invalid address is the error of the task, the dialog names it as it is
+            url = properties.getProperty(Sbml4HumansClient.PROPERTY_URL);
+        }
         JCheckBox again = new JCheckBox("Don't ask again");
-        Object[] message = {
-            "<html>The model is uploaded to the public server <b>" + HtmlUtil.escape(url)
-                    + "</b>, which keeps it for 24 hours.<br>Anyone with the link can open the report.</html>",
-            again
-        };
+        Object[] message = {consentMessage(url), again};
         Component parent = adapter.cySwingApplication == null ? null : adapter.cySwingApplication.getJFrame();
         String[] options = {"Upload", "Cancel"};
         int answer = JOptionPane.showOptionDialog(
@@ -348,6 +350,13 @@ public class BrowserHyperlinkListener {
             consent.confirm();
         }
         return true;
+    }
+
+    /** The question of the consent dialog, which says what is uploaded where. */
+    static String consentMessage(String url) {
+        return "<html>The model, with the files of its external model definitions, is uploaded to the"
+                + " public server <b>" + HtmlUtil.escape(url) + "</b>, which keeps it for 24 hours.<br>"
+                + "Anyone with the link can open the report.</html>";
     }
 
     /** The action of an action URL, one of {@link #URLS_ACTION}. */
