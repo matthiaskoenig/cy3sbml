@@ -11,6 +11,9 @@
             <message>cy3sbml could not read the SBML file '(broken|01134-sbml-l3v1)\.xml': .*</message>
             <!-- SBMLReaderTaskFactoryTaskTest, CombineArchiveReaderTaskFactoryTest: an input that fails to read -->
             <message>Error in creating TaskIterator for (SBMLReaderTaskFactory|CombineArchiveReaderTaskFactory)\.</message>
+            <!-- CombineArchiveWriterTest: sources outside the archive and a url which cannot be read -->
+            <message>The file .*/models/comp/top\.xml does not exist\.</message>
+            <message>http://127\.0\.0\.1:1/x\.xml could not be read: .*</message>
             <!-- MissingReferencesTest: references to missing elements -->
             <message>\w+ does not exist for \w+: missing_\w+( .*)?</message>
             <!-- CompModelsTest: a wrong md5 checksum, a missing external file -->
@@ -44,6 +47,7 @@
     <!-- the test models: comp links to other submodels, external model definitions,
          layouts, elements without metaId -->
     <logger name="org.cy3sbml.reader.CompReader" level="ERROR" />
+    <logger name="org.cy3sbml.archive.CombineArchiveWriter" level="ERROR" />
     <logger name="org.cy3sbml.reader.LayoutReader" level="ERROR" />
     <logger name="org.cy3sbml.reader.SBMLReaderTask" level="ERROR" />
     <logger name="org.cy3sbml.util.MappingUtil" level="ERROR" />
