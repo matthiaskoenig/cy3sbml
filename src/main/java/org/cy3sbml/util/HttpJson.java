@@ -1,5 +1,6 @@
 package org.cy3sbml.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -11,11 +12,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpTimeoutException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
 import java.util.OptionalLong;
+import java.util.UUID;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -62,6 +65,11 @@ public class HttpJson {
     private static final Duration DOWNLOAD_TIMEOUT = Duration.ofMinutes(2);
     /** Maximum size of a file download. */
     static final long MAX_DOWNLOAD_BYTES = 100L * 1024 * 1024;
+    /**
+     * Timeout of an upload, including the answer: a web service may process the upload
+     * before it answers (sbml4humans reports a genome scale model in minutes).
+     */
+    static final Duration UPLOAD_TIMEOUT = Duration.ofMinutes(15);
 
     private final HttpClient client;
     private final ObjectMapper mapper;
@@ -151,19 +159,88 @@ public class HttpJson {
      * The response is cancelled if it has not arrived completely within {@link #responseTimeout}.
      */
     private CompletableFuture<HttpResponse<String>> send(URI uri) {
+        return send(jsonRequest(uri), responseTimeout);
+    }
+
+    /**
+     * Sends the request, reading at most {@link #maxResponseBytes} of the body. The response
+     * is cancelled if it has not arrived completely within the timeout.
+     */
+    private CompletableFuture<HttpResponse<String>> send(HttpRequest request, Duration timeout) {
         CompletableFuture<HttpResponse<String>> response = client.sendAsync(
-                jsonRequest(uri),
+                request,
                 info -> new LimitedBodySubscriber<>(
                         HttpResponse.BodyHandlers.ofString().apply(info),
                         info.headers().firstValueAsLong("Content-Length"),
                         maxResponseBytes));
-        CompletableFuture.delayedExecutor(responseTimeout.toMillis(), TimeUnit.MILLISECONDS)
+        CompletableFuture.delayedExecutor(timeout.toMillis(), TimeUnit.MILLISECONDS)
                 .execute(() -> {
                     if (response.cancel(true)) {
-                        logger.warn("Timed out after {} s retrieving {}", responseTimeout.toSeconds(), uri);
+                        logger.warn("Timed out after {} s requesting {}", timeout.toSeconds(), request.uri());
                     }
                 });
         return response;
+    }
+
+    /**
+     * Posts the content as a file in the field of a multipart/form-data request and parses
+     * the JSON answer, e.g. an upload of a model to a web service. The request and its
+     * answer must complete within {@link #UPLOAD_TIMEOUT}.
+     *
+     * @param field    the name of the form field
+     * @param fileName the file name of the content
+     * @throws IOException with a message naming the URI and the reason if the upload
+     *     failed: a non-2xx status, an answer which is no JSON, a transport error or a timeout
+     */
+    public JsonNode postMultipart(URI uri, String field, String fileName, byte[] content) throws IOException {
+        checkHeaderValue(field);
+        checkHeaderValue(fileName);
+        String boundary = "cy3sbml-" + UUID.randomUUID();
+        byte[] head = ("--" + boundary + "\r\n"
+                        + "Content-Disposition: form-data; name=\"" + field + "\"; filename=\"" + fileName + "\"\r\n"
+                        + "Content-Type: application/octet-stream\r\n\r\n")
+                .getBytes(StandardCharsets.UTF_8);
+        byte[] tail = ("\r\n--" + boundary + "--\r\n").getBytes(StandardCharsets.UTF_8);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .timeout(UPLOAD_TIMEOUT)
+                .POST(HttpRequest.BodyPublishers.ofByteArrays(List.of(head, content, tail)))
+                .build();
+        CompletableFuture<HttpResponse<String>> response = send(request, UPLOAD_TIMEOUT);
+        HttpResponse<String> answer;
+        try {
+            answer = response.get();
+        } catch (ExecutionException e) {
+            throw new IOException("Could not upload to " + uri + ": " + describe(e.getCause()), e.getCause());
+        } catch (CancellationException e) {
+            throw new IOException(
+                    "Could not upload to " + uri + ": timed out after " + UPLOAD_TIMEOUT.toSeconds() + " s", e);
+        } catch (InterruptedException e) {
+            response.cancel(true);
+            Thread.currentThread().interrupt();
+            throw new InterruptedIOException("Interrupted while uploading to " + uri);
+        }
+        if (!isSuccess(answer.statusCode())) {
+            throw new IOException("Could not upload to " + uri + ": HTTP status " + answer.statusCode());
+        }
+        try {
+            JsonNode node = answer.body() == null ? null : mapper.readTree(answer.body());
+            if (node == null || node.isMissingNode()) {
+                throw new IOException("Could not upload to " + uri + ": the answer is empty");
+            }
+            return node;
+        } catch (JsonProcessingException e) {
+            throw new IOException("Could not upload to " + uri + ": the answer is no JSON", e);
+        }
+    }
+
+    /** A value of a header parameter is written in quotes, so it cannot hold one or a line break. */
+    private static void checkHeaderValue(String value) {
+        if (value.contains("\"") || value.contains("\r") || value.contains("\n")) {
+            throw new IllegalArgumentException("Invalid form field or file name: " + value);
+        }
     }
 
     private static <T> FetchResult<T> transportError(URI uri, Throwable error) {
