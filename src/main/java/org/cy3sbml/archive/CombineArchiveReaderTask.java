@@ -52,8 +52,6 @@ public class CombineArchiveReaderTask extends AbstractTask implements CyNetworkR
     private ArchiveInfo info;
     // the reader of every network, in the order they were read
     private final Map<CyNetwork, SBMLReaderTask> readerOfNetwork = new LinkedHashMap<>();
-    // the location of the imported SBML file of every network
-    private final Map<CyNetwork, String> locationOfNetwork = new LinkedHashMap<>();
     private volatile SBMLReaderTask current;
 
     /**
@@ -125,9 +123,12 @@ public class CombineArchiveReaderTask extends AbstractTask implements CyNetworkR
             reader.run(taskMonitor);
             for (CyNetwork network : reader.getNetworks()) {
                 readerOfNetwork.put(network, reader);
-                locationOfNetwork.put(network, entry.location());
                 CyRootNetwork root = ((CySubNetwork) network).getRootNetwork();
                 AttributeUtil.set(root, root, SBML.ATTR_ARCHIVE, fileName, String.class);
+                // registered like the SBML, also for a network Cytoscape creates no view for
+                if (sbmlManager != null) {
+                    sbmlManager.addArchive(root.getSUID(), new ArchiveImport(info, entry.location()));
+                }
             }
         } finally {
             current = null;
@@ -148,18 +149,13 @@ public class CombineArchiveReaderTask extends AbstractTask implements CyNetworkR
         return readerOfNetwork.keySet().toArray(new CyNetwork[0]);
     }
 
-    /** The view of the network by the reader that read it; registers the archive of the network. */
+    /** The view of the network by the reader that read it. */
     @Override
     public CyNetworkView buildCyNetworkView(CyNetwork network) {
         SBMLReaderTask reader = readerOfNetwork.get(network);
         if (reader == null) {
             throw new IllegalArgumentException("The network was not read from the archive " + fileName);
         }
-        CyNetworkView view = reader.buildCyNetworkView(network);
-        if (sbmlManager != null) {
-            Long rootSUID = ((CySubNetwork) network).getRootNetwork().getSUID();
-            sbmlManager.addArchive(rootSUID, new ArchiveImport(info, locationOfNetwork.get(network)));
-        }
-        return view;
+        return reader.buildCyNetworkView(network);
     }
 }

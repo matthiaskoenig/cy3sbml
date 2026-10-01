@@ -47,10 +47,6 @@ import org.sbml.jsbml.ext.qual.QualitativeSpecies;
 import org.sbml.jsbml.ext.qual.Transition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Some utils to work with SBML and SBML naming.
@@ -111,46 +107,22 @@ public class SBMLUtil {
 
     /**
      * The XHTML content of the {@code <notes>} of the SBase, without an enclosing
-     * {@code <body>} element, one top level element per line.
+     * {@code <body>} element, one top level element per line, sanitized with
+     * {@link HtmlSanitizer}.
      *
      * @param sbase the SBase
      * @return the notes, null if the SBase has no notes or they cannot be read
      */
     public static String parseNotes(SBase sbase) {
-        StringBuilder text = new StringBuilder();
-        if (sbase.isSetNotes()) {
-            try {
-                String notes = sbase.getNotesString();
-                Document doc = XMLUtil.readXMLString(notes);
-                if (doc == null) {
-                    return null;
-                }
-                XMLUtil.cleanEmptyTextNodes(doc);
-
-                // the formatting markup of the children of the notes element; a body or
-                // html element is replaced by its content
-                Element notesElement =
-                        (Element) doc.getElementsByTagName("notes").item(0);
-                HtmlSanitizer.sanitizeChildren(notesElement);
-                List<Node> nodes = new ArrayList<>();
-                NodeList nodeList = notesElement.getChildNodes();
-                for (int k = 0; k < nodeList.getLength(); k++) {
-                    nodes.add(nodeList.item(k));
-                }
-
-                // create xml string
-                for (Node n : nodes) {
-                    String nText = XMLUtil.writeNodeToTidyString(n);
-                    if (nText != null && !nText.isBlank()) {
-                        text.append(nText.trim()).append('\n');
-                    }
-                }
-                return text.toString();
-            } catch (XMLStreamException e) {
-                logger.error("Error parsing notes xml.", e);
-            }
+        if (!sbase.isSetNotes()) {
+            return null;
         }
-        return null;
+        try {
+            return HtmlSanitizer.sanitizeXhtml(sbase.getNotesString());
+        } catch (XMLStreamException e) {
+            logger.error("Error parsing notes xml.", e);
+            return null;
+        }
     }
 
     /**
@@ -524,7 +496,10 @@ public class SBMLUtil {
     static String equationHtml(Reaction r) {
         String arrow =
                 String.format(" <span class=\"equation-arrow\">%s</span> ", r.getReversible() ? "&#8652;" : "&#8594;");
-        String equation = sideHtml(r.getListOfReactants()) + arrow + sideHtml(r.getListOfProducts());
+        // getListOfReactants and getListOfProducts would add an empty list to the reaction
+        String equation = sideHtml(r.isSetListOfReactants() ? r.getListOfReactants() : null)
+                + arrow
+                + sideHtml(r.isSetListOfProducts() ? r.getListOfProducts() : null);
         if (r.isSetListOfModifiers() && r.getModifierCount() > 0) {
             List<String> modifiers = new ArrayList<>();
             for (ModifierSpeciesReference msr : r.getListOfModifiers()) {
@@ -536,7 +511,7 @@ public class SBMLUtil {
     }
 
     private static String sideHtml(ListOf<SpeciesReference> speciesReferences) {
-        if (speciesReferences.isEmpty()) {
+        if (speciesReferences == null || speciesReferences.isEmpty()) {
             return "&#8709;";
         }
         List<String> terms = new ArrayList<>();
@@ -587,10 +562,14 @@ public class SBMLUtil {
             return map;
         }
         FBCModelPlugin fbcModel = (FBCModelPlugin) model.getExtension(FBCConstants.shortLabel);
-        if (fbcModel == null) {
+        // the getters of unset lists would add an empty list to the model
+        if (fbcModel == null || !fbcModel.isSetListOfObjectives()) {
             return map;
         }
         for (Objective objective : fbcModel.getListOfObjectives()) {
+            if (!objective.isSetListOfFluxObjectives()) {
+                continue;
+            }
             for (FluxObjective fluxObjective : objective.getListOfFluxObjectives()) {
                 if (r.getId().equals(fluxObjective.getReaction())) {
                     map.put(
@@ -655,15 +634,16 @@ public class SBMLUtil {
      */
     public static Map<String, String> createConstraintMap(Constraint constraint) {
         Map<String, String> map = createAbstractMathContainerNodeMap(constraint);
-        String message = UNSET;
+        String message = null;
         if (constraint.isSetMessage()) {
             try {
-                message = constraint.getMessageString();
+                // XHTML of the model, reduced to formatting markup like the notes
+                message = HtmlSanitizer.sanitizeXhtml(constraint.getMessageString());
             } catch (XMLStreamException e) {
                 logger.error("Constraint message could not be created.", e);
             }
         }
-        map.put(SBML.ATTR_MESSAGE, message);
+        map.put(SBML.ATTR_MESSAGE, message != null ? message : UNSET);
         return map;
     }
 
@@ -837,8 +817,12 @@ public class SBMLUtil {
         map.put(SBML.ATTR_FBC_LOWER_BOUND, parameterHtml(model, lowerBound));
         map.put(SBML.ATTR_FBC_UPPER_BOUND, parameterHtml(model, upperBound));
 
+        // getListOfUserDefinedConstraintComponents would add an empty list to the constraint
+        List<UserDefinedConstraintComponent> components = udc.isSetListOfUserDefinedConstraintComponents()
+                ? udc.getListOfUserDefinedConstraintComponents()
+                : List.of();
         List<String> terms = new ArrayList<>();
-        for (UserDefinedConstraintComponent component : udc.getListOfUserDefinedConstraintComponents()) {
+        for (UserDefinedConstraintComponent component : components) {
             terms.add(componentTerm(component));
         }
         String sum = terms.isEmpty() ? "0" : String.join(" + ", terms);
@@ -848,9 +832,10 @@ public class SBMLUtil {
                         + HtmlUtil.escape(upperBound != null ? upperBound : "?"));
 
         int k = 0;
-        for (UserDefinedConstraintComponent component : udc.getListOfUserDefinedConstraintComponents()) {
+        for (UserDefinedConstraintComponent component : components) {
             k++;
-            String key = ATTR_COMPONENT + " " + (component.isSetId() ? component.getId() : Integer.toString(k));
+            String key = ATTR_COMPONENT + " "
+                    + (component.isSetId() ? HtmlUtil.escape(component.getId()) : Integer.toString(k));
             String variableType = component.isSetVariableType() ? " (" + component.getVariableType() + ")" : "";
             map.put(key, componentTerm(component) + variableType + variableLinks(component));
         }
@@ -1000,12 +985,17 @@ public class SBMLUtil {
             return map;
         }
         SBaseRefResolver resolver = targets == null ? null : targets.resolver(document);
-        for (ModelDefinition modelDefinition : plugin.getListOfModelDefinitions()) {
+        // the getters of unset lists would add an empty list to the document
+        List<ModelDefinition> modelDefinitions =
+                plugin.isSetListOfModelDefinitions() ? plugin.getListOfModelDefinitions() : List.of();
+        List<ExternalModelDefinition> externals =
+                plugin.isSetListOfExternalModelDefinitions() ? plugin.getListOfExternalModelDefinitions() : List.of();
+        for (ModelDefinition modelDefinition : modelDefinitions) {
             map.put(
                     "model definition " + HtmlUtil.escape(modelDefinition.getId()),
                     modelLink(modelDefinition, targets));
         }
-        for (ExternalModelDefinition external : plugin.getListOfExternalModelDefinitions()) {
+        for (ExternalModelDefinition external : externals) {
             String source = HtmlUtil.escape(external.getSource());
             if (external.isSetModelRef()) {
                 source += " (" + HtmlUtil.escape(external.getModelRef()) + ")";
@@ -1077,16 +1067,19 @@ public class SBMLUtil {
         // kind is required, but invalid models can miss it
         map.put("kind", group.isSetKind() ? group.getKind().name() : UNSET);
 
-        ListOfMembers members = group.getListOfMembers();
-        if (members.isSetId()) {
-            map.put("members id", members.getId());
-        }
-        if (members.isSetName()) {
-            map.put("members name", members.getName());
-        }
         StringBuilder membersStr = new StringBuilder("<ul>");
-        for (Member member : group.getListOfMembers()) {
-            membersStr.append("<li>").append(memberHtml(member)).append("</li>");
+        // getListOfMembers would add an empty list to the group
+        if (group.isSetListOfMembers()) {
+            ListOfMembers members = group.getListOfMembers();
+            if (members.isSetId()) {
+                map.put("members id", HtmlUtil.escape(members.getId()));
+            }
+            if (members.isSetName()) {
+                map.put("members name", HtmlUtil.escape(members.getName()));
+            }
+            for (Member member : members) {
+                membersStr.append("<li>").append(memberHtml(member)).append("</li>");
+            }
         }
         membersStr.append("</ul>");
         map.put("members", membersStr.toString());

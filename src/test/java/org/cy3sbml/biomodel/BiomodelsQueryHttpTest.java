@@ -97,11 +97,30 @@ class BiomodelsQueryHttpTest {
                         "{\"submissionId\": \"MODEL1204270001\", \"name\": \"Koenig2012\", \"publication\": {}}"));
         server.createContext(
                 "/new/BIOMD0000000012", exchange -> respond(exchange, 200, "application/json", MODEL_JSON));
+        // a model whose main file is not named <id>_url.xml
+        server.createContext(
+                "/new/BIOMD0000001010",
+                exchange -> respond(
+                        exchange,
+                        200,
+                        "application/json",
+                        "{\"submissionId\": \"MODEL2107130001\", \"publicationId\": \"BIOMD0000001010\","
+                                + " \"publication\": {},"
+                                + " \"files\": {\"main\": [{\"name\": \"Zhang2007_M3_low_DD.xml\"}]}}"));
+        // like BioModels, the download needs the name of the main file
+        Map<String, String> mainFiles =
+                Map.of("BIOMD0000000012", "BIOMD0000000012_url.xml", "BIOMD0000001010", "Zhang2007_M3_low_DD.xml");
         server.createContext("/new/model/download/", exchange -> {
-            if (exchange.getRequestURI().getPath().endsWith("/BIOMD0000000012")) {
-                respond(exchange, 200, "application/xml", SBML);
-            } else {
+            String path = exchange.getRequestURI().getPath();
+            String id = path.substring(path.lastIndexOf('/') + 1);
+            String filename =
+                    queryParameters(exchange.getRequestURI().getRawQuery()).get("filename");
+            if (!mainFiles.containsKey(id)) {
                 respond(exchange, 404, "text/html", "<html>Not Found</html>");
+            } else if (!mainFiles.get(id).equals(filename)) {
+                respond(exchange, 400, "text/html", "<html>Bad Request</html>");
+            } else {
+                respond(exchange, 200, "application/xml", SBML);
             }
         });
         // a service that is down
@@ -233,6 +252,15 @@ class BiomodelsQueryHttpTest {
     void downloadFollowsRedirects() throws Exception {
         Path file = tempDir.resolve("model.xml");
         query("/old/").downloadSBML("BIOMD0000000012", file);
+
+        assertEquals(SBML, Files.readString(file));
+    }
+
+    /** The name of the main file comes from the information of the model. */
+    @Test
+    void downloadGetsTheMainFileOfTheModel() throws Exception {
+        Path file = tempDir.resolve("model.xml");
+        query("/old/").downloadSBML("BIOMD0000001010", file);
 
         assertEquals(SBML, Files.readString(file));
     }

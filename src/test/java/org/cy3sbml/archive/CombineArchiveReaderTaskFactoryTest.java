@@ -1,12 +1,16 @@
 package org.cy3sbml.archive;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 import java.io.InputStream;
 import java.nio.file.Path;
+import org.cy3sbml.SBMLReaderError;
+import org.cy3sbml.SBMLReaderTaskFactoryTaskTest;
 import org.cy3sbml.ServiceAdapter;
 import org.cytoscape.group.GroupTestSupport;
+import org.cytoscape.io.read.CyNetworkReader;
 import org.cytoscape.model.NetworkTestSupport;
 import org.cytoscape.work.TaskIterator;
 import org.cytoscape.work.TaskMonitor;
@@ -46,5 +50,19 @@ class CombineArchiveReaderTaskFactoryTest {
 
             assertEquals(3, task.getNetworks().length);
         }
+    }
+
+    /** An archive that cannot be read gives a reader that reports the error, not no reader. */
+    @Test
+    void unreadableArchiveGivesAReaderThatReportsTheError() {
+        CombineArchiveReaderTaskFactory factory = new CombineArchiveReaderTaskFactory(
+                new CombineArchiveFileFilter(null), null, null, new ArchiveDirectories(temp));
+        InputStream failing = SBMLReaderTaskFactoryTaskTest.failingStream();
+
+        CyNetworkReader reader = (CyNetworkReader)
+                factory.createTaskIterator(failing, "model.omex").next();
+
+        SBMLReaderError error = assertThrows(SBMLReaderError.class, () -> reader.run(mock(TaskMonitor.class)));
+        assertEquals("cy3sbml could not read 'model.omex': Connection reset", error.getMessage());
     }
 }

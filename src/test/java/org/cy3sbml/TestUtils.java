@@ -183,7 +183,7 @@ public class TestUtils {
         System.gc();
         Runtime rt = Runtime.getRuntime();
         long usedMB = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024;
-        logger.warn(String.format("<%s> memory usage: %s MB", info, usedMB));
+        logger.debug("<{}> memory usage: {} MB", info, usedMB);
     }
 
     public static CyNode findNodeById(String sbmlId, CyNetwork network) {

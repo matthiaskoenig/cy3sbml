@@ -4,6 +4,7 @@ import static org.cytoscape.view.presentation.property.BasicVisualLexicon.NODE_X
 import static org.cytoscape.view.presentation.property.BasicVisualLexicon.NODE_Y_LOCATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -436,6 +437,42 @@ class SBMLReaderTaskTest {
 
         assertFalse(task.getError());
         assertEquals(List.of("definition"), collectionNames(task));
+    }
+
+    /**
+     * The networks are registered without view: Cytoscape creates no view for a network
+     * above its view threshold, unless the user asks for one.
+     */
+    @Test
+    void networksWithoutViewAreRegistered() throws Exception {
+        URL url = getClass().getResource(TOY_TOP_LEVEL);
+        SBMLManager sbmlManager = new SBMLManager(mock(CyApplicationManager.class));
+        SBMLReaderTask task;
+        try (InputStream stream = url.openStream()) {
+            task = new SBMLReaderTask(
+                    stream,
+                    "toy_top_level.xml",
+                    url.toURI(),
+                    new NetworkTestSupport().getNetworkFactory(),
+                    new GroupTestSupport().getGroupFactory(),
+                    new NetworkViewTestSupport().getNetworkViewFactory(),
+                    null,
+                    null,
+                    null,
+                    sbmlManager);
+            task.run(mock(TaskMonitor.class));
+        }
+
+        for (CyNetwork network : task.getNetworks()) {
+            assertNotNull(sbmlManager.getSBMLDocument(network), network.toString());
+            // every node of the network is mapped to its SBase
+            for (CyNode node : network.getNodeList()) {
+                String cyId = network.getRow(node).get(SBML.ATTR_CYID, String.class);
+                if (cyId != null) {
+                    assertTrue(sbmlManager.getMapping(network).containsKey(cyId), cyId);
+                }
+            }
+        }
     }
 
     /** Every network is registered with the document of its model. */

@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -137,6 +139,69 @@ class CofactorManagerTest {
         // the split node and its edges stay in the root network
         assertTrue(root.containsNode(atp));
         assertEquals(4, root.getAdjacentEdgeList(atp, CyEdge.Type.ANY).size());
+    }
+
+    /**
+     * A network of the same collection with the clones and their edges, e.g. created by
+     * "New Network from Selection".
+     */
+    private CySubNetwork networkWith(Collection<CyNode> nodes) {
+        Set<CyEdge> edges = new HashSet<>();
+        for (CyEdge edge : network.getEdgeList()) {
+            if (nodes.contains(edge.getSource()) && nodes.contains(edge.getTarget())) {
+                edges.add(edge);
+            }
+        }
+        return root.addSubNetwork(nodes, edges);
+    }
+
+    @Test
+    void mergeKeepsTheClonesInOtherNetworks() {
+        List<CyNode> clones = manager.split(network, null, List.of(atp));
+        List<CyNode> nodes = new ArrayList<>(clones);
+        nodes.addAll(List.of(r1, r2, r3, c));
+        CySubNetwork other = networkWith(nodes);
+        assertEquals(8, other.getNodeCount());
+        assertEquals(4, other.getEdgeCount());
+
+        manager.mergeAll(network, null);
+
+        assertEquals(8, other.getNodeCount());
+        assertEquals(4, other.getEdgeCount());
+        assertTrue(network.containsNode(atp));
+        // the clones of the other network keep their SBase
+        sbmlManager.updateCurrent(other);
+        List<String> cyIds = sbmlManager.getCyIdsFromSUIDs(List.of(clones.get(0).getSUID()));
+        assertEquals(List.of("atp"), cyIds);
+    }
+
+    /** A cofactor whose clones the user deleted stays deleted, it is not merged back. */
+    @Test
+    void mergeDoesNotRestoreACofactorWithoutClones() {
+        List<CyNode> clones = manager.split(network, null, List.of(h2o));
+        network.removeNodes(clones);
+
+        List<CyNode> merged = manager.mergeAll(network, null);
+
+        assertEquals(List.of(), merged);
+        assertFalse(network.containsNode(h2o));
+        assertFalse(manager.hasClones(network));
+    }
+
+    @Test
+    void splitKeepsTheCloneEdgesInOtherNetworks() {
+        manager.split(network, null, List.of(atp));
+        CyNode atpOfC = network.getNeighborList(c, CyEdge.Type.ANY).stream()
+                .filter(n -> "atp".equals(cyId(n)))
+                .findFirst()
+                .orElseThrow();
+        CySubNetwork other = networkWith(List.of(atpOfC, c));
+        assertEquals(1, other.getEdgeCount());
+
+        // the edge of the clone of atp to c is replaced by an edge to the clone of c
+        manager.split(network, null, List.of(c));
+
+        assertEquals(1, other.getEdgeCount());
     }
 
     @Test

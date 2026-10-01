@@ -8,6 +8,7 @@ import org.cytoscape.model.CyNode;
 import org.sbml.jsbml.ASTNode;
 import org.sbml.jsbml.AbstractMathContainer;
 import org.sbml.jsbml.NamedSBase;
+import org.sbml.jsbml.SimpleSpeciesReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +38,13 @@ final class MathGraphBuilder {
 
                 if (nsbNode != null) {
                     context.createEdge(nsbNode, containerNode, edgeType);
+                } else if (nsb instanceof SimpleSpeciesReference) {
+                    // species references are edges, they have no node
+                    logger.debug("The species reference {} in math has no node", nsb.getId());
                 } else {
                     logger.warn(
-                            "Node for metaId <{}> not found in math <{}>",
+                            "Node for {} <{}> not found in math <{}>",
+                            nsb.getElementName(),
                             nsb.getMetaId(),
                             ASTNodeUtil.toFormula(astNode));
                 }

@@ -3,6 +3,7 @@ package org.cy3sbml.biomodel;
 import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Pattern;
+import org.cy3sbml.util.HtmlSanitizer;
 import org.cy3sbml.util.HtmlUtil;
 
 /**
@@ -81,8 +82,8 @@ public final class BiomodelsHtml {
             if (!details.submissionIdentifier().equals(id)) {
                 rows.append(row("Submission ID", HtmlUtil.escape(details.submissionIdentifier())));
             }
-            // the description is HTML
-            rows.append(row("Description", details.description()));
+            // the description is XHTML (the notes of the model) or text
+            rows.append(row("Description", HtmlSanitizer.sanitizeMarkup(details.description())));
             rows.append(row("Authors", HtmlUtil.escape(details.authors())));
             rows.append(row("Publication", publication(details.publicationIdentifier())));
         } else if (loading) {

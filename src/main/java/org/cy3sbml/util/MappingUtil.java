@@ -23,7 +23,7 @@ public class MappingUtil {
     public static final String PREFIX_RULE = "rule" + SEPARATOR;
     public static final String PREFIX_ALGEBRAIC_RULE = "algebraicRule" + SEPARATOR;
     public static final String PREFIX_CONSTRAINT = "constraint" + SEPARATOR;
-    public static final String PREFIX_EVENT = "event" + SEPARATOR;
+    // the prefix of the cyIds of event assignments (kept, the cyIds match saved layouts)
     public static final String PREFIX_EVENT_ASSIGNMENT = "event" + SEPARATOR;
 
     /**
@@ -71,10 +71,8 @@ public class MappingUtil {
         else if (sbase instanceof Constraint) {
             metaId = constraintMetaId();
         }
-        // Event
-        else if (sbase instanceof Event event) {
-            metaId = eventMetaId(event);
-        } else if (sbase instanceof EventAssignment) {
+        // Event Assignment (an event is a NamedSBase)
+        else if (sbase instanceof EventAssignment) {
             metaId = eventAssignmentMetaId();
         }
         // other elements without id, e.g. the replaced elements of the comp package
@@ -170,14 +168,6 @@ public class MappingUtil {
 
     private static String constraintMetaId() {
         return PREFIX_CONSTRAINT;
-    }
-
-    private static String eventMetaId(Event event) {
-        if (event.isSetId()) {
-            return event.getId();
-        } else {
-            return PREFIX_EVENT;
-        }
     }
 
     private static String eventAssignmentMetaId() {

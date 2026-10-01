@@ -90,7 +90,7 @@ final class CommandTestSupport {
                 cofactorManager,
                 biomodelsQuery,
                 biomodelLoader,
-                new LayoutTools(null));
+                new LayoutTools(null, cofactorManager));
     }
 
     /**
@@ -130,6 +130,17 @@ final class CommandTestSupport {
         network.getRow(network).set(CyNetwork.NAME, name);
         networks.add(network);
         return network;
+    }
+
+    /**
+     * Replaces the view of an imported network by a new one, with views of the nodes added
+     * since the import (the test views do not get the events of added nodes).
+     */
+    CyNetworkView newView(CyNetwork network) {
+        CyNetworkView view =
+                new NetworkViewTestSupport().getNetworkViewFactory().createNetworkView(network);
+        views.put(network, view);
+        return view;
     }
 
     /** The view of an imported network. */

@@ -27,8 +27,12 @@ public final class SearchContent {
     /** The mode of model ids parsed from text, not searched. */
     public static final String PARSED_IDS = "PARSED IDS";
 
-    /** The separators of the search terms. */
-    private static final Pattern TERM_SEPARATOR = Pattern.compile("[\\s.,;:]+");
+    /**
+     * The separators of the search terms: whitespace, {@code .,;:} and the characters of
+     * the search syntax (a term like {@code (} or {@code "} makes the search find nothing),
+     * except the wildcards {@code *} and {@code ?}.
+     */
+    private static final Pattern TERM_SEPARATOR = Pattern.compile("[\\s.,;:()\\[\\]{}\"^~!\\\\/+]+");
 
     private final List<String> names;
     private final String searchMode;
@@ -37,7 +41,7 @@ public final class SearchContent {
      * Creates the search from the form fields.
      *
      * @param fields the search text ({@link #CONTENT_NAME}), split into terms at whitespace
-     *     and {@code .,;:}, and the search mode ({@link #CONTENT_MODE}); both are optional
+     *     and {@code .,;:} and the search syntax, and the search mode ({@link #CONTENT_MODE}); both are optional
      */
     public SearchContent(Map<String, String> fields) {
         String text = fields.get(CONTENT_NAME);
@@ -65,7 +69,7 @@ public final class SearchContent {
         return searchMode;
     }
 
-    /** The search terms of the text, split at whitespace and {@code .,;:}. */
+    /** The search terms of the text, see {@link #TERM_SEPARATOR}. */
     private static List<String> tokens(String text) {
         return TERM_SEPARATOR
                 .splitAsStream(text)
