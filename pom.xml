@@ -552,8 +552,11 @@
                     <!-- @{argLine} is the JaCoCo agent. Mockito's inline mock maker is loaded
                         as an agent at startup instead of attaching itself at runtime, which
                         newer JDKs warn about and will disallow. With an agent on the boot class
-                        path the JVM warns that class data sharing is limited, so it is off. -->
-                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off</argLine>
+                        path the JVM warns that class data sharing is limited, so it is off.
+                        The tests run headless, so AWT never connects to a display: with a
+                        DISPLAY that cannot be opened, the Cytoscape visual lexicons fail to
+                        initialize. -->
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off -Djava.awt.headless=true</argLine>
                     <groups>${test.groups}</groups>
                     <excludedGroups>${test.excludedGroups}</excludedGroups>
                     <!-- The large model corpora (BiGG, BioModels, SBML test suite, about
