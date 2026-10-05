@@ -19,6 +19,9 @@ information and the annotations of the selected object in a panel next to the ne
   selected object. Annotations are resolved with the identifiers.org registry, the
   Ontology Lookup Service, UniProt and ChEBI. See
   [Info panel and annotations](guide/info-panel.md).
+- One click opens the model of a network in [sbml4humans](https://sbml4humans.de), a
+  human readable report of the model. See
+  [Info panel and annotations](guide/info-panel.md#open-the-model-in-sbml4humans).
 - Visual styles for SBML networks, a light one and a dark one, each with a variant for the
   layout networks. See [Styles](guide/styles.md).
 - Example models, and search and import of models from

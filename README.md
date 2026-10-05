@@ -13,6 +13,8 @@ the relations between the objects become edges, and every layout of the `layout`
 network with the drawn positions. A panel next to the network shows the SBML information and the
 annotations of the selected object, with links to [BioModels](https://www.biomodels.org),
 [identifiers.org](https://identifiers.org/) and the [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/index).
+One click opens the model of a network in [sbml4humans](https://sbml4humans.de), a human readable
+report of the model.
 Models are imported from SBML files, from COMBINE archives (OMEX), or searched and imported from
 the BioModels database. Commands in the Cytoscape REST API (CyREST) automate the import, the access
 to the SBML of the networks and the mapping of data onto the nodes, for example from Python
