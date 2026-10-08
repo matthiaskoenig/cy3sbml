@@ -204,7 +204,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
         </dependency>
         <!-- JSBML logs with the log4j 1.x API (org.apache.log4j.Logger); log4j-over-slf4j
             implements that API on top of slf4j, so JSBML logs through logback with the
