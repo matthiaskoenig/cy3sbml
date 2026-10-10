@@ -72,6 +72,8 @@ class CompReaderGroupsTest {
         ListAppender<ILoggingEvent> appender = new ListAppender<>();
         appender.start();
         logger.addAppender(appender);
+        // test classes run in parallel, the logger also records the warnings of other threads
+        String thread = Thread.currentThread().getName();
         ConversionContext context;
         try {
             context =
@@ -84,7 +86,8 @@ class CompReaderGroupsTest {
         assertEquals(
                 List.of(),
                 appender.list.stream()
-                        .filter(e -> e.getLevel().isGreaterOrEqual(Level.WARN))
+                        .filter(e ->
+                                e.getThreadName().equals(thread) && e.getLevel().isGreaterOrEqual(Level.WARN))
                         .map(ILoggingEvent::getFormattedMessage)
                         .toList());
         CyNetwork network = context.network();
