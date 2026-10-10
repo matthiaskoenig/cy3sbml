@@ -125,6 +125,8 @@ class CoreReaderTest {
         ListAppender<ILoggingEvent> appender = new ListAppender<>();
         appender.start();
         logger.addAppender(appender);
+        // test classes run in parallel, the logger also records the warnings of other threads
+        String thread = Thread.currentThread().getName();
         try {
             ReaderTestSupport.readString(sbml.strip(), new CoreReader());
         } finally {
@@ -134,7 +136,8 @@ class CoreReaderTest {
         assertEquals(
                 List.of(),
                 appender.list.stream()
-                        .filter(e -> e.getLevel().isGreaterOrEqual(Level.WARN))
+                        .filter(e ->
+                                e.getThreadName().equals(thread) && e.getLevel().isGreaterOrEqual(Level.WARN))
                         .map(ILoggingEvent::getFormattedMessage)
                         .toList());
     }
