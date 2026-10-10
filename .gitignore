@@ -42,3 +42,10 @@ docs/release-notes.md
 
 # the log file logback writes when the app classes run without the cy3sbml.logfile property
 *_IS_UNDEFINED
+
+# working files of coding agents, their design documents and plans are not committed
+.superpowers/
+superpowers/
+design/plans/
+design/specs/
+docs/superpowers/

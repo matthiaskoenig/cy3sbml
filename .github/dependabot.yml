@@ -1,4 +1,5 @@
-# Keep the GitHub Actions, the Maven and the Python dependencies up to date.
+# Keep the GitHub Actions, the Maven and the Python dependencies up to date,
+# monthly, since every update pull request runs the checks.
 # See https://docs.github.com/code-security/dependabot/dependabot-version-updates
 version: 2
 registries:
@@ -16,7 +17,7 @@ updates:
     # Dependabot updates both
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       github-actions:
         patterns:
@@ -31,7 +32,7 @@ updates:
       - "/tools"
       - "/examples/python"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       python-tools:
         patterns:
@@ -43,7 +44,11 @@ updates:
     # zensical, the documentation build, see docs/requirements.txt
     directory: "/docs"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      docs-dependencies:
+        patterns:
+          - "*"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "docs"
@@ -53,7 +58,7 @@ updates:
       - cytoscape-releases
       - cytoscape-thirdparty
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       # a dependency joins the first group whose patterns match it, so the
       # runtime-bound groups come before the catch-all

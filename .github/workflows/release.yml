@@ -8,8 +8,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # a release is never superseded, every tag is a group of its own
+  cancel-in-progress: true
 
 jobs:
   build:

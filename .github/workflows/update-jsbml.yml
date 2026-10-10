@@ -19,8 +19,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # a newer run supersedes the running one; a rerun finds the update branch and
+  # its pull request of a cancelled run and updates them
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -36,6 +38,8 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up JDK 17
+        # no cache, neither here nor for uv: this job runs the build code of JSBML,
+        # which must not write a cache the checks of the pull requests restore
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           java-version: "17"

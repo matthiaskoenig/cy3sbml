@@ -5,15 +5,15 @@ dependency is updated.
 
 | Dependency | Source | Update |
 |---|---|---|
-| Maven dependencies and plugins | Maven Central | Dependabot pull requests, weekly |
+| Maven dependencies and plugins | Maven Central | Dependabot pull requests, monthly |
 | Cytoscape API (`org.cytoscape:*`) | NRNB Nexus (`cytoscape_releases`, `cytoscape_thirdparty`), `provided` scope | Patch versions by Dependabot. Minor and major versions by hand, they set the minimum Cytoscape version |
 | JavaFX (`org.openjfx:*`) | Maven Central, `provided` scope (Cytoscape provides it at runtime) | Minor and patch versions by Dependabot. Major versions by hand, they need a newer JDK |
 | OSGi API (`org.osgi:*`) | Maven Central, `provided` scope | Minor and patch versions by Dependabot. Major versions by hand, they must match the OSGi framework of Cytoscape (R7 in Cytoscape 3.10) |
 | JSBML and its package modules | Built from source into `lib/cy3sbml-dep` | [Update JSBML](#update-jsbml) |
 | jtidy (`cy3sbml-dep:jtidy:r938`) | `lib/cy3sbml-dep`, the HTML Tidy library used by `jsbml-tidy` | By hand, the version JSBML builds with |
-| GitHub Actions | GitHub, pinned to commit SHAs | Dependabot pull requests, weekly |
-| Python helpers (`tools/`) and examples (`examples/python`) | PyPI, locked in `tools/uv.lock` and `examples/python/uv.lock` | Dependabot pull requests, weekly |
-| Documentation build (zensical) | PyPI, pinned in `docs/requirements.txt` | Dependabot pull requests, weekly |
+| GitHub Actions | GitHub, pinned to commit SHAs | Dependabot pull requests, monthly |
+| Python helpers (`tools/`) and examples (`examples/python`) | PyPI, locked in `tools/uv.lock` and `examples/python/uv.lock` | Dependabot pull requests, monthly |
+| Documentation build (zensical) | PyPI, pinned in `docs/requirements.txt` | Dependabot pull requests, monthly |
 
 The repositories are Maven Central, the two NRNB repositories and `lib/cy3sbml-dep`.
 The build fails for SNAPSHOT dependencies, duplicate classes, a Java older than 17 and a
