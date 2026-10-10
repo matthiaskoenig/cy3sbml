@@ -263,7 +263,7 @@ def run(args: list[str], cwd: Path | None = None) -> str:
 
 def check_jdk() -> None:
     """Fail unless `javac` (from JAVA_HOME, else the PATH) is a JDK 17 to 19."""
-    java_home = os.environ.get("JAVA_HOME")
+    java_home = os.environ.get("JAVA_HOME", "")
     javac = str(Path(java_home) / "bin" / "javac") if java_home else "javac"
     try:
         output = subprocess.run(
