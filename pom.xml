@@ -547,7 +547,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.1</version>
                 <configuration>
                     <!-- @{argLine} is the JaCoCo agent. Mockito's inline mock maker is loaded
                         as an agent at startup instead of attaching itself at runtime, which
@@ -580,7 +580,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.1</version>
                 <configuration>
                     <systemPropertyVariables>
                         <cy3sbml.bundle.jar>${project.build.directory}/${project.build.finalName}.jar</cy3sbml.bundle.jar>
@@ -601,7 +601,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.15</version>
+                <version>0.8.16</version>
                 <executions>
                     <execution>
                         <goals>
@@ -622,7 +622,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.6.3</version>
+                <version>3.7.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.codehaus.mojo</groupId>
@@ -677,7 +677,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>3.10.3</version>
+                <version>3.10.4</version>
                 <configuration>
                     <java>
                         <palantirJavaFormat>
