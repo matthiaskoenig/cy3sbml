@@ -159,13 +159,13 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>17.0.20</version>
+            <version>17.0.21</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>17.0.20</version>
+            <version>17.0.21</version>
             <scope>provided</scope>
         </dependency>
 
