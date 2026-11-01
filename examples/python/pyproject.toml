@@ -8,8 +8,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff>=0.16.10",
-    "ty>=0.0.85",
+    "ruff>=0.17.3",
+    "ty>=0.0.94",
 ]
 
 # the examples are checked with ruff (ruff.toml of the repository) and ty, see README.md
