@@ -4,7 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "cy3sbml",
-    "pandas>=2.2.2",
+    "pandas>=3.1.1",
     "py4cytoscape>=1.13.0",
 ]
 
@@ -13,8 +13,8 @@ cy3sbml = { path = "../../python", editable = true }
 
 [dependency-groups]
 dev = [
-    "ruff>=0.17.3",
-    "ty>=0.0.94",
+    "ruff>=0.17.6",
+    "ty>=0.0.107",
 ]
 
 # the examples are checked with ruff (ruff.toml of the repository) and ty, see README.md
