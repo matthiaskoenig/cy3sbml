@@ -35,12 +35,14 @@ that the file exists.
 The visualizers keep the current session open by default. Passing
 `delete_session=True` closes the session **without saving** before import.
 The file given to `visualize_sbml` and the output path given to `export_image`
-are paths on the Cytoscape computer. To connect to a different CyREST endpoint,
-pass its `base_url`, including the API version (for example
+are paths on the Cytoscape computer. For a model on another computer, pass
+its absolute path as it appears on the Cytoscape host. To connect to a different
+CyREST endpoint, pass its `base_url`, including the API version (for example
 `http://127.0.0.1:4321/v1`).
 
 Cytoscape renders view changes asynchronously. If Python can read the export
-file, use `export_png(path, suid)` to export the view until two successive PNGs match.
+file, use `export_png(path, suid)` to export the view until two successive PNGs
+match. It returns the path reported by Cytoscape, including the extension.
 
 To use saved Cytoscape `boundingBox` XML positions, call
 `apply_layout(read_layout_xml("layout.xml"), network=suid)`. You can also give
@@ -63,8 +65,8 @@ for command arguments and results.
 
 ## Develop
 
-From this directory, use [uv](https://docs.astral.sh/uv/) to run the offline tests
-and build the package.
+From `python/` in a Git checkout, use [uv](https://docs.astral.sh/uv/) to run the
+offline tests and build the package.
 
 ```sh
 uv sync --locked --extra antimony

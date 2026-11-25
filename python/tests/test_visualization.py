@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import Mock
 
 import pandas as pd
+import py4cytoscape as p4c
 import pytest
 from pandas.testing import assert_frame_equal
 
@@ -148,8 +149,9 @@ def test_export_png_waits_until_two_exports_match(
 ) -> None:
     contents = iter([b"old view", b"new view", b"new view"])
 
-    def write_image(filename: str, **_kwargs: object) -> None:
+    def write_image(filename: str, **_kwargs: object) -> dict[str, str]:
         Path(filename).write_bytes(next(contents))
+        return {"file": filename}
 
     api.export_image.side_effect = write_image
     monkeypatch.setattr(visualization.time, "sleep", Mock())
@@ -161,3 +163,48 @@ def test_export_png_waits_until_two_exports_match(
     api.export_image.assert_called_with(
         str(path), type="PNG", network=9, base_url=BASE_URL, overwrite_file=True
     )
+
+
+@pytest.mark.parametrize(
+    ("filename", "output_name"),
+    [
+        ("model", "model.png"),
+        ("current.png", "current.png"),
+        ("model.PNG", "model.PNG"),
+    ],
+)
+def test_export_png_reads_path_returned_by_py4cytoscape(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    filename: str,
+    output_name: str,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(
+        p4c.network_views, "get_network_view_suid", Mock(return_value=19)
+    )
+    monkeypatch.setattr(
+        p4c.network_views, "check_supported_versions", Mock(return_value=None)
+    )
+    monkeypatch.setattr(visualization.time, "sleep", Mock())
+    output = tmp_path / output_name
+
+    def get_file_info(filename: str, *, base_url: str) -> dict[str, str | bool]:
+        assert base_url == BASE_URL
+        return {
+            "filePath": str(Path(filename).absolute()),
+            "modifiedTime": "",
+            "isFile": False,
+        }
+
+    def export_view(command: str, *, base_url: str) -> dict[str, str]:
+        assert base_url == BASE_URL
+        assert f'outputFile="{output}"' in command
+        output.write_bytes(b"exported view")
+        return {"file": str(output)}
+
+    monkeypatch.setattr(p4c.sandbox, "sandbox_get_file_info", get_file_info)
+    monkeypatch.setattr(p4c.commands, "commands_post", export_view)
+
+    assert export_png(filename, 9, base_url=BASE_URL) == output
+    assert output.read_bytes() == b"exported view"

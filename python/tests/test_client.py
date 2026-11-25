@@ -100,6 +100,24 @@ def test_visualize_sbml_selects_first_models_base_view(
     ]
 
 
+@pytest.mark.parametrize(
+    "filename",
+    [
+        r"C:\Users\Cy User\model.xml",
+        "D:/Models/model.xml",
+        r"\\server\share\model.xml",
+        "/srv/cytoscape/model.xml",
+    ],
+)
+def test_visualize_sbml_preserves_cytoscape_host_path(
+    cyrest: CyRestStub, filename: str
+) -> None:
+    calls = cyrest(import_responses())
+
+    assert visualize_sbml(filename, base_url=BASE_URL) == 71
+    assert calls[0] == ("POST", IMPORT_PATH, {"file": filename})
+
+
 @pytest.mark.parametrize("read_file", [False, True])
 def test_visualize_antimony_sends_converted_sbml(
     cyrest: CyRestStub, tmp_path: Path, read_file: bool

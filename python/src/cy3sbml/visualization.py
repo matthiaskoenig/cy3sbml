@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from enum import StrEnum
 from math import isfinite
-from pathlib import Path
+from pathlib import Path, PurePath, PurePosixPath, PureWindowsPath
 from xml.etree import ElementTree
 
 import pandas as pd
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 def visualize_sbml(
-    sbml_path: str | Path,
+    sbml_path: str | PurePath,
     delete_session: bool = False,
     *,
     base_url: str = DEFAULT_BASE_URL,
@@ -30,8 +30,16 @@ def visualize_sbml(
     Return the base network SUID, or log a warning and return None if Cytoscape
     cannot import or display the model. `delete_session=True` closes the current
     session without saving before import.
+
+    Absolute POSIX and Windows paths are passed to Cytoscape unchanged.
+    Relative paths are resolved against Python's current directory.
     """
-    return _visualize(delete_session, base_url, file=str(Path(sbml_path).absolute()))
+    filename = str(sbml_path)
+    if not (
+        PurePosixPath(filename).is_absolute() or PureWindowsPath(filename).is_absolute()
+    ):
+        filename = str(Path(filename).absolute())
+    return _visualize(delete_session, base_url, file=filename)
 
 
 def visualize_antimony(
@@ -244,21 +252,23 @@ def export_png(
     *,
     base_url: str = DEFAULT_BASE_URL,
 ) -> Path:
-    """Export up to 20 times, stopping when two consecutive PNGs match.
+    """Export up to 20 times and return the path of the PNG Cytoscape wrote.
 
-    Cytoscape draws changes to its views asynchronously. Use this function when
-    Python can read the image file that Cytoscape writes.
+    Stop when two consecutive PNGs match because Cytoscape draws changes to
+    views asynchronously. Python must be able to read the exported file.
     """
     output = Path(path)
+    filename = str(output)
     previous = None
     for _ in range(20):
-        p4c.export_image(
-            str(output),
+        result = p4c.export_image(
+            filename,
             type="PNG",
             network=network_suid,
             base_url=base_url,
             overwrite_file=True,
         )
+        output = Path(result["file"])
         content = output.read_bytes()
         if content == previous:
             break
