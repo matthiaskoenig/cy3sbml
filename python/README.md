@@ -1,5 +1,8 @@
 # cy3sbml for Python
 
+[![PyPI](https://img.shields.io/pypi/v/cy3sbml.svg)](https://pypi.org/project/cy3sbml/)
+[![Python >=3.11](https://img.shields.io/badge/python-%3E%3D3.11-blue.svg)](https://pypi.org/project/cy3sbml/)
+
 Visualize SBML models in Cytoscape and call the cy3sbml app's automation commands
 from Python scripts and notebooks. The package uses [py4cytoscape](https://py4cytoscape.readthedocs.io/).
 

@@ -1,5 +1,8 @@
 # cy3sbml
 
+[![PyPI](https://img.shields.io/pypi/v/cy3sbml.svg)](https://pypi.org/project/cy3sbml/)
+[![Python >=3.11](https://img.shields.io/badge/python-%3E%3D3.11-blue.svg)](https://pypi.org/project/cy3sbml/)
+
 cy3sbml is a [Cytoscape](https://cytoscape.org) app that imports models in the
 Systems Biology Markup Language ([SBML](https://sbml.org)) as Cytoscape networks.
 It reads SBML with [JSBML](https://github.com/sbmlteam/jsbml) and shows the SBML

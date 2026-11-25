@@ -51,6 +51,9 @@ selection and tables are handled by the commands of Cytoscape itself, for exampl
 
 ## Python
 
+[![PyPI](https://img.shields.io/pypi/v/cy3sbml.svg)](https://pypi.org/project/cy3sbml/)
+[![Python >=3.11](https://img.shields.io/badge/python-%3E%3D3.11-blue.svg)](https://pypi.org/project/cy3sbml/)
+
 Install the [cy3sbml Python package](https://pypi.org/project/cy3sbml/) to visualize
 models and call the app's commands from a script or notebook. Start Cytoscape
 with cy3sbml 0.8.0 or later installed.

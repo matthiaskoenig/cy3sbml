@@ -38,9 +38,9 @@ Issues = "https://github.com/matthiaskoenig/cy3sbml/issues"
 [dependency-groups]
 dev = [
     "pytest>=8",
-    "ruff>=0.17.3",
+    "ruff>=0.17.6",
     "twine>=6",
-    "ty>=0.0.94",
+    "ty>=0.0.110",
 ]
 
 [tool.hatch.build.targets.sdist]

@@ -12,7 +12,7 @@ dependency is updated.
 | JSBML and its package modules | Built from source into `lib/cy3sbml-dep` | [Update JSBML](#update-jsbml) |
 | jtidy (`cy3sbml-dep:jtidy:r938`) | `lib/cy3sbml-dep`, the HTML Tidy library used by `jsbml-tidy` | By hand, the version JSBML builds with |
 | GitHub Actions | GitHub, pinned to commit SHAs | Dependabot pull requests, monthly |
-| Python helpers (`tools/`) and examples (`examples/python`) | PyPI, locked in `tools/uv.lock` and `examples/python/uv.lock` | Dependabot pull requests, monthly |
+| Python package (`python/`), helpers (`tools/`) and examples (`examples/python`) | PyPI, locked in each project's `uv.lock` | Dependabot pull requests, monthly |
 | Documentation build (zensical) | PyPI, pinned in `docs/requirements.txt` | Dependabot pull requests, monthly |
 
 The repositories are Maven Central, the two NRNB repositories and `lib/cy3sbml-dep`.
@@ -21,6 +21,11 @@ Maven older than 3.9 (Maven Enforcer). The `maven-bundle-plugin` embeds every de
 that is not `provided` or `test` into the app jar, with its transitive dependencies, as
 a nested jar. The JSBML jars are the exception, see below. Test a new runtime dependency
 in Cytoscape, to catch class loading problems in OSGi.
+
+The Cytoscape test implementations depend on old Guava releases with known security
+issues. The test dependencies select Guava 33.8.0-jre and exclude the obsolete
+`guava-osgi` artifact so that both implementations use the patched library. Guava is
+only used in tests and is not embedded in the app jar.
 
 ## JSBML
 
