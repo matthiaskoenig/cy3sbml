@@ -13,7 +13,7 @@ documentation of Cytoscape app development is in the
 - Cytoscape 3.10 to run the app.
 
 Maven does not need to be installed: the repository has the Maven Wrapper (`./mvnw`, on
-Windows `mvnw.cmd`), which downloads the pinned Maven version (3.9.16) on first use. JavaFX is a `provided` Maven
+Windows `mvnw.cmd`), which downloads the pinned Maven version (3.10.2) on first use. JavaFX is a `provided` Maven
 dependency for compiling and testing; at runtime Cytoscape provides it.
 
 ## Build

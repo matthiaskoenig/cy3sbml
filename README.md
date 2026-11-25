@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/matthiaskoenig/cy3sbml/actions/workflows/ci.yml/badge.svg)](https://github.com/matthiaskoenig/cy3sbml/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-matthiaskoenig.github.io%2Fcy3sbml-teal)](https://matthiaskoenig.github.io/cy3sbml/)
+[![PyPI](https://img.shields.io/pypi/v/cy3sbml.svg)](https://pypi.org/project/cy3sbml/)
+[![Python >=3.11](https://img.shields.io/badge/python-%3E%3D3.11-blue.svg)](https://pypi.org/project/cy3sbml/)
 [![DOI](https://zenodo.org/badge/5066/matthiaskoenig/cy3sbml.svg)](https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml)
 [![Cytoscape App Store](https://img.shields.io/badge/Cytoscape-App%20Store-blue)](https://apps.cytoscape.org/apps/cy3sbml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
