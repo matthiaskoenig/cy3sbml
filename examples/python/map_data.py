@@ -18,14 +18,8 @@ from pathlib import Path
 
 import pandas as pd
 import py4cytoscape as p4c
-from cy3sbml_client import (
-    MODELS,
-    check_cytoscape,
-    command,
-    export_png,
-    network,
-    network_of_type,
-)
+from cy3sbml import check_cytoscape, command, export_png, network, network_of_type
+from example_helpers import MODELS
 
 # fluxes of the reactions (mmol/gDW/h), e.g. the result of a flux balance analysis
 FLUXES: dict[str, float] = {

@@ -244,10 +244,42 @@ wheels = [
 ]
 
 [[package]]
+name = "cy3sbml"
+version = "0.1.0"
+source = { editable = "../../python" }
+dependencies = [
+    { name = "pandas" },
+    { name = "platformdirs" },
+    { name = "py4cytoscape" },
+    { name = "requests" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "antimony", marker = "sys_platform == 'win32' and extra == 'antimony'", specifier = "!=3.2.0" },
+    { name = "antimony", marker = "extra == 'antimony'", specifier = ">=3.1.3" },
+    { name = "pandas", specifier = ">=2.2.2" },
+    { name = "platformdirs", specifier = ">=4.3" },
+    { name = "py4cytoscape", specifier = ">=1.13.0" },
+    { name = "requests", specifier = ">=2.33.0" },
+]
+provides-extras = ["antimony"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=8" },
+    { name = "ruff", specifier = ">=0.17.3" },
+    { name = "twine", specifier = ">=6" },
+    { name = "ty", specifier = ">=0.0.94" },
+]
+
+[[package]]
 name = "cy3sbml-examples"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "cy3sbml" },
+    { name = "pandas" },
     { name = "py4cytoscape" },
 ]
 
@@ -258,7 +290,11 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "py4cytoscape", specifier = ">=1.13.0" }]
+requires-dist = [
+    { name = "cy3sbml", editable = "../../python" },
+    { name = "pandas", specifier = ">=2.2.2" },
+    { name = "py4cytoscape", specifier = ">=1.13.0" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -574,6 +610,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/92/f5/9d753d85c4ea85b6d1c3735496ae5b416d7ef6905f1845c70e9521d124d9/pandas-3.1.0-cp315-cp315t-musllinux_1_2_x86_64.whl", hash = "sha256:dde9a55ecd3c4f9100ac50ab15e852e4c54fcf372d800e4495e0b2159a0122ab", size = 12916085, upload-time = "2026-10-22T11:56:56.084Z" },
     { url = "https://files.pythonhosted.org/packages/e6/f9/4a6965677477dbbb19f8881befb01b67eb6009809db73f7f1b7a0132faf1/pandas-3.1.0-cp315-cp315t-win_amd64.whl", hash = "sha256:3fe234bfb9999552dc54c45851752e56e163218d7663897dca950b4a7c32af39", size = 11267097, upload-time = "2026-10-22T11:56:58.479Z" },
     { url = "https://files.pythonhosted.org/packages/99/35/e60fd8228db4eb848802988dbc6e3a0f1a81c57f06ad95ebe4cd534fa655/pandas-3.1.0-cp315-cp315t-win_arm64.whl", hash = "sha256:f1a93c24175129bfc9922ef748ddae1d8137c743ed835e2615be329f606fed4d", size = 10597861, upload-time = "2026-10-22T11:57:00.776Z" },
+]
+
+[[package]]
+name = "platformdirs"
+version = "4.14.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/18/0b0d99f5bf164f04a7a9534c3dbdbe4d5fd2b382667685ad40c192c4d3d1/platformdirs-4.14.8.tar.gz", hash = "sha256:96893d686e84e9e6f358a9ea41a8de544df66dbf2ba6cda250e7dc73acf85b9b", size = 87203, upload-time = "2026-11-20T08:14:52.63Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5b/be/373cc7341f53bfd3acba3e5db62433fd960a45fcf73ad64a5f4d27e74910/platformdirs-4.14.8-py3-none-any.whl", hash = "sha256:1e34af590de4d978631b751eb2202f2fee4497537a17c1720b12fcf57b331392", size = 94267, upload-time = "2026-11-20T08:14:51.306Z" },
 ]
 
 [[package]]

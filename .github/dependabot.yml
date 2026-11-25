@@ -26,9 +26,9 @@ updates:
     commit-message:
       prefix: "ci"
   - package-ecosystem: "uv"
-    # the Python helpers (tools/pyproject.toml) and the Python examples of the
-    # automation commands (examples/python/pyproject.toml)
+    # the Python package, the test model tools and the automation examples
     directories:
+      - "/python"
       - "/tools"
       - "/examples/python"
     schedule:

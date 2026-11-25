@@ -79,12 +79,16 @@ The CI also runs the self-checks of the scripts, `python scripts/release_notes.p
 and `python scripts/update_jsbml.py --check`, through the same project.
 
 The Python examples of the automation commands in `examples/python` are their own uv
-project (with py4cytoscape). ruff checks them with the configuration above; ty runs
+project and install the package from `python/`. ruff checks them with the configuration above. ty runs
 through their project, with its configuration in `examples/python/pyproject.toml`:
 
 ```bash
 uv run --project examples/python ty check --project examples/python
 ```
+
+The Python package in `python/` has a separate CI workflow for its offline tests,
+lint, type checks and build. See the [package development instructions](https://github.com/matthiaskoenig/cy3sbml/tree/develop/python#develop)
+to run the checks locally.
 
 ty reports every diagnostic as an error, including a value of an untyped library or of
 `Any` that flows into an annotated variable or return. Narrow such a value with a check

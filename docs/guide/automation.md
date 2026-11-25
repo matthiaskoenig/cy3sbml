@@ -51,13 +51,31 @@ selection and tables are handled by the commands of Cytoscape itself, for exampl
 
 ## Python
 
-The [Python examples](https://github.com/matthiaskoenig/cy3sbml/tree/develop/examples/python)
-use py4cytoscape. `cy3sbml_client.py` sends the arguments of a command as JSON through
-CyREST and returns its result:
+Install the [cy3sbml Python package](https://pypi.org/project/cy3sbml/) to visualize
+models and call the app's commands from a script or notebook. Start Cytoscape
+with cy3sbml 0.8.0 or later installed.
 
-````python
---8<-- "examples/python/cy3sbml_client.py"
-````
+```bash
+python -m pip install cy3sbml
+```
+
+```python
+from cy3sbml import export_image, visualize_sbml
+
+suid = visualize_sbml("model.xml")
+if suid is not None:
+    export_image("model.svg", format="SVG", fit_content=True, network=suid)
+```
+
+Install `cy3sbml[antimony]` to use `visualize_antimony` with Antimony text
+or a file. The
+[package guide](https://github.com/matthiaskoenig/cy3sbml/tree/develop/python)
+covers layouts, annotations, image export and connections to a different CyREST
+endpoint.
+
+The [Python examples](https://github.com/matthiaskoenig/cy3sbml/tree/develop/examples/python)
+use the package's `command` function. It sends arguments as JSON through
+CyREST and returns the command result.
 
 For example, `explore_model.py` imports a model, reads the SBML, reads SBML elements and
 selects the nodes of SBML ids:
@@ -85,7 +103,7 @@ uv run map_data.py
 
 Cytoscape draws a change of a view (a style, a layout, bypasses) asynchronously. An image
 exported right after the change can still show the view before the change; the helper
-`export_png` of the examples exports until two images are identical.
+`export_png` exports until two successive images are identical, up to 20 attempts.
 
 ## Arguments
 

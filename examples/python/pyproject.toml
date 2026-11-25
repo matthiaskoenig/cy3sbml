@@ -3,8 +3,13 @@ name = "cy3sbml-examples"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
+    "cy3sbml",
+    "pandas>=2.2.2",
     "py4cytoscape>=1.13.0",
 ]
+
+[tool.uv.sources]
+cy3sbml = { path = "../../python", editable = true }
 
 [dependency-groups]
 dev = [

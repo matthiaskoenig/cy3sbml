@@ -1,16 +1,17 @@
 # cy3sbml Python examples
 
-Examples of the automation commands of cy3sbml (namespace `cy3sbml`) with
-[py4cytoscape](https://py4cytoscape.readthedocs.io). The commands are
+Examples of the automation commands of cy3sbml with the
+[cy3sbml Python package](../../python/README.md). The commands are
 documented in the
 [Automation and REST API guide](https://matthiaskoenig.github.io/cy3sbml/guide/automation/).
 
 ## Setup
 
-1. Start Cytoscape (3.10 or newer) with cy3sbml installed. CyREST, which is part
-   of Cytoscape, listens on `http://localhost:1234`.
+1. Start Cytoscape (3.10 or newer) with the cy3sbml app (0.8.0 or newer)
+   installed. CyREST, which is part of Cytoscape, listens on `http://localhost:1234`.
 2. Install [uv](https://docs.astral.sh/uv/) and run the examples in this
-   directory; uv installs py4cytoscape on the first run.
+   directory. On the first run, uv installs the Python package from
+   `../../python` and its dependencies.
 
 The examples read the test models of the cy3sbml repository
 (`src/test/resources/models`) and write their images to `results/`. The files
@@ -36,15 +37,15 @@ uv run map_data.py
 uv run biomodels_search.py repressilator
 ```
 
-`cy3sbml_client.py` has the helper `command(name, **arguments)`, which runs a
-cy3sbml command through CyREST and returns its JSON result:
+The Python package provides `command(name, **arguments)` to run a cy3sbml
+command through CyREST and return its JSON result:
 
 ```python
-from cy3sbml_client import command
+from cy3sbml import command, network, network_of_type
 
 model = command("import", biomodelsId="BIOMD0000000012")["models"][0]
-base = model["networks"][0]["suid"]
-print(command("element", network=f"SUID:{base}", sbmlId="PX")["elements"])
+base = network_of_type(model, "base")
+print(command("element", network=network(base), sbmlId="PX")["elements"])
 ```
 
 ## Checks
