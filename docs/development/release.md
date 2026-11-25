@@ -64,3 +64,39 @@ of the version in development included.
 
 The documentation is published from `develop` by the workflow
 `.github/workflows/docs.yml` to <https://matthiaskoenig.github.io/cy3sbml/>.
+
+## Python package
+
+The Python package in `python/` has its own version and release tags.
+
+For the first release, create the `pypi` environment in GitHub and allow
+deployment from tags matching `python-v*`. Register a
+[pending Trusted Publisher](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/)
+under the PyPI account that will own the project:
+
+| Setting | Value |
+|---|---|
+| PyPI project name | `cy3sbml` |
+| GitHub owner | `matthiaskoenig` |
+| Repository | `cy3sbml` |
+| Workflow filename | `python-release.yml` |
+| Environment | `pypi` |
+
+PyPI converts the pending publisher into a project publisher when the first
+upload succeeds.
+
+1. Set the `version` in `python/pyproject.toml` and refresh the lockfiles with
+   `uv lock --project python` and `uv lock --project examples/python`. Merge the
+   release changes into `develop`.
+2. Tag the merged commit and push the tag. For example, for version 0.1.0:
+
+    ```bash
+    git checkout develop
+    git pull --ff-only
+    git tag python-v0.1.0
+    git push origin python-v0.1.0
+    ```
+
+3. `python-release.yml` checks the version and runs the offline tests. It builds
+   and validates the source distribution and wheel, then publishes both to
+   [PyPI](https://pypi.org/project/cy3sbml/) with Trusted Publishing.

@@ -11,7 +11,7 @@ uv run biomodels_search.py [query]
 
 import sys
 
-from cy3sbml_client import check_cytoscape, command
+from cy3sbml import check_cytoscape, command
 
 
 def main(query: str) -> None:

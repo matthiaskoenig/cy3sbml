@@ -13,7 +13,8 @@ uv run explore_model.py
 from typing import Any
 
 import py4cytoscape as p4c
-from cy3sbml_client import MODELS, check_cytoscape, command, network, network_of_type
+from cy3sbml import check_cytoscape, command, network, network_of_type
+from example_helpers import MODELS
 
 
 def print_element(element: dict[str, Any]) -> None:

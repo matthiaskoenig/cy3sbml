@@ -16,14 +16,8 @@ import sys
 from pathlib import Path
 
 import py4cytoscape as p4c
-from cy3sbml_client import (
-    MODELS,
-    check_cytoscape,
-    command,
-    export_png,
-    network,
-    network_of_type,
-)
+from cy3sbml import check_cytoscape, command, export_png, network, network_of_type
+from example_helpers import MODELS
 
 COFACTORS: str = "M_atp_c,M_adp_c,M_h_c"
 

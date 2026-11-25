@@ -28,6 +28,7 @@ The full documentation is at <https://matthiaskoenig.github.io/cy3sbml/>:
 
 - [Installation](https://matthiaskoenig.github.io/cy3sbml/installation/)
 - [User guide](https://matthiaskoenig.github.io/cy3sbml/guide/import/)
+- [Python package](python/README.md) for SBML visualization and automation
 - [Development](https://matthiaskoenig.github.io/cy3sbml/development/building/)
 
 ## Citation

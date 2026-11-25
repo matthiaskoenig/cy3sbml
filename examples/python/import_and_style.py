@@ -13,7 +13,8 @@ import sys
 from pathlib import Path
 
 import py4cytoscape as p4c
-from cy3sbml_client import MODELS, check_cytoscape, command, export_png, network_of_type
+from cy3sbml import check_cytoscape, command, export_png, network_of_type
+from example_helpers import MODELS
 
 
 def main(output: Path) -> None:
